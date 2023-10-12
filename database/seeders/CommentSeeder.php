@@ -1,0 +1,44 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Comment;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class CommentSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        Comment::create([
+            'user_id' => 1,
+            'blog_id' => 1,
+            'parent_id' => null,
+            'like' => 20,
+            'dislike' => 3,
+            'content' => 'Yazınızı çok değerli buldum başarılarınızın devamını dilerim.',
+            'status' => 'active',
+        ]);
+
+        Comment::create([
+            'user_id' => 2,
+            'blog_id' => 3,
+            'parent_id' => null,
+            'content' => 'Bok gibi yazı.',
+            'status' => 'waiting',
+        ]);
+
+        Comment::create([
+            'user_id' => 1,
+            'blog_id' => 1,
+            'parent_id' => 1,
+            'like' => 1,
+            'dislike' => 10,
+            'content' => 'Size katılmıyorum.',
+            'status' => 'active',
+        ]);
+    }
+}

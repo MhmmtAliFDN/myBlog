@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('image', 100)->default(asset('img/profile/default.png'));
+            $table->enum('status', ['pending', 'active', 'inactive'])->default('active');
             $table->rememberToken();
             $table->timestamps();
         });

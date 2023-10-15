@@ -20,7 +20,7 @@ class CommentSeeder extends Seeder
             'like' => 20,
             'dislike' => 3,
             'content' => 'Yazınızı çok değerli buldum başarılarınızın devamını dilerim.',
-            'status' => 'active',
+            'is_reported' => false,
         ]);
 
         Comment::create([
@@ -28,7 +28,8 @@ class CommentSeeder extends Seeder
             'blog_id' => 3,
             'parent_id' => null,
             'content' => 'Bok gibi yazı.',
-            'status' => 'waiting',
+            'is_reported' => true,
+            'report_count' => 20,
         ]);
 
         Comment::create([
@@ -38,7 +39,8 @@ class CommentSeeder extends Seeder
             'like' => 1,
             'dislike' => 10,
             'content' => 'Size katılmıyorum.',
-            'status' => 'active',
+            'is_reported' => false,
+            'report_count' => 1,
         ]);
     }
 }

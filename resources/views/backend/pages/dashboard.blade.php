@@ -1,3 +1,8 @@
+@extends('backend.layouts.app')
+@push('title')
+    <title>Muhammet Ali Fidan | Panel</title>
+@endpush
+@section('content')
     <!-- Page header -->
     <div class="page-header">
         <div class="page-header-content container d-lg-flex">
@@ -18,7 +23,7 @@
                     <div class="dropdown w-100 w-sm-auto">
                         <a href="#" class="d-flex align-items-center text-body lh-1 dropdown-toggle py-sm-2"
                             data-bs-toggle="dropdown" data-bs-display="static">
-                            <img src="../../../assets/images/brands/tesla.svg" class="w-32px h-32px me-2"
+                            <img src="#" class="w-32px h-32px me-2"
                                 alt="">
                             <div class="me-auto me-lg-1">
                                 <div class="fs-sm text-muted mb-1">Customer</div>
@@ -35,7 +40,7 @@
                                 </a>
                             </div>
                             <a href="#" class="dropdown-item active py-2">
-                                <img src="../../../assets/images/brands/tesla.svg" class="w-32px h-32px me-2"
+                                <img src="#" class="w-32px h-32px me-2"
                                     alt="">
                                 <div>
                                     <div class="fw-semibold">Tesla Motors Inc</div>
@@ -43,7 +48,7 @@
                                 </div>
                             </a>
                             <a href="#" class="dropdown-item py-2">
-                                <img src="../../../assets/images/brands/debijenkorf.svg" class="w-32px h-32px me-2"
+                                <img src="#" class="w-32px h-32px me-2"
                                     alt="">
                                 <div>
                                     <div class="fw-semibold">De Bijenkorf</div>
@@ -51,7 +56,7 @@
                                 </div>
                             </a>
                             <a href="#" class="dropdown-item py-2">
-                                <img src="../../../assets/images/brands/klm.svg" class="w-32px h-32px me-2"
+                                <img src="#" class="w-32px h-32px me-2"
                                     alt="">
                                 <div>
                                     <div class="fw-semibold">Royal Dutch Airlines</div>
@@ -59,7 +64,7 @@
                                 </div>
                             </a>
                             <a href="#" class="dropdown-item py-2">
-                                <img src="../../../assets/images/brands/shell.svg" class="w-32px h-32px me-2"
+                                <img src="#" class="w-32px h-32px me-2"
                                     alt="">
                                 <div>
                                     <div class="fw-semibold">Royal Dutch Shell</div>
@@ -67,7 +72,7 @@
                                 </div>
                             </a>
                             <a href="#" class="dropdown-item py-2">
-                                <img src="../../../assets/images/brands/bp.svg" class="w-32px h-32px me-2"
+                                <img src="#" class="w-32px h-32px me-2"
                                     alt="">
                                 <div>
                                     <div class="fw-semibold">BP plc</div>
@@ -81,17 +86,17 @@
 
                     <div class="d-inline-flex mt-3 mt-sm-0">
                         <a href="#" class="status-indicator-container ms-1">
-                            <img src="../../../assets/images/demo/users/face24.jpg" class="w-32px h-32px rounded-pill"
+                            <img src="#" class="w-32px h-32px rounded-pill"
                                 alt="">
                             <span class="status-indicator bg-warning"></span>
                         </a>
                         <a href="#" class="status-indicator-container ms-1">
-                            <img src="../../../assets/images/demo/users/face1.jpg" class="w-32px h-32px rounded-pill"
+                            <img src="#" class="w-32px h-32px rounded-pill"
                                 alt="">
                             <span class="status-indicator bg-success"></span>
                         </a>
                         <a href="#" class="status-indicator-container ms-1">
-                            <img src="../../../assets/images/demo/users/face3.jpg" class="w-32px h-32px rounded-pill"
+                            <img src="#" class="w-32px h-32px rounded-pill"
                                 alt="">
                             <span class="status-indicator bg-danger"></span>
                         </a>
@@ -342,7 +347,7 @@
                             <td>
                                 <div class="d-flex align-items-center">
                                     <a href="#" class="me-3">
-                                        <img src="../../../assets/images/brands/klm.svg" class="rounded-circle"
+                                        <img src="#" class="rounded-circle"
                                             width="32" height="32" alt="">
                                     </a>
 
@@ -353,7 +358,7 @@
                                 </div>
                             </td>
                             <td>June 12th</td>
-                            <td><img src="../../../assets/images/brands/ups.svg" class="me-1" width="20"
+                            <td><img src="#" class="me-1" width="20"
                                     alt=""> UPS Express</td>
                             <td><span class="badge bg-success bg-opacity-10 text-success">Delivered</span></td>
                             <td class="text-center">
@@ -384,7 +389,7 @@
                             <td>
                                 <div class="d-flex align-items-center">
                                     <a href="#" class="me-3">
-                                        <img src="../../../assets/images/brands/amazon.svg" class="rounded-circle"
+                                        <img src="#" class="rounded-circle"
                                             width="32" height="32" alt="">
                                     </a>
 
@@ -395,7 +400,7 @@
                                 </div>
                             </td>
                             <td>June 13th</td>
-                            <td><img src="../../../assets/images/brands/deutsche-post.svg" class="rounded-sm me-1"
+                            <td><img src="#" class="rounded-sm me-1"
                                     width="20" alt=""> Deutsche post</td>
                             <td><span class="badge bg-danger bg-opacity-10 text-danger">Delayed</span></td>
                             <td class="text-center">
@@ -426,7 +431,7 @@
                             <td>
                                 <div class="d-flex align-items-center">
                                     <a href="#" class="me-3">
-                                        <img src="../../../assets/images/brands/honda.svg" class="rounded-circle"
+                                        <img src="#" class="rounded-circle"
                                             width="32" height="32" alt="">
                                     </a>
 
@@ -437,7 +442,7 @@
                                 </div>
                             </td>
                             <td>June 14th</td>
-                            <td><img src="../../../assets/images/brands/postnl.svg" class="me-1" width="20"
+                            <td><img src="#" class="me-1" width="20"
                                     alt=""> PostNL</td>
                             <td><span class="badge bg-secondary bg-opacity-10 text-secondary">Processing</span></td>
                             <td class="text-center">
@@ -468,7 +473,7 @@
                             <td>
                                 <div class="d-flex align-items-center">
                                     <a href="#" class="me-3">
-                                        <img src="../../../assets/images/brands/holiday-inn.svg"
+                                        <img src="#"
                                             class="rounded-circle" width="32" height="32" alt="">
                                     </a>
 
@@ -479,7 +484,7 @@
                                 </div>
                             </td>
                             <td>June 15th</td>
-                            <td><img src="../../../assets/images/brands/fedex.svg" class="rounded-sm me-1"
+                            <td><img src="#" class="rounded-sm me-1"
                                     width="20" alt=""> Fedex Express</td>
                             <td><span class="badge bg-success bg-opacity-10 text-success">Delivered</span></td>
                             <td class="text-center">
@@ -510,7 +515,7 @@
                             <td>
                                 <div class="d-flex align-items-center">
                                     <a href="#" class="me-3">
-                                        <img src="../../../assets/images/brands/apple.svg" class="rounded-circle"
+                                        <img src="#" class="rounded-circle"
                                             width="32" height="32" alt="">
                                     </a>
 
@@ -521,7 +526,7 @@
                                 </div>
                             </td>
                             <td>June 16th</td>
-                            <td><img src="../../../assets/images/brands/deutsche-post.svg" class="rounded-sm me-1"
+                            <td><img src="#" class="rounded-sm me-1"
                                     width="20" alt=""> Deutsche post</td>
                             <td><span class="badge bg-indigo bg-opacity-10 text-indigo">Dispatched</span></td>
                             <td class="text-center">
@@ -552,7 +557,7 @@
                             <td>
                                 <div class="d-flex align-items-center">
                                     <a href="#" class="me-3">
-                                        <img src="../../../assets/images/brands/debijenkorf.svg"
+                                        <img src="#"
                                             class="rounded-circle" width="32" height="32" alt="">
                                     </a>
 
@@ -563,7 +568,7 @@
                                 </div>
                             </td>
                             <td>June 17th</td>
-                            <td><img src="../../../assets/images/brands/tnt.svg" class="rounded-sm me-1"
+                            <td><img src="#" class="rounded-sm me-1"
                                     width="20" alt=""> TNT</td>
                             <td><span class="badge bg-indigo bg-opacity-10 text-indigo">Dispatched</span></td>
                             <td class="text-center">
@@ -594,7 +599,7 @@
                             <td>
                                 <div class="d-flex align-items-center">
                                     <a href="#" class="me-3">
-                                        <img src="../../../assets/images/brands/texaco.svg" class="rounded-circle"
+                                        <img src="#" class="rounded-circle"
                                             width="32" height="32" alt="">
                                     </a>
 
@@ -605,7 +610,7 @@
                                 </div>
                             </td>
                             <td>June 18th</td>
-                            <td><img src="../../../assets/images/brands/dpd.svg" class="me-1" width="20"
+                            <td><img src="#" class="me-1" width="20"
                                     alt=""> DPD</td>
                             <td><span class="badge bg-danger bg-opacity-10 text-danger">Delayed</span></td>
                             <td class="text-center">
@@ -636,7 +641,7 @@
                             <td>
                                 <div class="d-flex align-items-center">
                                     <a href="#" class="me-3">
-                                        <img src="../../../assets/images/brands/shell.svg" class="rounded-circle"
+                                        <img src="#" class="rounded-circle"
                                             width="32" height="32" alt="">
                                     </a>
 
@@ -647,7 +652,7 @@
                                 </div>
                             </td>
                             <td>June 19th</td>
-                            <td><img src="../../../assets/images/brands/ups.svg" class="me-1" width="20"
+                            <td><img src="#" class="me-1" width="20"
                                     alt=""> UPS Express</td>
                             <td><span class="badge bg-success bg-opacity-10 text-success">Delivered</span></td>
                             <td class="text-center">
@@ -678,7 +683,7 @@
                             <td>
                                 <div class="d-flex align-items-center">
                                     <a href="#" class="me-3">
-                                        <img src="../../../assets/images/brands/tesla.svg" class="rounded-circle"
+                                        <img src="#" class="rounded-circle"
                                             width="32" height="32" alt="">
                                     </a>
 
@@ -689,7 +694,7 @@
                                 </div>
                             </td>
                             <td>June 21st</td>
-                            <td><img src="../../../assets/images/brands/dpd.svg" class="me-1" width="20"
+                            <td><img src="#" class="me-1" width="20"
                                     alt=""> DPD</td>
                             <td><span class="badge bg-secondary bg-opacity-10 text-secondary">Processing</span></td>
                             <td class="text-center">
@@ -980,7 +985,7 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="../../../assets/images/browsers/chrome.svg" class="me-2"
+                                            <img src="#" class="me-2"
                                                 alt="" style="height: 32px;">
                                             Chrome
                                         </div>
@@ -997,7 +1002,7 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="../../../assets/images/browsers/firefox.svg" class="me-2"
+                                            <img src="#" class="me-2"
                                                 alt="" style="height: 32px;">
                                             Firefox
                                         </div>
@@ -1014,7 +1019,7 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="../../../assets/images/browsers/edge.svg" class="me-2"
+                                            <img src="#" class="me-2"
                                                 alt="" style="height: 32px;">
                                             Edge
                                         </div>
@@ -1031,7 +1036,7 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="../../../assets/images/browsers/safari.svg" class="me-2"
+                                            <img src="#" class="me-2"
                                                 alt="" style="height: 32px;">
                                             Safari
                                         </div>
@@ -1048,7 +1053,7 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <img src="../../../assets/images/browsers/opera.svg" class="me-2"
+                                            <img src="#" class="me-2"
                                                 alt="" style="height: 32px;">
                                             Opera
                                         </div>
@@ -1074,3 +1079,4 @@
 
     </div>
     <!-- /content area -->
+@endsection

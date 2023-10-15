@@ -6,7 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	{{-- <title>Muhammet Ali Fidan | Blog</title> --}}
-    @yield('title')
+    @stack('title')
 
 	<!-- Global stylesheets -->
 	<link href="{{asset('assets/backend/fonts/inter/inter.css')}}" rel="stylesheet" type="text/css">

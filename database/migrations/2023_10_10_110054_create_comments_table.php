@@ -19,7 +19,9 @@ return new class extends Migration
             $table->integer('like')->default(0);
             $table->integer('dislike')->default(0);
             $table->text('content', 500);
-            $table->enum('status', ['waiting', 'active', 'inactive'])->default('waiting');
+            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->boolean('is_reported')->default(false);
+            $table->integer('report_count')->default(0);
             $table->timestamps();
         });
     }

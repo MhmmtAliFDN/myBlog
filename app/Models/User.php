@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'image',
     ];
 
     /**
@@ -42,4 +43,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function blog() {
+        $this->hasMany(Blog::class);
+    }
+
+    public function comment() {
+        $this->hasMany(Comment::class);
+    }
+
+    public function commentReport() {
+        $this->hasMany(CommentReport::class);
+    }
+
+    public function portfolio() {
+        $this->hasMany(Portfolio::class);
+    }
+
 }

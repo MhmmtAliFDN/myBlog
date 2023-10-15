@@ -17,6 +17,8 @@ class Comment extends Model
         'dislike',
         'content',
         'status',
+        'is_reported',
+        'report_count',
     ];
 
     public function blog() {
@@ -25,5 +27,9 @@ class Comment extends Model
 
     public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    public function commentReport() {
+        return $this->hasMany(CommentReport::class);
     }
 }

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
-            $table->integer('category_id');
             $table->integer('user_id');
+            $table->integer('category_id');
             $table->integer('comment')->nullable();
             $table->integer('view')->nullable();
             $table->string('name', 100);

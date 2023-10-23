@@ -1,6 +1,6 @@
 @extends('backend.layouts.app')
 @push('title')
-    <title>Muhammet Ali Fidan | Panel</title>
+    <title>{{__('Muhammet Ali Fidan | Panel')}}</title>
 @endpush
 @section('content')
     <!-- Page header -->

@@ -69,25 +69,26 @@
         </div>
 
         <ul class="nav gap-1 flex-xl-1 justify-content-end order-0 order-xl-1">
-
-            <li class="nav-item">
+            <li class="nav-item px-2">
                 <a href="#" class="navbar-nav-link navbar-nav-link-icon rounded-pill" data-bs-toggle="offcanvas"
                     data-bs-target="#notifications">
                     <i class="ph-bell"></i>
-                    <span
-                        class="badge bg-yellow text-black position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1">2</span>
+                    @if (($commentReports->count() + $waitingContacts->count()) > 0)
+                        <span class="badge bg-yellow text-black position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1">
+                            {{$commentReports->count() + $waitingContacts->count()}}
+                        </span>
+                    @else
+                        <span class="badge bg-yellow text-black position-absolute top-0 end-0 translate-middle-top zindex-1 rounded-pill mt-1 me-1 d-none">
+                        </span>
+                    @endif
                 </a>
             </li>
 
             <li class="nav-item nav-item-dropdown-xl dropdown">
                 <a href="#" class="navbar-nav-link align-items-center rounded-pill p-1" data-bs-toggle="dropdown">
-                    <div class="status-indicator-container">
-                        <img src="@php Auth::user()->image; @endphp" class="w-32px h-32px rounded-pill"
-                            alt="Profil Resmi">
-                    </div>
+                    <img src="@php echo Auth::user()->image; @endphp" class="w-32px h-32px rounded-pill" alt="Profil Resmi">
                     <span class="d-none d-md-inline-block mx-md-2">@php echo Auth::user()->name @endphp</span>
                 </a>
-
                 <div class="dropdown-menu dropdown-menu-end">
                     <a href="{{route('profile.edit')}}" class="dropdown-item">
                         <i class="ph-gear me-2"></i>

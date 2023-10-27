@@ -35,7 +35,8 @@ Route::prefix('mafpanel')->middleware(['auth', 'verified'])->group(function() {
 
     Route::get('/blog', [BlogController::class, 'index'])->name('backend.blog.index');
 
-    Route::get('/contact', [ContactController::class, 'index'])->name('backend.contact.index');
+    Route::get('/iletisim', [ContactController::class, 'index'])->name('backend.contact.index');
+    Route::post('/iletisim/ekle', [ContactController::class, 'add'])->name('backend.contact.add');
 
     Route::get('/comment', [CommentController::class, 'index'])->name('backend.comment.index');
 

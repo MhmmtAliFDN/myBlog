@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ContactController extends Controller
 {
@@ -14,7 +15,56 @@ class ContactController extends Controller
     }
 
     public function add(Request $request) {
+        $request->merge([
+            'name' => $request->input('my_modal_name'),
+            'phone' => $request->input('my_modal_phone'),
+            'email' => $request->input('my_modal_email'),
+            'title' => $request->input('my_modal_title'),
+            'content' => $request->input('my_modal_content'),
+        ]);
 
+        $rules = [
+            'name' => ['required', 'min: 5', 'max: 50'],
+            'phone' => ['required', 'min:18'],
+            'email' => ['required', 'email:rfc,dns', 'max: 50'],
+            'title' => ['required', 'max: 100'],
+            'content' => ['required', 'max: 500'],
+        ];
+
+        $messages = [
+            'name.required' => 'İsim alanı boş olamaz.',
+            'name.min' => 'İsminiz 5 karakterden kısa olamaz.',
+            'name.max' => 'İsminiz 50 karakterden uzun olamaz.',
+
+            'phone.required' => 'Telefon numarası alanı boş olamaz.',
+            'phone.min' => 'Telefon numaranız 10 haneden kısa olamaz.',
+
+            'email.required' => 'Lütfen e-posta alanını doldurunuz.',
+            'email.max' => 'E-postanız 50 karakterden uzun olamaz.',
+            'email.email' => 'Gerçek bir e-posta giriniz: ornek_eposta@gmail.com',
+
+            'title.required' => 'Konu alanı boş olamaz.',
+            'title.max' => 'Lütfen konuyu daha kısa yazınız.',
+
+            'content.required' => 'İçerik alanını boş olamaz.',
+            'content.max' => 'Lütfen içeriği daha kısa yazınız.',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        Contact::create([
+            'name' => $request->my_modal_name,
+            'email' => $request->my_modal_email,
+            'phone' => $request->my_modal_phone,
+            'title' => $request->my_modal_title,
+            'content' => $request->my_modal_content,
+        ]);
+
+        return response()->json(['message' => 'İletişim Başarıyla Eklendi'], 200);
     }
 
     public function delete(int $id) {

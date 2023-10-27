@@ -35,6 +35,7 @@
 @endpush
 
 @push('customJs')
+    <!-- Scripts -->
     <script src="{{ asset('assets/backend/js/datatable/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/datatable/select.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/datatable/pdfmake.min.js') }}"></script>
@@ -48,6 +49,85 @@
     <script src="{{ asset('assets/backend/js/form/messages_tr.js') }}"></script>
     <script src="{{ asset('assets/backend/js/form/imask.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/form/form_controls_extended.js') }}"></script>
+    <script src="{{asset('assets/backend/js/form/sweet_alert.min.js')}}"></script>
+    <!-- /scripts -->
+
+    <!-- Sweet Alert Custom -->
+    <script>
+        const swalInit = swal.mixin({
+            buttonsStyling: false,
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-light',
+                denyButton: 'btn btn-light',
+                input: 'form-control'
+            }
+        });
+    </script>
+    <!-- /sweet alert custom -->
+
+    <!-- Form Validation Alert -->
+    <script>
+        $(document).ready(function()
+        {
+            const validator = $('#my_contact_form').submit(function(e)
+            {
+                e.preventDefault();
+                $.ajax(
+                {
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    success: function(response)
+                    {
+                        swalInit.fire({
+                            icon: 'success',
+                            title: response.message,
+                            timer: 2000,
+                            timerProgressBar: true,
+                            showCancelButton: false,
+                            showConfirmButton: false
+                        }).then(function () {
+                            location.reload();
+                        });
+                    },
+                    error: function(response)
+                    {
+                        if (response.status === 422)
+                        {
+                            var errorHtml = '<ul class="list-group list-group-flush">';
+                            $.each(response.responseJSON.errors, function(index, error) {
+                                errorHtml += '<li class="list-group-item">' + error[0] + '</li>';
+                            })
+                            errorHtml += '</ul>';
+
+                            swalInit.fire({
+                                icon: 'error',
+                                title: 'Lütfen Formu Eksiksiz Doldurunuz.',
+                                html: '<br>' + errorHtml,
+                                timer: 5000,
+                                timerProgressBar: true,
+                                showCancelButton: false,
+                                showConfirmButton: false,
+                            });
+                        }
+                        else
+                        {
+                            swalInit.fire({
+                                icon: 'error',
+                                title: 'Sistemsel bir hata. Lütfen sonra tekrar deneyiniz.',
+                                timer: 3000,
+                                timerProgressBar: true,
+                                showCancelButton: false,
+                                showConfirmButton: false,
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    <!-- /form validation alert -->
 @endpush
 
 @section('content')
@@ -169,11 +249,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
-                <form action="#" class="form-horizontal form-validate-jquery">
+                <form class="form-horizontal form-validate-jquery" id="my_contact_form" action="{{route('backend.contact.add')}}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="row mb-3">
-                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('İsim:') }}</label>
+                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Ad - Soyad:') }}</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" name="my_modal_name" placeholder="Ahmet Yılmaz" required>
                             </div>
@@ -225,7 +305,7 @@
                         <button type="button" class="btn btn-danger"
                             data-bs-dismiss="modal">{{ __('İptal') }}
                         </button>
-                        <button type="submit" class="btn btn-primary">{{ __('Ekle') }}
+                        <button type="submit" class="btn btn-primary" id="ekle">{{ __('Ekle') }}
                             <i class="ph-paper-plane-tilt ms-2"></i>
                         </button>
                     </div>

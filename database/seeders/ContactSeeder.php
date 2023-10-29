@@ -19,7 +19,6 @@ class ContactSeeder extends Seeder
             'phone' => '+90 (562)-562-5555',
             'title' => 'Blog Sitesi',
             'content' => 'Bir blog sitesi yaptırmak istiyorum.',
-            'status' => 'active',
         ]);
 
         Contact::create([
@@ -28,7 +27,7 @@ class ContactSeeder extends Seeder
             'phone' => '+90 (560)-560-0000',
             'title' => 'ETicaret Sitesi',
             'content' => 'Bir eticaret sitesi yaptırmak istiyorum.',
-            'status' => 'waiting',
+            'status' => 'Beklemede',
         ]);
 
         Contact::create([
@@ -37,7 +36,7 @@ class ContactSeeder extends Seeder
             'phone' => '+90 (362)-362-3333',
             'title' => 'Turizm Sitesi',
             'content' => 'Bir turizm sitesi yaptırmak istiyorum.',
-            'status' => 'inactive',
+            'status' => 'Pasif',
         ]);
     }
 }

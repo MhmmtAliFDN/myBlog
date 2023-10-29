@@ -2,6 +2,17 @@
 @push('title')
     <title>{{__('Muhammet Ali Fidan | Panel')}}</title>
 @endpush
+
+@push('customJs')
+	<script src="{{asset('assets/backend/js/vendor/echarts.min.js')}}"></script>
+	<script src="{{asset('assets/backend/js/vendor/world.js')}}"></script>
+
+	<script src="{{asset('assets/backend/js/charts/area_gradient.js')}}"></script>
+	<script src="{{asset('assets/backend/js/charts/map_europe_effect.js')}}"></script>
+	<script src="{{asset('assets/backend/js/charts/progress_sortable.js')}}"></script>
+	<script src="{{asset('assets/backend/js/charts/bars_grouped.js')}}"></script>
+	<script src="{{asset('assets/backend/js/charts/line_label_marks.js')}}"></script>
+@endpush
 @section('content')
     <!-- Page header -->
     <div class="page-header">

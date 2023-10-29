@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 50);
             $table->string('slug', 50)->uniqid;
-            $table->enum('status', ['active', 'inactive']);
+            $table->enum('status', ['Aktif', 'Pasif'])->default('Aktif');
             $table->timestamps();
         });
     }

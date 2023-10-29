@@ -30,6 +30,7 @@ class CommentSeeder extends Seeder
             'content' => 'Bok gibi yazı.',
             'is_reported' => true,
             'report_count' => 20,
+            'status' => 'Pasif'
         ]);
 
         Comment::create([

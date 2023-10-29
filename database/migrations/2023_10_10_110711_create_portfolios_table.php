@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('slug', 100);
             $table->string('image', 100)->default(asset('img/portfolio/default.jpg'));
             $table->text('content', 1000);
-            $table->enum('status', ['active', 'inactive']);
+            $table->enum('status', ['Aktif', 'Pasif'])->default('Aktif');
             $table->timestamps();
         });
     }

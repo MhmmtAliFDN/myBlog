@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('phone', 20);
             $table->string('title', 100);
             $table->text('content', 500);
-            $table->enum('status', ['waiting', 'active', 'inactive'])->default('waiting');
+            $table->enum('status', ['Beklemede', 'Aktif', 'Pasif'])->default('Beklemede');
             $table->timestamps();
         });
     }

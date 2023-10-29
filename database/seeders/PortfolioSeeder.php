@@ -20,7 +20,6 @@ class PortfolioSeeder extends Seeder
             'name' => 'Blog Sitesi',
             'slug' => Str::slug('Blog Sitesi'),
             'content' => 'Değerli bilgiler öğrenip yorum yapabileceğiniz bir site',
-            'status' => 'active',
         ]);
 
         Portfolio::create([
@@ -29,7 +28,7 @@ class PortfolioSeeder extends Seeder
             'name' => 'Eticaret Sitesi',
             'slug' => Str::slug('Eticaret Sitesi'),
             'content' => 'Kaliteli ürünler bulabileceğiniz bir site',
-            'status' => 'inactive',
+            'status' => 'Pasif',
         ]);
     }
 }

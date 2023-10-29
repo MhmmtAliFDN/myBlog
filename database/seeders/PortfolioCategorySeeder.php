@@ -17,19 +17,17 @@ class PortfolioCategorySeeder extends Seeder
         PortfolioCategory::create([
             'name' => 'Web Geliştirme',
             'slug' => Str::slug('Web Geliştirme'),
-            'status' => 'active',
         ]);
 
         PortfolioCategory::create([
             'name' => 'Veri Analitiği',
             'slug' => Str::slug('Veri Analitiği'),
-            'status' => 'active',
         ]);
 
         PortfolioCategory::create([
             'name' => 'Tübitak Projesi',
             'slug' => Str::slug('Tübitak Projesi'),
-            'status' => 'inactive',
+            'status' => 'Pasif',
         ]);
     }
 }

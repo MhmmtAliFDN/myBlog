@@ -31,7 +31,6 @@ class BlogSeeder extends Seeder
             yardımcı olur, böylece yazılım geliştirme süreçleri daha verimli hale gelir. Bu
             nedenle, naming convention'ların önemi büyüktür ve iyi bir yazılım mühendisi için
             temel bir prensip olarak kabul edilir.</p>",
-            'status'=> 'active',
         ]);
 
         Blog::create([
@@ -54,7 +53,6 @@ class BlogSeeder extends Seeder
             uygulama, veri yedekleme ve kurtarma planları oluşturma yer
             almaktadır. Ayrıca, veri güvenliği politikaları ve eğitimleriyle
             personelin bilinçlenmesi de büyük önem taşır.</p>",
-            'status'=> 'active',
         ]);
 
         Blog::create([
@@ -76,7 +74,7 @@ class BlogSeeder extends Seeder
             ve veri yedeklemesi konularında da önemli avantajlar sunar. Bulut
             bilişim, geleceğin teknoloji altyapısını şekillendiriyor ve iş
             dünyasında dönüşümün anahtarı haline gelmiştir.</p>",
-            'status'=> 'inactive',
+            'status'=> 'Pasif',
         ]);
     }
 }

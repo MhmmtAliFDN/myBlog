@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('slug', 100)->uniqid;
             $table->string('image', 100)->default(asset('img/blog/default.jpg'));
             $table->text('content', 10000);
-            $table->enum('status', ['active', 'inactive']);
+            $table->enum('status', ['Aktif', 'Pasif'])->default('Aktif');
             $table->timestamps();
         });
     }

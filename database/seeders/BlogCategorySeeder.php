@@ -17,19 +17,17 @@ class BlogCategorySeeder extends Seeder
         BlogCategory::create([
             'name' => 'Yazılım',
             'slug' => Str::slug('Yazılım'),
-            'status' => 'active',
         ]);
 
         BlogCategory::create([
             'name' => 'Teknolojik Gelişmeler',
             'slug' => Str::slug('Teknolojik Gelişmeler'),
-            'status' => 'active',
         ]);
 
         BlogCategory::create([
             'name' => 'Tasarım',
             'slug' => Str::slug('Tasarım'),
-            'status' => 'inactive',
+            'status' => 'Pasif',
         ]);
     }
 }

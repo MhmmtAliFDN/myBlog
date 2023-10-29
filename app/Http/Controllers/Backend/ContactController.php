@@ -7,6 +7,8 @@ use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+use function Laravel\Prompts\text;
+
 class ContactController extends Controller
 {
     public function index() {
@@ -21,6 +23,7 @@ class ContactController extends Controller
             'email' => $request->input('my_modal_email'),
             'title' => $request->input('my_modal_title'),
             'content' => $request->input('my_modal_content'),
+            'status' => $request->input('my_modal_status'),
         ]);
 
         $rules = [
@@ -62,6 +65,7 @@ class ContactController extends Controller
             'phone' => $request->my_modal_phone,
             'title' => $request->my_modal_title,
             'content' => $request->my_modal_content,
+            'status' => $request->my_modal_status,
         ]);
 
         return response()->json(['message' => 'İletişim Başarıyla Eklendi'], 200);
@@ -76,7 +80,12 @@ class ContactController extends Controller
     }
 
     public function statusUpdate(Request $request) {
-
+        try {
+            Contact::where('id', $request->id)->first()->update(['status' => $request->status]);
+            return response(['message' => 'Durum başarıyla güncellendi'], 200);
+        } catch (\Throwable $th) {
+            return response(['message' => 'Sistemsel bir hata oluştu'], 500);
+        }
     }
 
     public function get(int $id) {

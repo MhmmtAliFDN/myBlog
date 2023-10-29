@@ -49,7 +49,8 @@
     <script src="{{ asset('assets/backend/js/form/messages_tr.js') }}"></script>
     <script src="{{ asset('assets/backend/js/form/imask.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/form/form_controls_extended.js') }}"></script>
-    <script src="{{asset('assets/backend/js/form/sweet_alert.min.js')}}"></script>
+    <script src="{{asset('assets/backend/js/form/extra_sweetalert.js')}}"></script>
+    <script src="{{ asset('assets/backend/js/form/sweet_alert.min.js') }}"></script>
     <!-- /scripts -->
 
     <!-- Sweet Alert Custom -->
@@ -66,35 +67,74 @@
     </script>
     <!-- /sweet alert custom -->
 
-    <!-- Form Validation Alert -->
+    <!-- Status Update -->
     <script>
-        $(document).ready(function()
-        {
-            const validator = $('#my_contact_form').submit(function(e)
-            {
+        $(document).on('change', '#my_contact_status', function() {
+            var id = $(this).closest(".contact_item").attr("item-id");
+            var status = $(this).find("option:selected").text();        //İlk başta $(this) yerine #my_contact_status kullanmıştım. Bu da sayfada olan değil sadece ilk satırdaki id'yi alıyordu ve sürekli hatalı çalışıyordu.
+            var val = $(this).find("option:selected").val();
+
+            $.ajax({
+                url: '{{ route('backend.contact.statusUpdate') }}',
+                method: 'POST',
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    'id': id,
+                    'status': status
+                },
+                success: function(response) {
+                    swalInit.fire({
+                        text: response.message,
+                        icon: 'success',
+                        toast: true,
+                        timer: 1500,
+                        timerProgressBar: true,
+                        showConfirmButton: false,
+                        position: 'top-end'
+                    }).then(function() {
+                        location.reload();
+                    });
+                },
+                error: function(response) {
+                    swalInit.fire({
+                        text: response.responseJSON.message,
+                        icon: 'error',
+                        toast: true,
+                        timer: 1500,
+                        timerProgressBar: true,
+                        showConfirmButton: false,
+                        position: 'top-end'
+                    });
+                }
+            })
+        })
+    </script>
+    <!-- /status update -->
+
+    <!-- Contact Add -->
+    <script>
+        $(document).ready(function() {
+            const validator = $('#my_contact_form').submit(function(e) {
                 e.preventDefault();
-                $.ajax(
-                {
+                $.ajax({
                     type: 'POST',
                     url: $(this).attr('action'),
                     data: $(this).serialize(),
-                    success: function(response)
-                    {
+                    success: function(response) {
                         swalInit.fire({
                             icon: 'success',
                             title: response.message,
-                            timer: 2000,
+                            text: "Benimle iletişim kurduğunuz için teşekkür ederim. En kısa zamanda size dönüş yapacağım.",
+                            timer: 5000,
                             timerProgressBar: true,
                             showCancelButton: false,
                             showConfirmButton: false
-                        }).then(function () {
+                        }).then(function() {
                             location.reload();
                         });
                     },
-                    error: function(response)
-                    {
-                        if (response.status === 422)
-                        {
+                    error: function(response) {
+                        if (response.status === 422) {
                             var errorHtml = '<ul class="list-group list-group-flush">';
                             $.each(response.responseJSON.errors, function(index, error) {
                                 errorHtml += '<li class="list-group-item">' + error[0] + '</li>';
@@ -110,9 +150,7 @@
                                 showCancelButton: false,
                                 showConfirmButton: false,
                             });
-                        }
-                        else
-                        {
+                        } else {
                             swalInit.fire({
                                 icon: 'error',
                                 title: 'Sistemsel bir hata. Lütfen sonra tekrar deneyiniz.',
@@ -127,7 +165,7 @@
             });
         });
     </script>
-    <!-- /form validation alert -->
+    <!-- /contact add -->
 @endpush
 
 @section('content')
@@ -182,33 +220,26 @@
                 <tbody>
                     @if ($contacts->count() != null && $contacts->count() > 0)
                         @foreach ($contacts as $contact)
-                            <tr>
+                            <tr class="contact_item" item-id="{{ $contact->id }}">
                                 <td class="my-select-checkbox"></td>
                                 <td>{{ $contact->id }}</td>
                                 <td>{{ $contact->name }}</td>
                                 <td>{{ $contact->title }}</td>
                                 <td>{{ $contact->created_at }}</td>
                                 <td>
-                                    <select
-                                        class="badge bg-opacity-20 rounded-pill text-reset
+                                    <select id="my_contact_status" class="badge bg-opacity-20 rounded-pill text-reset
                                         <?php
-                                        if ($contact->status == 'waiting') {
-                                            echo 'bg-warning';
-                                        } elseif ($contact->status == 'active') {
-                                            echo 'bg-success';
-                                        } else {
-                                            echo 'bg-danger';
-                                        }
+                                        if ($contact->status == 'Beklemede') { echo 'bg-warning'; }
+                                        elseif ($contact->status == 'Aktif') { echo 'bg-success'; }
+                                        else { echo 'bg-danger'; }
                                         ?>">
-                                        <option value="1" <?php if ($contact->status == 'active') {
-                                            echo 'selected';
-                                        } ?>>{{ __('Aktif') }}</option>
-                                        <option value="2" <?php if ($contact->status == 'inactive') {
-                                            echo 'selected';
-                                        } ?>>{{ __('Pasif') }}</option>
-                                        <option value="3" <?php if ($contact->status == 'waiting') {
-                                            echo 'selected';
-                                        } ?>>{{ __('Beklemede') }}</option>
+
+                                        <option value="1" <?php if ($contact->status == 'Aktif')
+                                        { echo 'selected'; } ?>>{{ __('Aktif') }}</option>
+                                        <option value="2" <?php if ($contact->status == 'Pasif')
+                                        { echo 'selected'; } ?>>{{ __('Pasif') }}</option>
+                                        <option value="3" <?php if ($contact->status == 'Beklemede')
+                                        { echo 'selected'; } ?>>{{ __('Beklemede') }}</option>
                                     </select>
                                 </td>
                                 <td class="text-center">
@@ -249,35 +280,42 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
-                <form class="form-horizontal form-validate-jquery" id="my_contact_form" action="{{route('backend.contact.add')}}" method="POST">
+                <form class="form-horizontal form-validate-jquery" id="my_contact_form"
+                    action="{{ route('backend.contact.add') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="row mb-3">
-                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Ad - Soyad:') }}</label>
+                            <label
+                                class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Ad - Soyad:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="my_modal_name" placeholder="Ahmet Yılmaz" required>
+                                <input type="text" class="form-control" name="my_modal_name" placeholder="Ahmet Yılmaz"
+                                    required>
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Telefon:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="my_modal_phone" placeholder="+90 (000)-000-0000" required>
-                                <div class="form-text text-muted">{{ __('Başında sıfır olmadan 10 haneli telefon numanızı giriniz') }}</div>
+                                <input type="text" class="form-control" name="my_modal_phone"
+                                    placeholder="+90 (000)-000-0000" required>
+                                <div class="form-text text-muted">
+                                    {{ __('Başında sıfır olmadan 10 haneli telefon numanızı giriniz') }}</div>
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('E-posta:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="my_modal_email" placeholder="ahmetyilmaz@domain.com" required>
+                                <input type="text" class="form-control" name="my_modal_email"
+                                    placeholder="ahmetyilmaz@domain.com" required>
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Konu:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="my_modal_title" placeholder="Bir internet sitesine ihtiyacım var" required>
+                                <input type="text" class="form-control" name="my_modal_title"
+                                    placeholder="Bir internet sitesine ihtiyacım var" required>
                             </div>
                         </div>
 
@@ -285,27 +323,27 @@
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Detay:') }}</label>
                             <div class="col-sm-9">
                                 <textarea class="form-control" name="my_modal_content" rows="3" cols="3"
-                                placeholder="Kendi işimi insanlara tanıtmak için bir şık siteye ihtiyacım var" required></textarea>
+                                    placeholder="Kendi işimi insanlara tanıtmak için bir şık siteye ihtiyacım var" required></textarea>
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Durum:') }}</label>
                             <div class="col-sm-2 mt-1">
-                                <select class="form-control my-badge badge bg-opacity-20 rounded-pill text-reset" name="my_modal_status">
-                                    <option value="waiting">{{ __('Beklemede') }}</option>
-                                    <option value="active">{{ __('Aktif') }}</option>
-                                    <option value="inactive">{{ __('Pasif') }}</option>
+                                <select class="form-control my-badge badge bg-opacity-20 rounded-pill text-reset"
+                                    name="my_modal_status">
+                                    <option value="Beklemede">{{ __('Beklemede') }}</option>
+                                    <option value="Aktif">{{ __('Aktif') }}</option>
+                                    <option value="Pasif">{{ __('Pasif') }}</option>
                                 </select>
                             </div>
                         </div>
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger"
-                            data-bs-dismiss="modal">{{ __('İptal') }}
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('İptal') }}
                         </button>
-                        <button type="submit" class="btn btn-primary" id="ekle">{{ __('Ekle') }}
+                        <button type="submit" class="btn btn-primary">{{ __('Ekle') }}
                             <i class="ph-paper-plane-tilt ms-2"></i>
                         </button>
                     </div>

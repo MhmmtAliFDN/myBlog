@@ -26,7 +26,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+//fotoğraflar için file manager h3k, laravel file manager(unisharp),jquery loading page percentage, okuma süresi
 
 //-----------------------------Backend Routes-----------------------------//
 
@@ -36,8 +36,11 @@ Route::prefix('mafpanel')->middleware(['auth', 'verified'])->group(function() {
     Route::get('/blog', [BlogController::class, 'index'])->name('backend.blog.index');
 
     Route::get('/iletisim', [ContactController::class, 'index'])->name('backend.contact.index');
+    Route::get('/iletisim/getir', [ContactController::class, 'get'])->name('backend.contact.get');
     Route::post('/iletisim/ekle', [ContactController::class, 'add'])->name('backend.contact.add');
     Route::post('/iletisim/durum-guncelle', [ContactController::class, 'statusUpdate'])->name('backend.contact.statusUpdate');
+    Route::post('/iletisim/sil', [ContactController::class, 'delete'])->name('backend.contact.delete');
+    Route::post('/iletisim/guncelle', [ContactController::class, 'update'])->name('backend.contact.update');
 
     Route::get('/comment', [CommentController::class, 'index'])->name('backend.comment.index');
 

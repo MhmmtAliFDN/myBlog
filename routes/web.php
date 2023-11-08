@@ -48,7 +48,13 @@ Route::prefix('mafpanel')->middleware(['auth', 'verified'])->group(function() {
 
     Route::get('/portfolio', [PortfolioController::class, 'index'])->name('backend.portfolio.index');
 
-    Route::get('/blog-category', [BlogCategoryController::class, 'index'])->name('backend.blogcategory.index');
+    Route::get('/blog-kategori', [BlogCategoryController::class, 'index'])->name('backend.blogcategory.index');
+    Route::get('/blog-kategori/getir', [BlogCategoryController::class, 'get'])->name('backend.blogcategory.get');
+    Route::post('/blog-kategori/ekle', [BlogCategoryController::class, 'add'])->name('backend.blogcategory.add');
+    Route::post('/blog-kategori/durum-guncelle', [BlogCategoryController::class, 'statusUpdate'])->name('backend.blogcategory.statusUpdate');
+    Route::post('/blog-kategori/sil', [BlogCategoryController::class, 'delete'])->name('backend.blogcategory.delete');
+    Route::post('/blog-kategori/guncelle', [BlogCategoryController::class, 'update'])->name('backend.blogcategory.update');
+
 
     Route::get('/portfolio-category', [PortfolioCategoryController::class, 'index'])->name('backend.portfoliocategory.index');
 

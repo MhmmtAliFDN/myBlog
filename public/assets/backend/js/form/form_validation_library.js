@@ -43,7 +43,7 @@ const FormValidation = function() {
         }
 
         // Initialize
-        const contactAddValidator = $('#my_add_contact_form').validate({
+        const contactAddValidator = $('#my_add_item_form').validate({
             ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
             errorClass: 'validation-invalid-label',
             successClass: 'validation-valid-label',
@@ -167,7 +167,7 @@ const FormValidation = function() {
             }
         });
 
-        const contactUpdateValidator = $('#my_update_contact_form').validate({
+        const contactUpdateValidator = $('#my_update_item_form').validate({
             ignore: 'input[type=hidden], .select2-search__field', // ignore hidden fields
             errorClass: 'validation-invalid-label',
             successClass: 'validation-valid-label',

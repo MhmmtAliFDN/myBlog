@@ -34,6 +34,14 @@ const DatatableButtonsHtml5 = function() {
             buttons: {
                 buttons: [
                     {
+                        extend: 'selectAll',
+                        className: 'btn btn-light'
+                    },
+                    {
+                        extend: 'selectNone',
+                        className: 'btn btn-light'
+                    },
+                    {
                         extend: 'copyHtml5',
                         className: 'btn btn-light',
                         text: 'Kopyala',
@@ -64,8 +72,9 @@ const DatatableButtonsHtml5 = function() {
                         extend: 'colvis',
                         text: '<i class="ph-list"></i>',
                         className: 'btn btn-light btn-icon dropdown-toggle'
-                    }
-                ]
+                    },
+                ],
+                stateSave: true,
             },
 
             columnDefs: [
@@ -78,10 +87,14 @@ const DatatableButtonsHtml5 = function() {
                     orderable: false,
                     width: 100,
                     targets: 6
+                },
+                {
+                    targets: [-3,-5,-7,-8],
+                    visible: false
                 }
             ],
             select: {
-                style: 'os',
+                style: 'multi',
                 selector: 'td:first-child'
             },
             order: [[1, 'asc']]

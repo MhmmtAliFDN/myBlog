@@ -25,10 +25,10 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('backend.inc.notifications', function ($view) {
             [
                 $view->with(
-                    'waitingContacts', Contact::where('status', 'waiting')->select('title','name', 'created_at')->get(),
+                    'waitingContacts', Contact::where('status', 'Beklemede')->select('title','name', 'created_at')->get(),
                 ),
                 $view->with(
-                    'commentReports', Comment::where('status', 'active')->where('is_reported', true)->get(),
+                    'commentReports', Comment::where('status', 'Aktif')->where('is_reported', true)->get(),
                 ),
             ];
         });
@@ -36,10 +36,10 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('backend.inc.navigation', function ($view) {
             [
                 $view->with(
-                    'waitingContacts', Contact::where('status', 'waiting')->select('title','name', 'created_at')->get(),
+                    'waitingContacts', Contact::where('status', 'Beklemede')->select('title','name', 'created_at')->get(),
                 ),
                 $view->with(
-                    'commentReports', Comment::where('status', 'active')->where('is_reported', true)->get(),
+                    'commentReports', Comment::where('status', 'Aktif')->where('is_reported', true)->get(),
                 ),
             ];
         });

@@ -24,7 +24,6 @@ class ContactController extends Controller
             'email' => $request->input('my_modal_email'),
             'title' => $request->input('my_modal_title'),
             'content' => $request->input('my_modal_content'),
-            'status' => $request->input('my_modal_status'),
         ]);
 
         $rules = [
@@ -83,7 +82,6 @@ class ContactController extends Controller
 
     public function update(Request $request) {
         $request->merge([
-            'id' => $request->input('my_modal_id'),
             'name' => $request->input('my_modal_name'),
             'phone' => $request->input('my_modal_phone'),
             'email' => $request->input('my_modal_email'),
@@ -136,7 +134,7 @@ class ContactController extends Controller
             'status' => $request->my_modal_status,
         ]);
 
-        return response()->json(['message' => 'İletişim Başarıyla Eklendi'], 200);
+        return response()->json(['message' => 'İletişim Başarıyla Güncellendi'], 200);
     }
 
     public function statusUpdate(Request $request) {

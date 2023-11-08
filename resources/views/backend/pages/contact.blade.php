@@ -68,10 +68,9 @@
 
     <!-- Status Update -->
     <script>
-        $(document).on('change', '#my_contact_status', function() {
-            var id = $(this).closest(".contact_item").attr("item-id");
-            var status = $(this).find("option:selected")
-                .text(); //İlk başta $(this) yerine #my_contact_status kullanmıştım. Bu da sayfada olan değil sadece ilk satırdaki id'yi alıyordu ve sürekli hatalı çalışıyordu.
+        $(document).on('change', '#my_item_status', function() {
+            var id = $(this).closest(".table_item").attr("item-id");
+            var status = $(this).find("option:selected").text(); //İlk başta $(this) yerine #my_item_status kullanmıştım. Bu da sayfada olan değil sadece ilk satırdaki id'yi alıyordu ve sürekli hatalı çalışıyordu.
             var val = $(this).find("option:selected").val();
 
             $.ajax({
@@ -113,8 +112,8 @@
 
     <!-- Contact Detail -->
     <script>
-        $(document).on('click', '#my_detail_contact', function() {
-            var item = $(this).closest(".contact_item");
+        $(document).on('click', '#my_item_detail', function() {
+            var item = $(this).closest(".table_item");
             id = item.attr('item-id');
 
             $.ajax({
@@ -125,14 +124,18 @@
                     'id': id,
                 },
                 success: function(response) {
-                    const monthNames = [ "Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık" ];
+                    const monthNames = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz",
+                        "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"
+                    ];
 
                     var createdDate = new Date(response.data.created_at);
                     var updatedDate = new Date(response.data.updated_at);
 
                     function formatingDate(date) {
-                        var formattedDate = date.getDate() + " " + monthNames[date.getMonth()] + " " + date.getFullYear() + " | " +
-                        addLeadingZero(date.getHours()) + " : " + addLeadingZero(date.getMinutes()) + " : " + addLeadingZero(date.getSeconds());
+                        var formattedDate = date.getDate() + " " + monthNames[date.getMonth()] + " " +
+                            date.getFullYear() + " | " +
+                            addLeadingZero(date.getHours()) + " : " + addLeadingZero(date
+                                .getMinutes()) + " : " + addLeadingZero(date.getSeconds());
                         return formattedDate;
                     }
 
@@ -140,15 +143,15 @@
                         return value < 10 ? "0" + value : value;
                     }
 
-                    $('#my_detail_contact_form #my_modal_id').val(response.data.id);
-                    $('#my_detail_contact_form #my_modal_name').val(response.data.name);
-                    $('#my_detail_contact_form #my_modal_phone').val(response.data.phone);
-                    $('#my_detail_contact_form #my_modal_email').val(response.data.email);
-                    $('#my_detail_contact_form #my_modal_created_at').val(formatingDate(createdDate));
-                    $('#my_detail_contact_form #my_modal_updated_at').val(formatingDate(updatedDate));
-                    $('#my_detail_contact_form #my_modal_title').val(response.data.title);
-                    $('#my_detail_contact_form #my_modal_content').val(response.data.content);
-                    $('#my_detail_contact_form #my_modal_status').val(response.data.status);
+                    $('#my_item_detail_form #my_modal_id').val(response.data.id);
+                    $('#my_item_detail_form #my_modal_name').val(response.data.name);
+                    $('#my_item_detail_form #my_modal_phone').val(response.data.phone);
+                    $('#my_item_detail_form #my_modal_email').val(response.data.email);
+                    $('#my_item_detail_form #my_modal_created_at').val(formatingDate(createdDate));
+                    $('#my_item_detail_form #my_modal_updated_at').val(formatingDate(updatedDate));
+                    $('#my_item_detail_form #my_modal_title').val(response.data.title);
+                    $('#my_item_detail_form #my_modal_content').val(response.data.content);
+                    $('#my_item_detail_form #my_modal_status').val(response.data.status);
                 },
                 error: function(response) {
                     if (response.status === 500) {
@@ -172,7 +175,7 @@
     <!-- Contact Add & Validation -->
     <script>
         $(document).ready(function() {
-            const validator = $('#my_add_contact_form').submit(function(e) {
+            const validator = $('#my_add_item_form').submit(function(e) {
                 e.preventDefault();
                 $.ajax({
                     type: 'POST',
@@ -182,7 +185,7 @@
                         swalInit.fire({
                             icon: 'success',
                             title: response.message,
-                            text: "Benimle iletişim kurduğunuz için teşekkür ederim. En kısa zamanda size dönüş yapacağım.",
+                            //text: "Benimle iletişim kurduğunuz için teşekkür ederim. En kısa zamanda size dönüş yapacağım.",
                             timer: 3000,
                             timerProgressBar: true,
                             showCancelButton: false,
@@ -230,8 +233,8 @@
     <script>
         $(document).ready(function() {
             var id;
-            $(document).on('click', '#my_update_contact', function() {
-                var item = $(this).closest(".contact_item");
+            $(document).on('click', '#my_update_item', function() {
+                var item = $(this).closest(".table_item");
                 id = item.attr('item-id');
 
                 $.ajax({
@@ -242,13 +245,13 @@
                         'id': id,
                     },
                     success: function(response) {
-                        $('#my_update_contact_form #my_modal_id').val(response.data.id);
-                        $('#my_update_contact_form #my_modal_name').val(response.data.name);
-                        $('#my_update_contact_form #my_modal_phone').val(response.data.phone);
-                        $('#my_update_contact_form #my_modal_email').val(response.data.email);
-                        $('#my_update_contact_form #my_modal_title').val(response.data.title);
-                        $('#my_update_contact_form #my_modal_content').val(response.data.content);
-                        $('#my_update_contact_form #my_modal_status').val(response.data.status);
+                        $('#my_update_item_form #my_modal_id').val(response.data.id);
+                        $('#my_update_item_form #my_modal_name').val(response.data.name);
+                        $('#my_update_item_form #my_modal_phone').val(response.data.phone);
+                        $('#my_update_item_form #my_modal_email').val(response.data.email);
+                        $('#my_update_item_form #my_modal_title').val(response.data.title);
+                        $('#my_update_item_form #my_modal_content').val(response.data.content);
+                        $('#my_update_item_form #my_modal_status').val(response.data.status);
                     },
                     error: function(response) {
                         if (response.status === 500) {
@@ -267,7 +270,7 @@
                 })
             });
 
-            const validator = $('#my_update_contact_form').submit(function(e) {
+            const validator = $('#my_update_item_form').submit(function(e) {
                 e.preventDefault();
                 $.ajax({
                     type: 'POST',
@@ -277,7 +280,7 @@
                         swalInit.fire({
                             icon: 'success',
                             title: response.message,
-                            text: "Benimle iletişim kurduğunuz için teşekkür ederim. En kısa zamanda size dönüş yapacağım.",
+                            //text: "Benimle iletişim kurduğunuz için teşekkür ederim. En kısa zamanda size dönüş yapacağım.",
                             timer: 3000,
                             timerProgressBar: true,
                             showCancelButton: false,
@@ -323,8 +326,8 @@
 
     <!-- Contact Delete -->
     <script>
-        $(document).on('click', '#my_delete_contact', function() {
-            var item = $(this).closest(".contact_item");
+        $(document).on('click', '#my_delete_item', function() {
+            var item = $(this).closest(".table_item");
             var id = item.attr('item-id');
 
             swalInit.fire({
@@ -394,6 +397,23 @@
         });
     </script>
     <!-- /contact delete -->
+
+    {{-- <script>
+        $(document).ready(function() {
+            var table = $('#my_contact_datatable').DataTable();
+
+            $('td.my-select-checkbox').on('click.dtSelect', function() {
+                //var checkbox = $(this).is('.select-checkbox');
+                console.log(1);
+                if ($('.dtSelect')) {
+
+                    console.log("a");
+                } else {
+                    console.log("seçili değil");
+                }
+            });
+        });
+    </script> --}}
 @endpush
 
 @section('content')
@@ -402,7 +422,7 @@
         <div class="page-header-content d-lg-flex border-top">
             <div class="d-flex">
                 <div class="breadcrumb py-2">
-                    <a href="#" class="breadcrumb-item"><i class="ph-house"></i><mark>!Burayı unutma!</mark></a>
+                    <a href="" class="breadcrumb-item"><i class="ph-house"></i><mark>!Burayı unutma!</mark></a>
                     <a href="{{ route('backend.dashboard.index') }}" class="breadcrumb-item">{{ __('Ana Sayfa') }}</a>
                     <span class="breadcrumb-item active">{{ __('İletişim') }}</span>
                 </div>
@@ -422,25 +442,39 @@
         <!-- Datatable -->
         <div class="card">
             <div class="card-header">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">{{ __('İletişimler') }}</h5>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#my_add_contact_modal">
-                        {{ __('İletişim Ekle') }}
-                    </button>
+                <div class="d-flex">
+                    <div class="p-1 flex-grow-1">
+                        <h5 class="mb-0">{{ __('İletişimler') }}</h5>
+                    </div>
+                    <div class="">
+                        <button type="button" class="btn btn-danger me-3" hidden>
+                            {{ __('Çoklu Sil') }}
+                            <i class="ph-trash ms-1"></i>
+                        </button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#my_add_item_modal">
+                            {{ __('İletişim Ekle') }}
+                        </button>
+                    </div>
                 </div>
+
             </div>
 
             <table
                 class="table my-datatable-extensions table-striped table-bordered table-hover
-                my-striped-bg my-bordered-color my-hover-bg text-center">
+                my-striped-bg my-bordered-color my-hover-bg text-center"
+                id="my_datatable">
                 <thead>
                     <tr>
-                        <th></th>
+                        <th>{{ __('Seç') }}</th>
                         <th>{{ __('ID') }}</th>
                         <th>{{ __('İsim') }}</th>
+                        <th>{{ __('Email') }}</th>
+                        <th>{{ __('Telefon') }}</th>
                         <th>{{ __('Başlık') }}</th>
+                        <th>{{ __('İçerik') }}</th>
                         <th>{{ __('Oluşturulma Zamanı') }}</th>
+                        <th>{{ __('Güncelleme Zamanı') }}</th>
                         <th>{{ __('Durum') }}</th>
                         <th>{{ __('Düzenle') }}</th>
                     </tr>
@@ -448,14 +482,18 @@
                 <tbody>
                     @if ($contacts->count() != null && $contacts->count() > 0)
                         @foreach ($contacts as $contact)
-                            <tr class="contact_item" item-id="{{ $contact->id }}">
+                            <tr class="table_item" item-id="{{ $contact->id }}">
                                 <td class="my-select-checkbox"></td>
                                 <td>{{ $contact->id }}</td>
                                 <td>{{ $contact->name }}</td>
+                                <td>{{ $contact->email }}</td>
+                                <td>{{ $contact->phone }}</td>
                                 <td>{{ $contact->title }}</td>
+                                <td>{{ $contact->content }}</td>
                                 <td>{{ $contact->created_at }}</td>
+                                <td>{{ $contact->updated_at }}</td>
                                 <td>
-                                    <select id="my_contact_status"
+                                    <select id="my_item_status"
                                         class="badge bg-opacity-20 rounded-pill text-reset
                                         <?php
                                         if ($contact->status == 'Beklemede') {
@@ -483,19 +521,19 @@
                                         <div class="d-flex">
                                             <button type="button"
                                                 class="btn btn-outline-info rounded-pill btn-sm my-buttons-margin"
-                                                id="my_detail_contact" data-bs-popup="tooltip" title="Ayrıntılar"
+                                                id="my_item_detail" data-bs-popup="tooltip" title="Ayrıntılar"
                                                 data-bs-placement="bottom" data-bs-toggle="modal"
-                                                data-bs-target="#my_detail_contact_modal">
+                                                data-bs-target="#my_item_detail_modal">
                                                 <i class="ph-arrows-out-simple"></i>
                                             </button>
                                             <button class="btn btn-outline-primary rounded-pill btn-sm my-buttons-margin"
-                                                id="my_update_contact" data-bs-popup="tooltip" title="Güncelle"
+                                                id="my_update_item" data-bs-popup="tooltip" title="Güncelle"
                                                 data-bs-placement="bottom" data-bs-toggle="modal"
-                                                data-bs-target="#my_update_contact_modal">
+                                                data-bs-target="#my_update_item_modal">
                                                 <i class="ph-wrench"></i>
                                             </button>
                                             <button class="btn btn-outline-danger rounded-pill btn-sm"
-                                                id="my_delete_contact" data-bs-popup="tooltip" title="Sil"
+                                                id="my_delete_item" data-bs-popup="tooltip" title="Sil"
                                                 data-bs-placement="bottom">
                                                 <i class="ph-trash"></i>
                                             </button>
@@ -513,7 +551,7 @@
     <!-- /content area -->
 
     <!-- Add contact modal -->
-    <div id="my_add_contact_modal" class="modal fade" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1">
+    <div id="my_add_item_modal" class="modal fade" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -521,8 +559,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
-                <form class="form-horizontal" id="my_add_contact_form"
-                    action="{{ route('backend.contact.add') }}" method="POST">
+                <form class="form-horizontal" id="my_add_item_form" action="{{ route('backend.contact.add') }}"
+                    method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="row mb-3">
@@ -595,7 +633,7 @@
     <!-- /add contact modal -->
 
     <!-- Update contact modal -->
-    <div id="my_update_contact_modal" class="modal fade" data-bs-keyboard="false" data-bs-backdrop="static"
+    <div id="my_update_item_modal" class="modal fade" data-bs-keyboard="false" data-bs-backdrop="static"
         tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -604,16 +642,16 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
-                <form class="form-horizontal" id="my_update_contact_form"
-                    action="{{ route('backend.contact.update') }}" method="POST">
+                <form class="form-horizontal" id="my_update_item_form" action="{{ route('backend.contact.update') }}"
+                    method="POST">
                     @csrf
                     <div class="modal-body">
-                        <input type="hidden" id="my_modal_id" name="my_modal_id" value="{{$contact->id}}">
+                        <input type="hidden" id="my_modal_id" name="my_modal_id" value="{{ $contact->id }}">
                         <div class="row mb-3">
-                            <label
-                                class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('ID:') }}</label>
+                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('ID:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_id" name="my_modal_id" disabled readonly>
+                                <input type="text" class="form-control" id="my_modal_id" name="my_modal_id" disabled
+                                    readonly>
                             </div>
                         </div>
 
@@ -687,7 +725,7 @@
     <!-- /update contact modal -->
 
     <!-- Detail contact modal -->
-    <div id="my_detail_contact_modal" class="modal fade" tabindex="-1">
+    <div id="my_item_detail_modal" class="modal fade" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -695,14 +733,14 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
-                <form class="form-horizontal" id="my_detail_contact_form">
+                <form class="form-horizontal" id="my_item_detail_form">
                     @csrf
                     <div class="modal-body">
                         <div class="row mb-3">
-                            <label
-                                class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('ID:') }}</label>
+                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('ID:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_id" name="my_modal_id" disabled readonly>
+                                <input type="text" class="form-control" id="my_modal_id" name="my_modal_id" disabled
+                                    readonly>
                             </div>
                         </div>
 
@@ -710,42 +748,50 @@
                             <label
                                 class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Ad - Soyad:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_name" name="my_modal_name" disabled readonly>
+                                <input type="text" class="form-control" id="my_modal_name" name="my_modal_name"
+                                    disabled readonly>
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Telefon:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_phone" name="my_modal_phone"  disabled readonly>
+                                <input type="text" class="form-control" id="my_modal_phone" name="my_modal_phone"
+                                    disabled readonly>
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('E-posta:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_email" name="my_modal_email" disabled readonly>
+                                <input type="text" class="form-control" id="my_modal_email" name="my_modal_email"
+                                    disabled readonly>
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Konu:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_title" name="my_modal_title" disabled readonly>
+                                <input type="text" class="form-control" id="my_modal_title" name="my_modal_title"
+                                    disabled readonly>
                             </div>
                         </div>
 
                         <div class="row mb-3">
-                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Oluşturulma Tarihi:') }}</label>
+                            <label
+                                class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Oluşturulma Tarihi:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_created_at" name="my_modal_created_at" disabled readonly>
+                                <input type="text" class="form-control" id="my_modal_created_at"
+                                    name="my_modal_created_at" disabled readonly>
                             </div>
                         </div>
 
                         <div class="row mb-3">
-                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Değiştirilme Tarihi:') }}</label>
+                            <label
+                                class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Değiştirilme Tarihi:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_updated_at" name="my_modal_updated_at" disabled readonly>
+                                <input type="text" class="form-control" id="my_modal_updated_at"
+                                    name="my_modal_updated_at" disabled readonly>
                             </div>
                         </div>
 

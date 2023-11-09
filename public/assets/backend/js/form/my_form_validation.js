@@ -1,21 +1,4 @@
-/* ------------------------------------------------------------------------------
- *
- *  # Form validation
- *
- *  Demo JS code for form_validation_library.html page
- *
- * ---------------------------------------------------------------------------- */
-
-
-// Setup module
-// ------------------------------
-
 const FormValidation = function() {
-
-
-    //
-    // Setup module components
-    //
 
     // Select2 select
     const _componentSelect2 = function() {
@@ -297,11 +280,6 @@ const FormValidation = function() {
         });
     };
 
-
-    //
-    // Return objects assigned to module
-    //
-
     return {
         init: function() {
             _componentSelect2();
@@ -310,10 +288,38 @@ const FormValidation = function() {
     }
 }();
 
+const ExtendedFormControls = function() {
 
-// Initialize module
-// ------------------------------
+    // Mask input
+    const _componentMaskInput = function() {
+        if (typeof IMask == 'undefined') {
+            console.warn('Warning - imask.min.js is not loaded.');
+            return;
+        }
 
-document.addEventListener('DOMContentLoaded', function() {
-    FormValidation.init();
-});
+        const myAddItemForm = document.getElementById('my_add_item_form');
+        const maskAddPhoneElement = myAddItemForm.querySelector('[name="my_modal_phone"]');
+
+        if (maskAddPhoneElement) {
+            const maskPhone = IMask(maskAddPhoneElement, {
+                mask: '+{9\\0} (500)-000-0000'
+            });
+        }
+
+        const myUpdateItemForm = document.getElementById('my_update_item_form');
+        const maskUpdatePhoneElement = myUpdateItemForm.querySelector('[name="my_modal_phone"]');
+
+        if (maskUpdatePhoneElement) {
+            const maskPhone = IMask(maskUpdatePhoneElement, {
+                mask: '+{9\\0} (500)-000-0000'
+            });
+        }
+    }
+
+    return {
+        init: function() {
+            _componentMaskInput();
+        }
+    }
+}();
+

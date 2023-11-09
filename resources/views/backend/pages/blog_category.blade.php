@@ -5,43 +5,17 @@
 @endpush
 
 @push('customCss')
-    <style>
-        .my-striped-bg {
-            --table-striped-bg: #f7fbff !important;
-        }
-
-        .my-bordered-color {
-            --table-border-color: #e4e6e9 !important;
-        }
-
-        .my-hover-bg {
-            --table-hover-bg: #dfdfe1 !important;
-        }
-
-        .my-buttons-margin {
-            margin-right: 4px;
-        }
-
-        .my-select-checkbox {
-            --dt-check-border: 10px !important;
-            --dt-check-border-radius: 0.25rem !important;
-            --dt-check-bg: #b9b9b9 !important
-        }
-
-        .my-badge {
-            --badge-padding-y: 0.6125rem !important;
-        }
-    </style>
+    <link rel="stylesheet" href="{{asset('assets/backend/css/custom.css') }}">
 @endpush
 
 @push('customJs')
     <!-- Scripts -->
+    <script src="{{ asset('assets/backend/js/datatable/my_datatable.js') }}"></script>
     <script src="{{ asset('assets/backend/js/datatable/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/datatable/select.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/datatable/pdfmake.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/datatable/vfs_fonts.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/datatable/buttons.min.js') }}"></script>
-    <script src="{{ asset('assets/backend/js/datatable/my_datatable_extensions.js') }}"></script>
 
     <script src="{{ asset('assets/backend/js/form/validate.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/form/select2.min.js') }}"></script>
@@ -51,6 +25,12 @@
     <script src="{{ asset('assets/backend/js/form/form_controls_extended.js') }}"></script>
     <script src="{{ asset('assets/backend/js/form/sweet_alert.min.js') }}"></script>
     <!-- /scripts -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            BlogCategoryDataTable.init();
+        });
+    </script>
 
     <!-- Sweet Alert Custom -->
     <script>
@@ -455,7 +435,7 @@
             </div>
 
             <table
-                class="table my-datatable-extensions table-striped table-bordered table-hover
+                class="my_datatable table table-striped table-bordered table-hover
                 my-striped-bg my-bordered-color my-hover-bg text-center"
                 id="my_datatable">
                 <thead>

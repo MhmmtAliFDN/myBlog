@@ -5,52 +5,49 @@
 @endpush
 
 @push('customCss')
-    <style>
-        .my-striped-bg {
-            --table-striped-bg: #f7fbff !important;
-        }
-
-        .my-bordered-color {
-            --table-border-color: #e4e6e9 !important;
-        }
-
-        .my-hover-bg {
-            --table-hover-bg: #dfdfe1 !important;
-        }
-
-        .my-buttons-margin {
-            margin-right: 4px;
-        }
-
-        .my-select-checkbox {
-            --dt-check-border: 10px !important;
-            --dt-check-border-radius: 0.25rem !important;
-            --dt-check-bg: #b9b9b9 !important
-        }
-
-        .my-badge {
-            --badge-padding-y: 0.6125rem !important;
-        }
-    </style>
+    <link rel="stylesheet" href="{{asset('assets/backend/css/custom.css') }}">
 @endpush
 
 @push('customJs')
     <!-- Scripts -->
+    <script src="{{ asset('assets/backend/js/datatable/my_datatable.js') }}"></script>
+    <script src="{{ asset('assets/backend/js/form/my_form_validation.js') }}"></script>
+
     <script src="{{ asset('assets/backend/js/datatable/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/datatable/select.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/datatable/pdfmake.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/datatable/vfs_fonts.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/datatable/buttons.min.js') }}"></script>
-    <script src="{{ asset('assets/backend/js/datatable/my_datatable_extensions.js') }}"></script>
-
     <script src="{{ asset('assets/backend/js/form/validate.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/form/select2.min.js') }}"></script>
-    <script src="{{ asset('assets/backend/js/form/form_validation_library.js') }}"></script>
     <script src="{{ asset('assets/backend/js/form/messages_tr.js') }}"></script>
     <script src="{{ asset('assets/backend/js/form/imask.min.js') }}"></script>
-    <script src="{{ asset('assets/backend/js/form/form_controls_extended.js') }}"></script>
     <script src="{{ asset('assets/backend/js/form/sweet_alert.min.js') }}"></script>
     <!-- /scripts -->
+
+    <!-- DataTable Initialize Module -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            ContactDataTable.init();
+        });
+    </script>
+    <!-- /dataTable initialize module -->
+
+    <!-- Form Masking -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            ExtendedFormControls.init();
+        });
+    </script>
+    <!-- /form masking -->
+
+    <!-- Form Validation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            FormValidation.init();
+        });
+    </script>
+    <!-- /form validation -->
 
     <!-- Sweet Alert Custom -->
     <script>
@@ -461,7 +458,7 @@
             </div>
 
             <table
-                class="table my-datatable-extensions table-striped table-bordered table-hover
+                class="my_datatable table table-striped table-bordered table-hover
                 my-striped-bg my-bordered-color my-hover-bg text-center"
                 id="my_datatable">
                 <thead>
@@ -576,9 +573,9 @@
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Telefon:') }}</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" name="my_modal_phone"
-                                    placeholder="+90 (000)-000-0000" required>
+                                    placeholder="+90 (500)-000-0000" value="+90 (5" required>
                                 <div class="form-text text-muted">
-                                    {{ __('Başında sıfır olmadan 10 haneli telefon numanızı giriniz') }}</div>
+                                    {{ __('10 haneli telefon numanızı giriniz - +90 (555)-555-5555') }}</div>
                             </div>
                         </div>
 
@@ -668,9 +665,9 @@
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Telefon:') }}</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="my_modal_phone" name="my_modal_phone"
-                                    placeholder="+90 (000)-000-0000" required>
+                                    placeholder="+90 (500)-000-0000" required>
                                 <div class="form-text text-muted">
-                                    {{ __('Başında sıfır olmadan 10 haneli telefon numanızı giriniz') }}</div>
+                                    {{ __('10 haneli telefon numanızı giriniz - +90 (555)-555-5555') }}</div>
                             </div>
                         </div>
 

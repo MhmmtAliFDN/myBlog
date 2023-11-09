@@ -1,0 +1,25 @@
+.my-striped-bg {
+    --table-striped-bg: #f7fbff !important;
+}
+
+.my-bordered-color {
+    --table-border-color: #e4e6e9 !important;
+}
+
+.my-hover-bg {
+    --table-hover-bg: #dfdfe1 !important;
+}
+
+.my-buttons-margin {
+    margin-right: 4px;
+}
+
+.my-select-checkbox {
+    --dt-check-border: 10px !important;
+    --dt-check-border-radius: 0.25rem !important;
+    --dt-check-bg: #b9b9b9 !important
+}
+
+.my-badge {
+    --badge-padding-y: 0.6125rem !important;
+}

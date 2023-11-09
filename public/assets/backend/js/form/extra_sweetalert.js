@@ -9,6 +9,32 @@
 
 // Setup module
 // ------------------------------
+const ContactSweetAlert = function () {
+
+    const _componentSweetAlert = function() {
+        if (typeof swal == 'undefined') {
+            console.warn('Warning - sweet_alert.min.js is not loaded.');
+            return;
+        }
+
+        // Defaults
+        const swalInit = swal.mixin({
+            buttonsStyling: false,
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-light',
+                denyButton: 'btn btn-light',
+                input: 'form-control'
+            }
+        });
+    }
+
+    return {
+        initComponents: function() {
+            _componentSweetAlert();
+        }
+    }
+}();
 
 const SweetAlert = function () {
 

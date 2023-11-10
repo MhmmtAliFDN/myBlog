@@ -22,8 +22,8 @@
 
                 <li class="nav-item nav-item-dropdown-xl dropdown">
                     <a href="#" class="navbar-nav-link dropdown-toggle rounded
-                    {{(Route::currentRouteName() === 'backend.blog.index') ||
-                    (Route::currentRouteName() === 'backend.blogcategory.index') }}" data-bs-toggle="dropdown">
+                    {{((Route::currentRouteName() === 'backend.blog.index') ||
+                    (Route::currentRouteName() === 'backend.blogcategory.index')) ? 'active' : ''}}" data-bs-toggle="dropdown">
                         <i class="ph-article me-2"></i>
                         {{__('Blog')}}
                     </a>

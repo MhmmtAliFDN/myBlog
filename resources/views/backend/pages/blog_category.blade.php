@@ -11,26 +11,33 @@
 @push('customJs')
     <!-- Scripts -->
     <script src="{{ asset('assets/backend/js/datatable/my_datatable.js') }}"></script>
+    <script src="{{ asset('assets/backend/js/form/my_form_validation.js') }}"></script>
     <script src="{{ asset('assets/backend/js/datatable/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/datatable/select.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/datatable/pdfmake.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/datatable/vfs_fonts.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/datatable/buttons.min.js') }}"></script>
-
     <script src="{{ asset('assets/backend/js/form/validate.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/form/select2.min.js') }}"></script>
-    <script src="{{ asset('assets/backend/js/form/form_validation_library.js') }}"></script>
     <script src="{{ asset('assets/backend/js/form/messages_tr.js') }}"></script>
-    <script src="{{ asset('assets/backend/js/form/imask.min.js') }}"></script>
-    <script src="{{ asset('assets/backend/js/form/form_controls_extended.js') }}"></script>
     <script src="{{ asset('assets/backend/js/form/sweet_alert.min.js') }}"></script>
     <!-- /scripts -->
 
+    <!-- DataTable Initialize Module -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             BlogCategoryDataTable.init();
         });
     </script>
+    <!-- /dataTable initialize module -->
+
+    <!-- Form Validation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            FormValidation.init();
+        });
+    </script>
+    <!-- /form validation -->
 
     <!-- Sweet Alert Custom -->
     <script>
@@ -125,7 +132,7 @@
 
                     $('#my_item_detail_form #my_modal_id').val(response.data.id);
                     $('#my_item_detail_form #my_modal_name').val(response.data.name);
-                    $('#my_item_detail_form #my_modal_slug').val(response.data.phone);
+                    $('#my_item_detail_form #my_modal_slug').val(response.data.slug);
                     $('#my_item_detail_form #my_modal_created_at').val(formatingDate(createdDate));
                     $('#my_item_detail_form #my_modal_updated_at').val(formatingDate(updatedDate));
                     $('#my_item_detail_form #my_modal_status').val(response.data.status);
@@ -224,7 +231,7 @@
                     success: function(response) {
                         $('#my_update_item_form #my_modal_id').val(response.data.id);
                         $('#my_update_item_form #my_modal_name').val(response.data.name);
-                        $('#my_update_item_form #my_modal_slug').val(response.data.phone);
+                        $('#my_update_item_form #my_modal_slug').val(response.data.slug);
                         $('#my_update_item_form #my_modal_status').val(response.data.status);
                     },
                     error: function(response) {
@@ -591,6 +598,13 @@
                         </div>
 
                         <div class="row mb-3">
+                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Slug:') }}</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="my_modal_slug" name="my_modal_slug" disabled readonly>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Durum:') }}</label>
                             <div class="col-sm-2 mt-1">
                                 <select class="form-control my-badge badge bg-opacity-20 rounded-pill text-reset"
@@ -641,6 +655,14 @@
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="my_modal_name" name="my_modal_name"
                                     disabled readonly>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Slug:') }}</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="my_modal_slug" name="my_modal_slug" disabled
+                                    readonly>
                             </div>
                         </div>
 

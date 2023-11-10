@@ -56,11 +56,15 @@ Route::prefix('mafpanel')->middleware(['auth', 'verified'])->group(function() {
     Route::post('/blog-kategori/guncelle', [BlogCategoryController::class, 'update'])->name('backend.blogcategory.update');
 
 
-    Route::get('/portfolio-category', [PortfolioCategoryController::class, 'index'])->name('backend.portfoliocategory.index');
-
+    Route::get('/calismalarim-kategori', [PortfolioCategoryController::class, 'index'])->name('backend.portfoliocategory.index');
+    Route::get('/calismalarim-kategori/getir', [PortfolioCategoryController::class, 'get'])->name('backend.portfoliocategory.get');
+    Route::post('/calismalarim-kategori/ekle', [PortfolioCategoryController::class, 'add'])->name('backend.portfoliocategory.add');
+    Route::post('/calismalarim-kategori/durum-guncelle', [PortfolioCategoryController::class, 'statusUpdate'])->name('backend.portfoliocategory.statusUpdate');
+    Route::post('/calismalarim-kategori/sil', [PortfolioCategoryController::class, 'delete'])->name('backend.portfoliocategory.delete');
+    Route::post('/calismalarim-kategori/guncelle', [PortfolioCategoryController::class, 'update'])->name('backend.portfoliocategory.update');
 });
 
-//-----------------------------/Backend Routes-----------------------------//
+//-----------------------------/backend routes-----------------------------//
 
 
 
@@ -72,6 +76,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//-----------------------------/Auth Routes-----------------------------//
+//-----------------------------/auth routes-----------------------------//
 
 require __DIR__.'/auth.php';

@@ -12,7 +12,6 @@
     <!-- Scripts -->
     <script src="{{ asset('assets/backend/js/datatable/my_datatable.js') }}"></script>
     <script src="{{ asset('assets/backend/js/form/my_form_validation.js') }}"></script>
-
     <script src="{{ asset('assets/backend/js/datatable/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/datatable/select.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/datatable/pdfmake.min.js') }}"></script>

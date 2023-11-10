@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('portfolio_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50);
-            $table->string('slug', 50)->uniqid;
+            $table->string('name', 50)->unique();
+            $table->string('slug', 50)->unique();
             $table->enum('status', ['Aktif', 'Pasif'])->default('Aktif');
             $table->timestamps();
         });

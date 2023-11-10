@@ -76,77 +76,11 @@ const FormValidation = function() {
                 my_modal_content: {
                     maxlength: 500
                 },
-
-                password: {
-                    minlength: 5
-                },
-                repeat_password: {
-                    equalTo: '#password'
-                },
-                email: {
-                    email: true
-                },
-                repeat_email: {
-                    equalTo: '#email'
-                },
-                maximum_characters: {
-                    maxlength: 10
-                },
-                minimum_number: {
-                    min: 10
-                },
-                maximum_number: {
-                    max: 10
-                },
-                number_range: {
-                    range: [10, 20]
-                },
-                url: {
-                    url: true
-                },
-                date: {
-                    date: true
-                },
-                date_iso: {
-                    dateISO: true
-                },
-                numbers: {
-                    number: true
-                },
-                digits: {
-                    digits: true
-                },
-                creditcard: {
-                    creditcard: true
-                },
-                basic_checkbox: {
-                    minlength: 2
-                },
-                styled_checkbox: {
-                    minlength: 2
-                },
-                switch_group: {
-                    minlength: 2
-                }
             },
             messages: {
                 my_modal_phone: {
                     minlength: "Lütfen telefon numarasını 10 hane olarak giriniz.",
                 },
-
-                custom: {
-                    required: 'This is a custom error message'
-                },
-                basic_checkbox: {
-                    minlength: 'Please select at least {0} checkboxes'
-                },
-                styled_checkbox: {
-                    minlength: 'Please select at least {0} checkboxes'
-                },
-                switch_group: {
-                    minlength: 'Please select at least {0} switches'
-                },
-                agree: 'Please accept our policy'
             }
         });
 
@@ -200,77 +134,11 @@ const FormValidation = function() {
                 my_modal_content: {
                     maxlength: 500
                 },
-
-                password: {
-                    minlength: 5
-                },
-                repeat_password: {
-                    equalTo: '#password'
-                },
-                email: {
-                    email: true
-                },
-                repeat_email: {
-                    equalTo: '#email'
-                },
-                maximum_characters: {
-                    maxlength: 10
-                },
-                minimum_number: {
-                    min: 10
-                },
-                maximum_number: {
-                    max: 10
-                },
-                number_range: {
-                    range: [10, 20]
-                },
-                url: {
-                    url: true
-                },
-                date: {
-                    date: true
-                },
-                date_iso: {
-                    dateISO: true
-                },
-                numbers: {
-                    number: true
-                },
-                digits: {
-                    digits: true
-                },
-                creditcard: {
-                    creditcard: true
-                },
-                basic_checkbox: {
-                    minlength: 2
-                },
-                styled_checkbox: {
-                    minlength: 2
-                },
-                switch_group: {
-                    minlength: 2
-                }
             },
             messages: {
                 my_modal_phone: {
                     minlength: "Lütfen telefon numarasını 10 hane olarak giriniz.",
                 },
-
-                custom: {
-                    required: 'This is a custom error message'
-                },
-                basic_checkbox: {
-                    minlength: 'Please select at least {0} checkboxes'
-                },
-                styled_checkbox: {
-                    minlength: 'Please select at least {0} checkboxes'
-                },
-                switch_group: {
-                    minlength: 'Please select at least {0} switches'
-                },
-                agree: 'Please accept our policy'
             }
         });
 

@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('category_id');
-            $table->integer('comment')->nullable();
-            $table->integer('view')->nullable();
-            $table->string('name', 100);
-            $table->string('slug', 100)->uniqid;
-            $table->string('image', 100)->default(asset('img/blog/default.jpg'));
+            $table->integer('comment')->default(0);
+            $table->integer('view')->default(0);
+            $table->string('name', 100)->unique();
+            $table->string('slug', 100)->unique();
+            $table->string('image', 120)->default(asset('img/blog/default.jpg'));
             $table->text('content', 10000);
             $table->enum('status', ['Aktif', 'Pasif'])->default('Aktif');
             $table->timestamps();

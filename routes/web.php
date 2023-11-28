@@ -34,13 +34,18 @@ Route::prefix('mafpanel')->middleware(['auth', 'verified'])->group(function() {
     Route::get('/', [DashboardController::class, 'index'])->name('backend.dashboard.index');
 
     Route::get('/blog', [BlogController::class, 'index'])->name('backend.blog.index');
+    Route::get('/blog/getir', [BlogController::class, 'get'])->name('backend.blog.get');
+    Route::post('/blog/ekle', [BlogController::class, 'add'])->name('backend.blog.add');
+    Route::post('/blog/sil', [BlogController::class, 'delete'])->name('backend.blog.delete');
+    Route::post('/blog/guncelle', [BlogController::class, 'update'])->name('backend.blog.update');
+    Route::post('/blog/durum-guncelle', [BlogController::class, 'statusUpdate'])->name('backend.blog.statusUpdate');
 
     Route::get('/iletisim', [ContactController::class, 'index'])->name('backend.contact.index');
     Route::get('/iletisim/getir', [ContactController::class, 'get'])->name('backend.contact.get');
     Route::post('/iletisim/ekle', [ContactController::class, 'add'])->name('backend.contact.add');
-    Route::post('/iletisim/durum-guncelle', [ContactController::class, 'statusUpdate'])->name('backend.contact.statusUpdate');
     Route::post('/iletisim/sil', [ContactController::class, 'delete'])->name('backend.contact.delete');
     Route::post('/iletisim/guncelle', [ContactController::class, 'update'])->name('backend.contact.update');
+    Route::post('/iletisim/durum-guncelle', [ContactController::class, 'statusUpdate'])->name('backend.contact.statusUpdate');
 
     Route::get('/comment', [CommentController::class, 'index'])->name('backend.comment.index');
 
@@ -51,17 +56,17 @@ Route::prefix('mafpanel')->middleware(['auth', 'verified'])->group(function() {
     Route::get('/blog-kategori', [BlogCategoryController::class, 'index'])->name('backend.blogcategory.index');
     Route::get('/blog-kategori/getir', [BlogCategoryController::class, 'get'])->name('backend.blogcategory.get');
     Route::post('/blog-kategori/ekle', [BlogCategoryController::class, 'add'])->name('backend.blogcategory.add');
-    Route::post('/blog-kategori/durum-guncelle', [BlogCategoryController::class, 'statusUpdate'])->name('backend.blogcategory.statusUpdate');
     Route::post('/blog-kategori/sil', [BlogCategoryController::class, 'delete'])->name('backend.blogcategory.delete');
     Route::post('/blog-kategori/guncelle', [BlogCategoryController::class, 'update'])->name('backend.blogcategory.update');
+    Route::post('/blog-kategori/durum-guncelle', [BlogCategoryController::class, 'statusUpdate'])->name('backend.blogcategory.statusUpdate');
 
 
     Route::get('/calismalarim-kategori', [PortfolioCategoryController::class, 'index'])->name('backend.portfoliocategory.index');
     Route::get('/calismalarim-kategori/getir', [PortfolioCategoryController::class, 'get'])->name('backend.portfoliocategory.get');
     Route::post('/calismalarim-kategori/ekle', [PortfolioCategoryController::class, 'add'])->name('backend.portfoliocategory.add');
-    Route::post('/calismalarim-kategori/durum-guncelle', [PortfolioCategoryController::class, 'statusUpdate'])->name('backend.portfoliocategory.statusUpdate');
     Route::post('/calismalarim-kategori/sil', [PortfolioCategoryController::class, 'delete'])->name('backend.portfoliocategory.delete');
     Route::post('/calismalarim-kategori/guncelle', [PortfolioCategoryController::class, 'update'])->name('backend.portfoliocategory.update');
+    Route::post('/calismalarim-kategori/durum-guncelle', [PortfolioCategoryController::class, 'statusUpdate'])->name('backend.portfoliocategory.statusUpdate');
 });
 
 //-----------------------------/backend routes-----------------------------//

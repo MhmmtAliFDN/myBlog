@@ -413,24 +413,9 @@
 @endpush
 
 @section('content')
-    <!-- Page header -->
-    <div class="page-header page-header-light shadow">
-        <div class="page-header-content d-lg-flex border-top">
-            <div class="d-flex">
-                <div class="breadcrumb py-2">
-                    <a href="" class="breadcrumb-item"><i class="ph-house"></i><mark>!Burayı unutma!</mark></a>
-                    <a href="{{ route('backend.dashboard.index') }}" class="breadcrumb-item">{{ __('Ana Sayfa') }}</a>
-                    <span class="breadcrumb-item active">{{ __('İletişim') }}</span>
-                </div>
-                <a href="#breadcrumb_elements"
-                    class="btn btn-light align-self-center collapsed d-lg-none border-transparent rounded-pill p-0 ms-auto"
-                    data-bs-toggle="collapse">
-                    <i class="ph-caret-down collapsible-indicator ph-sm m-1"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-    <!-- /page header -->
+    @push('header')
+        <span class="breadcrumb-item active">{{ __('İletişim') }}</span>
+    @endpush
 
     <!-- Content area -->
     <div class="content container">
@@ -794,8 +779,7 @@
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Detay:') }}</label>
                             <div class="col-sm-9">
-                                <textarea class="form-control" id="my_modal_content" name="my_modal_content" rows="3" cols="3"
-                                    placeholder="Kendi işimi insanlara tanıtmak için bir şık siteye ihtiyacım var" disabled readonly></textarea>
+                                <textarea class="form-control" id="my_modal_content" name="my_modal_content" rows="3" cols="3" disabled readonly></textarea>
                             </div>
                         </div>
 

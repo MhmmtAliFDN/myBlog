@@ -26,7 +26,7 @@ class Blog extends Model
     }
 
     public function category() {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(BlogCategory::class);
     }
 
     public function comment() {

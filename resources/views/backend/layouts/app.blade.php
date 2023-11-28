@@ -36,6 +36,8 @@
 			<!-- Inner content -->
 			<div class="content-inner">
 
+                @include('backend.inc.header')
+
                 @yield('content')
 
                 @include('backend.inc.footer')

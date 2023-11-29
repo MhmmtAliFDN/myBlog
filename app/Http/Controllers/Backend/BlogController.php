@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rules\File;
 
 class BlogController extends Controller
 {
@@ -30,7 +29,7 @@ class BlogController extends Controller
         $rules = [
             'name' => ['required', 'min: 5', 'max: 100', 'unique:blogs'],
             'content' => ['required', 'max: 65000'],
-            'image' => ['required', 'image', 'max:2048'],
+            'image' => ['required', 'image', 'max:2048', /*'dimensions:min_width=100,min_height=100,max_width=500,max_height=500'*/],
         ];
 
         $messages = [
@@ -54,7 +53,7 @@ class BlogController extends Controller
         }
 
         if ($request->hasFile('my_modal_image')) {
-            $imageName = ImageHelper::upload($request->my_modal_image, Str::slug($request->my_modal_name));
+            $imageName = ImageHelper::upload($request->my_modal_image, Str::slug($request->my_modal_name), $request->segment(2));
             if ($imageName) {
                 Blog::create([
                     'user_id' => Auth::user()->id,
@@ -73,10 +72,13 @@ class BlogController extends Controller
 
     public function delete(Request $request) {
         try {
-            Blog::where('id', $request->id)->first()->delete();
+            $blog = Blog::find($request->id);
+            ImageHelper::delete($blog->image, $request->segment(2));
+            $blog->delete();
+
             return response(['message' => 'İletişim başarıyla silindi'], 200);
         } catch (\Throwable $th) {
-            return response(['message' => 'Sistemsel bir hata oluştu'], 500);
+            return response(['message' => $th->getMessage()], 500);
         }
     }
 

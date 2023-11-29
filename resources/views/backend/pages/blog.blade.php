@@ -176,8 +176,10 @@
         $(document).ready(function() {
             const validator = $('#my_add_item_form').submit(function(e) {
                 e.preventDefault();
-                var formData = new FormData(this);
+                $('#add_button').hide();
+                $('#adding_button').show();
 
+                var formData = new FormData(this);
                 $.ajax({
                     type: 'POST',
                     url: $(this).attr('action'),
@@ -185,10 +187,12 @@
                     contentType: false,
                     processData: false,
                     success: function(response) {
+                        $('#add_button').show();
+                        $('#adding_button').hide();
+
                         swalInit.fire({
                             icon: 'success',
                             title: response.message,
-                            //text: "Benimle iletişim kurduğunuz için teşekkür ederim. En kısa zamanda size dönüş yapacağım.",
                             timer: 3000,
                             timerProgressBar: true,
                             showCancelButton: false,
@@ -198,6 +202,9 @@
                         });
                     },
                     error: function(response) {
+                        $('#add_button').show();
+                        $('#adding_button').hide();
+
                         if (response.status === 422) {
                             var errorHtml = '<ul class="list-group list-group-flush">';
                             $.each(response.responseJSON.errors, function(index, error) {
@@ -216,6 +223,9 @@
                                 showConfirmButton: false,
                             });
                         } else {
+                            $('#add_button').show();
+                            $('#adding_button').hide();
+
                             swalInit.fire({
                                 icon: 'error',
                                 title: 'Sistemsel bir hata. Lütfen sonra tekrar deneyiniz.',
@@ -544,9 +554,8 @@
                     <div class="modal-body">
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Kategori:') }}</label>
-                            <div class="col-lg-9">
+                            <div class="col-sm-9">
                                 <select class="form-select" name="my_modal_category">
-                                    {{-- <option value="Default" selected>Seçiniz</option> --}}
                                     @foreach ($categories as $category)
                                         @if ($category->status == 'Aktif')
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -566,7 +575,7 @@
 
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Resim:') }}</label>
-                            <div class="col-lg-9">
+                            <div class="col-sm-9">
                                 <input type="file" class="form-control" name="my_modal_image" accept="image/*" required>
                                 <div class="form-text">{{ __('Yalnızca resim dosyası formatlarını desteklenmektedir.
                                 Resim boyutu en fazla 2 MB olabilir.') }}
@@ -597,8 +606,13 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('İptal') }}
                         </button>
-                        <button type="submit" class="btn btn-primary">{{ __('Ekle') }}
+                        <button id="add_button" type="submit" class="btn btn-primary">{{ __('Ekle') }}
                             <i class="ph-paper-plane-tilt ms-2"></i>
+                        </button>
+
+                        <button id="adding_button" class="btn btn-primary" type="button" style="display:none;" disabled>
+                            <span role="status">{{__('Ekleniyor')}}</span>
+                            <span class="spinner-border spinner-border-sm ms-2" aria-hidden="true"></span>
                         </button>
                     </div>
                 </form>
@@ -817,4 +831,6 @@
         </div>
     </div>
     <!-- /detail blog modal -->
+
+
 @endsection

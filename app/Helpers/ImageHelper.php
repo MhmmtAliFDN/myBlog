@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 
 class ImageHelper
@@ -18,6 +19,16 @@ class ImageHelper
     {
         $path = public_path('img\\'.$page.'\\'.$image);
 
+        if (File::exists($path)) unlink($path);
+    }
+
+    public static function update(UploadedFile $image, $name, $page, $oldImage)
+    {
+        $imageName = ImageHelper::upload($image, $name, $page);
+
+        $path = public_path('img\\'.$page.'\\'.$image);
         if ($path) unlink($path);
+
+        return $imageName;
     }
 }

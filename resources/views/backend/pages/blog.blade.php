@@ -22,6 +22,8 @@
     <script src="{{ asset('assets/backend/js/form/messages_tr.js') }}"></script>
     <script src="{{ asset('assets/backend/js/form/imask.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/form/sweet_alert.min.js') }}"></script>
+    <script src="{{ asset('assets/backend/js/form/ckeditor.js') }} "></script>
+    <script src="{{ asset('assets/backend/js/form/tr.js') }}"></script>
     <!-- /scripts -->
 
     <!-- DataTable Initialize Module -->
@@ -140,8 +142,8 @@
                     }
 
                     $('#my_item_detail_form #my_modal_id').val(response.data[0].id);
-                    $('#my_item_detail_form #my_modal_user_name').val(response.data[1]);
-                    $('#my_item_detail_form #my_modal_category_name').val(response.data[2]);
+                    $('#my_item_detail_form #my_modal_user').val(response.data[1]);
+                    $('#my_item_detail_form #my_modal_category').val(response.data[2]);
                     $('#my_item_detail_form #my_modal_name').val(response.data[0].name);
                     $('#my_item_detail_form #my_modal_slug').val(response.data[0].slug);
                     $('#my_item_detail_form #my_modal_comment').val(response.data[0].comment);
@@ -258,21 +260,14 @@
                         'id': id,
                     },
                     success: function(response) {
-                        $('#my_update_item_form #my_modal_id').val(response.data.id);
-                        $('#my_update_item_form #my_modal_user_id').val(response.data.user_id);
-                        $('#my_update_item_form #my_modal_category_id').val(response.data
+                        $('#my_update_item_form #my_modal_id').val(response.data[0].id);
+                        $('#my_update_item_form #my_modal_category').val(response.data[0]
                             .category_id);
-                        $('#my_update_item_form #my_modal_name').val(response.data.name);
-                        $('#my_update_item_form #my_modal_slug').val(response.data.slug);
-                        $('#my_update_item_form #my_modal_comment').val(response.data.comment);
-                        $('#my_update_item_form #my_modal_view').val(response.data.view);
-                        $('#my_update_item_form #my_modal_image').val(response.data.image);
-                        $('#my_update_item_form #my_modal_created_at').val(formatingDate(
-                            createdDate));
-                        $('#my_update_item_form #my_modal_updated_at').val(formatingDate(
-                            updatedDate));
-                        $('#my_update_item_form #my_modal_content').val(response.data.content);
-                        $('#my_update_item_form #my_modal_status').val(response.data.status);
+                        $('#my_update_item_form #my_modal_name').val(response.data[0].name);
+                        //$('#my_update_item_form #my_modal_image').val(response.data[0].image);
+                        $('#my_update_item_form #my_modal_content').val(response.data[0]
+                            .content);
+                        $('#my_update_item_form #my_modal_status').val(response.data[0].status);
                     },
                     error: function(response) {
                         if (response.status === 500) {
@@ -301,7 +296,6 @@
                         swalInit.fire({
                             icon: 'success',
                             title: response.message,
-                            //text: "Benimle iletişim kurduğunuz için teşekkür ederim. En kısa zamanda size dönüş yapacağım.",
                             timer: 3000,
                             timerProgressBar: true,
                             showCancelButton: false,
@@ -418,6 +412,174 @@
         });
     </script>
     <!-- /blog delete -->
+
+    <!-- CkEditor -->
+    <script>
+        CKEDITOR.ClassicEditor.create(document.getElementById("my_modal_editor"), {
+            toolbar: {
+                items: [
+                    'heading', '|', 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor',
+                    'bold', 'italic', 'strikethrough', 'underline', '|', 'findAndReplace', '-',
+                    'bulletedList', 'numberedList', 'todoList', '|', 'outdent', 'indent', '|',
+                    'alignment', 'subscript', 'superscript', 'specialCharacters', 'horizontalLine',
+                    '|', 'link', 'blockQuote', '-', 'insertImage', 'mediaEmbed', '|', 'code', 'codeBlock',
+                    'htmlEmbed', 'sourceEditing', '|', 'exportPDF', 'exportWord'
+                    // 'selectAll', 'removeFormat', 'undo', 'redo', 'highlight',
+                    // 'insertTable', 'textPartLanguage', 'pageBreak',
+                ],
+                shouldNotGroupWhenFull: true
+            },
+            language: 'tr',
+            list: {
+                properties: {
+                    styles: true,
+                    startIndex: true,
+                    reversed: true
+                }
+            },
+            heading: {
+                options: [{
+                        model: 'paragraph',
+                        title: 'Paragraph',
+                        class: 'ck-heading_paragraph'
+                    },
+                    {
+                        model: 'heading1',
+                        view: 'h1',
+                        title: 'Heading 1',
+                        class: 'ck-heading_heading1'
+                    },
+                    {
+                        model: 'heading2',
+                        view: 'h2',
+                        title: 'Heading 2',
+                        class: 'ck-heading_heading2'
+                    },
+                    {
+                        model: 'heading3',
+                        view: 'h3',
+                        title: 'Heading 3',
+                        class: 'ck-heading_heading3'
+                    },
+                    {
+                        model: 'heading4',
+                        view: 'h4',
+                        title: 'Heading 4',
+                        class: 'ck-heading_heading4'
+                    },
+                    {
+                        model: 'heading5',
+                        view: 'h5',
+                        title: 'Heading 5',
+                        class: 'ck-heading_heading5'
+                    },
+                    {
+                        model: 'heading6',
+                        view: 'h6',
+                        title: 'Heading 6',
+                        class: 'ck-heading_heading6'
+                    }
+                ]
+            },
+            placeholder: 'İçeriği giriniz.',
+            fontFamily: {
+                options: [
+                    'default',
+                    'Arial, Helvetica, sans-serif',
+                    'Courier New, Courier, monospace',
+                    'Georgia, serif',
+                    'Lucida Sans Unicode, Lucida Grande, sans-serif',
+                    'Tahoma, Geneva, sans-serif',
+                    'Times New Roman, Times, serif',
+                    'Trebuchet MS, Helvetica, sans-serif',
+                    'Verdana, Geneva, sans-serif'
+                ],
+                supportAllValues: true
+            },
+            fontSize: {
+                options: [10, 12, 14, 'default', 18, 20, 22],
+                supportAllValues: true
+            },
+            htmlSupport: {
+                allow: [{
+                    name: /.*/,
+                    attributes: true,
+                    classes: true,
+                    styles: true
+                }]
+            },
+            htmlEmbed: {
+                showPreviews: true
+            },
+            link: {
+                decorators: {
+                    addTargetToExternalLinks: true,
+                    defaultProtocol: 'https://',
+                    toggleDownloadable: {
+                        mode: 'manual',
+                        label: 'Downloadable',
+                        attributes: {
+                            download: 'file'
+                        }
+                    }
+                }
+            },
+            // https://ckeditor.com/docs/ckeditor5/latest/features/mentions.html#configuration
+            mention: {
+                feeds: [{
+                    marker: '@',
+                    feed: [
+                        '@apple', '@bears', '@brownie', '@cake', '@cake', '@candy', '@canes',
+                        '@chocolate', '@cookie', '@cotton', '@cream',
+                        '@cupcake', '@danish', '@donut', '@dragée', '@fruitcake', '@gingerbread',
+                        '@gummi', '@ice', '@jelly-o',
+                        '@liquorice', '@macaroon', '@marzipan', '@oat', '@pie', '@plum', '@pudding',
+                        '@sesame', '@snaps', '@soufflé',
+                        '@sugar', '@sweet', '@topping', '@wafer'
+                    ],
+                    minimumCharacters: 1
+                }]
+            },
+            // The "super-build" contains more premium features that require additional configuration, disable them below.
+            // Do not turn them on unless you read the documentation and know how to configure them and setup the editor.
+            removePlugins: [
+                // These two are commercial, but you can try them out without registering to a trial.
+                // 'ExportPdf',
+                // 'ExportWord',
+                'AIAssistant',
+                'CKBox',
+                'CKFinder',
+                'EasyImage',
+                // This sample uses the Base64UploadAdapter to handle image uploads as it requires no configuration.
+                // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/base64-upload-adapter.html
+                // Storing images as Base64 is usually a very bad idea.
+                // Replace it on production website with other solutions:
+                // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/image-upload.html
+                // 'Base64UploadAdapter',
+                'RealTimeCollaborativeComments',
+                'RealTimeCollaborativeTrackChanges',
+                'RealTimeCollaborativeRevisionHistory',
+                'PresenceList',
+                'Comments',
+                'TrackChanges',
+                'TrackChangesData',
+                'RevisionHistory',
+                'Pagination',
+                'WProofreader',
+                // Careful, with the Mathtype plugin CKEditor will not load when loading this sample
+                // from a local file system (file://) - load this site via HTTP server if you enable MathType.
+                'MathType',
+                // The following features are part of the Productivity Pack and require additional license.
+                'SlashCommand',
+                'Template',
+                'DocumentOutline',
+                'FormatPainter',
+                'TableOfContents',
+                'PasteFromOfficeEnhanced'
+            ]
+        });
+    </script>
+    <!-- /ckeditor -->
 @endpush
 
 @section('content')
@@ -548,14 +710,15 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
-                <form class="form-horizontal" id="my_add_item_form" action="{{ route('backend.blog.add') }}"
-                    method="POST" enctype="multipart/form-data">
+                <form class="form-horizontal" id="my_add_item_form" action="{{ route('backend.blog.add') }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
+
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Kategori:') }}</label>
                             <div class="col-sm-9">
-                                <select class="form-select" name="my_modal_category">
+                                <select class="form-select" name="category">
                                     @foreach ($categories as $category)
                                         @if ($category->status == 'Aktif')
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -568,7 +731,7 @@
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Başlık:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="my_modal_name"
+                                <input type="text" class="form-control" name="name"
                                     placeholder="Mikrodenetleyici Programlama" required>
                             </div>
                         </div>
@@ -576,9 +739,10 @@
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Resim:') }}</label>
                             <div class="col-sm-9">
-                                <input type="file" class="form-control" name="my_modal_image" accept="image/*" required>
-                                <div class="form-text">{{ __('Yalnızca resim dosyası formatlarını desteklenmektedir.
-                                Resim boyutu en fazla 2 MB olabilir.') }}
+                                <input type="file" class="form-control" name="image" accept="image/*" required>
+                                <div class="form-text">
+                                    {{ __('Yalnızca resim dosyası formatlarını desteklenmektedir.
+                                                                    Resim boyutu en fazla 2 MB olabilir.') }}
                                 </div>
                             </div>
                         </div>
@@ -586,8 +750,9 @@
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('İçerik:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="my_modal_content"
-                                    placeholder="Veri güvenliğimiz için neler yapabiliriz?" required>
+                                <textarea class="form-control" id="my_modal_editor" name="content"
+                                    placeholder="Veri güvenliğimiz için neler yapabiliriz?" required></textarea>
+                                {{-- <div id="my_modal_editor"></div> --}}
                             </div>
                         </div>
 
@@ -595,7 +760,7 @@
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Durum:') }}</label>
                             <div class="col-sm-2 mt-1">
                                 <select class="form-control my-badge badge bg-opacity-20 rounded-pill text-reset"
-                                    name="my_modal_status">
+                                    name="status">
                                     <option value="Aktif">{{ __('Aktif') }}</option>
                                     <option value="Pasif">{{ __('Pasif') }}</option>
                                 </select>
@@ -610,8 +775,9 @@
                             <i class="ph-paper-plane-tilt ms-2"></i>
                         </button>
 
-                        <button id="adding_button" class="btn btn-primary" type="button" style="display:none;" disabled>
-                            <span role="status">{{__('Ekleniyor')}}</span>
+                        <button id="adding_button" class="btn btn-primary" type="button" style="display:none;"
+                            disabled>
+                            <span role="status">{{ __('Ekleniyor') }}</span>
                             <span class="spinner-border spinner-border-sm ms-2" aria-hidden="true"></span>
                         </button>
                     </div>
@@ -635,55 +801,53 @@
                     method="POST">
                     @csrf
                     <div class="modal-body">
-                        <input type="hidden" id="my_modal_id" name="my_modal_id" value="{{ $blog->id }}">
+                        <input type="hidden" id="my_modal_id" name="id" value="{{ $blog->id }}">
+
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('ID:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_id" name="my_modal_id" disabled
+                                <input type="text" class="form-control" id="my_modal_id" name="id" disabled
                                     readonly>
                             </div>
                         </div>
 
                         <div class="row mb-3">
-                            <label
-                                class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Ad - Soyad:') }}</label>
+                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Kategori:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_name" name="my_modal_name"
-                                    placeholder="Ahmet Yılmaz" required>
+                                <select class="form-select" id="my_modal_category" name="category">
+                                    @foreach ($categories as $category)
+                                        @if ($category->status == 'Aktif')
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
                         <div class="row mb-3">
-                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Telefon:') }}</label>
+                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Başlık:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_phone" name="my_modal_phone"
-                                    placeholder="+90 (500)-000-0000" required>
-                                <div class="form-text text-muted">
-                                    {{ __('10 haneli telefon numanızı giriniz - +90 (555)-555-5555') }}</div>
+                                <input type="text" class="form-control" id="my_modal_name" name="name" required>
                             </div>
                         </div>
 
                         <div class="row mb-3">
-                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('E-posta:') }}</label>
+                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Resim:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_email" name="my_modal_email"
-                                    placeholder="ahmetyilmaz@domain.com" required>
+                                <input type="file" class="form-control" id="my_modal_image" name="image"
+                                    accept="image/*" required>
+                                <div class="form-text">
+                                    {{ __('Yalnızca resim dosyası formatlarını desteklenmektedir.
+                                                                    Resim boyutu en fazla 2 MB olabilir.') }}
+                                </div>
                             </div>
                         </div>
 
                         <div class="row mb-3">
-                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Konu:') }}</label>
+                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('İçerik:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_title" name="my_modal_title"
-                                    placeholder="Bir internet sitesine ihtiyacım var" required>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Detay:') }}</label>
-                            <div class="col-sm-9">
-                                <textarea class="form-control" id="my_modal_content" name="my_modal_content" rows="3" cols="3"
-                                    placeholder="Kendi işimi insanlara tanıtmak için bir şık siteye ihtiyacım var" required></textarea>
+                                <input type="text" class="form-control" id="my_modal_content" name="content"
+                                    required>
                             </div>
                         </div>
 
@@ -691,8 +855,7 @@
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Durum:') }}</label>
                             <div class="col-sm-2 mt-1">
                                 <select class="form-control my-badge badge bg-opacity-20 rounded-pill text-reset"
-                                    id="my_modal_status" name="my_modal_status">
-                                    <option value="Beklemede">{{ __('Beklemede') }}</option>
+                                    id="my_modal_status" name="status">
                                     <option value="Aktif">{{ __('Aktif') }}</option>
                                     <option value="Pasif">{{ __('Pasif') }}</option>
                                 </select>
@@ -703,8 +866,14 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('İptal') }}
                         </button>
-                        <button type="submit" class="btn btn-primary">{{ __('Ekle') }}
+                        <button id="update_button" type="submit" class="btn btn-primary">{{ __('Güncelle') }}
                             <i class="ph-paper-plane-tilt ms-2"></i>
+                        </button>
+
+                        <button id="updating_button" class="btn btn-primary" type="button" style="display:none;"
+                            disabled>
+                            <span role="status">{{ __('Güncelleniyor') }}</span>
+                            <span class="spinner-border spinner-border-sm ms-2" aria-hidden="true"></span>
                         </button>
                     </div>
                 </form>
@@ -728,7 +897,7 @@
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('ID:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_id" name="my_modal_id" disabled
+                                <input type="text" class="form-control" id="my_modal_id" name="id" disabled
                                     readonly>
                             </div>
                         </div>
@@ -736,56 +905,56 @@
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Yazar:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_user_name"
-                                    name="my_modal_user_name" disabled readonly>
+                                <input type="text" class="form-control" id="my_modal_user" name="user" disabled
+                                    readonly>
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Kategori:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_category_name"
-                                    name="my_modal_category_name" disabled readonly>
+                                <input type="text" class="form-control" id="my_modal_category" name="category"
+                                    disabled readonly>
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Başlık:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_name" name="my_modal_name"
-                                    disabled readonly>
+                                <input type="text" class="form-control" id="my_modal_name" name="name" disabled
+                                    readonly>
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Slug:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_slug" name="my_modal_slug"
-                                    disabled readonly>
+                                <input type="text" class="form-control" id="my_modal_slug" name="slug" disabled
+                                    readonly>
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Yorum:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_comment" name="my_modal_comment"
-                                    disabled readonly>
+                                <input type="text" class="form-control" id="my_modal_comment" name="comment" disabled
+                                    readonly>
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('İzlenme:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_view" name="my_modal_view"
-                                    disabled readonly>
+                                <input type="text" class="form-control" id="my_modal_view" name="view" disabled
+                                    readonly>
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Resim:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_image" name="my_modal_image"
-                                    disabled readonly>
+                                <input type="text" class="form-control" id="my_modal_image" name="image" disabled
+                                    readonly>
                             </div>
                         </div>
 
@@ -793,8 +962,8 @@
                             <label
                                 class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Oluşturulma Tarihi:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_created_at"
-                                    name="my_modal_created_at" disabled readonly>
+                                <input type="text" class="form-control" id="my_modal_created_at" name="created_at"
+                                    disabled readonly>
                             </div>
                         </div>
 
@@ -802,15 +971,15 @@
                             <label
                                 class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Değiştirilme Tarihi:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_updated_at"
-                                    name="my_modal_updated_at" disabled readonly>
+                                <input type="text" class="form-control" id="my_modal_updated_at" name="updated_at"
+                                    disabled readonly>
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('İçerik:') }}</label>
                             <div class="col-sm-9">
-                                <textarea class="form-control" id="my_modal_content" name="my_modal_content" rows="3" cols="3" disabled
+                                <textarea class="form-control" id="my_modal_content" name="content" rows="3" cols="3" disabled
                                     readonly></textarea>
                             </div>
                         </div>
@@ -819,7 +988,7 @@
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Durum:') }}</label>
                             <div class="col-sm-2 mt-1">
                                 <select class="form-control my-badge badge bg-opacity-20 rounded-pill text-reset"
-                                    id="my_modal_status" name="my_modal_status" disabled readonly>
+                                    id="my_modal_status" name="status" disabled readonly>
                                     <option value="Aktif">{{ __('Aktif') }}</option>
                                     <option value="Pasif">{{ __('Pasif') }}</option>
                                 </select>
@@ -831,6 +1000,5 @@
         </div>
     </div>
     <!-- /detail blog modal -->
-
 
 @endsection

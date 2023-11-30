@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('name', 100)->unique();
             $table->string('slug', 100)->unique();
             $table->string('image', 120)->default(asset('img/blog/default.jpg'));
-            $table->text('content', 10000);
+            $table->longText('content');
             $table->enum('status', ['Aktif', 'Pasif'])->default('Aktif');
             $table->timestamps();
         });

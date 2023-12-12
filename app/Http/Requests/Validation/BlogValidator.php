@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Validation;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class BlogValidator extends FormRequest
 {
@@ -11,7 +12,7 @@ class BlogValidator extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -19,13 +20,21 @@ class BlogValidator extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+    public function rules($blog=null): array
     {
-        return [
-            'name' => ['required', 'min: 5', 'max: 100', 'unique:blogs'],
-            //'content' => ['required', 'max: 65000'],
-            'image' => ['required', 'image', 'max:2048', /*'dimensions:min_width=100,min_height=100,max_width=500,max_height=500'*/],
-        ];
+        if ($blog==null) {
+            return [
+                'name' => ['required', 'min: 5', 'max: 100', 'unique:blogs'],
+                //'content' => ['required', 'max: 65000'],
+                'image' => ['required', 'image', 'max:2048', /*'dimensions:min_width=100,min_height=100,max_width=500,max_height=500'*/],
+            ];
+        } else {
+            return [
+                'name' => ['required', 'min: 5', 'max: 100', /*'unique:blogs',*/ Rule::unique('blogs')->ignore($blog->id)],
+                //'content' => ['required', 'max: 65000'],
+                'image' => ['required', 'image', 'max:2048', /*'dimensions:min_width=100,min_height=100,max_width=500,max_height=500'*/],
+            ];
+        }
     }
 
     public function messages(): array

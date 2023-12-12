@@ -31,14 +31,14 @@ class BlogController extends Controller
         }
 
         if ($request->hasFile('image')) {
-            $imageName = ImageHelper::upload($request->file('image'), Str::slug($request->name), $request->segment(2));
-            if ($imageName) {
+            $image = ImageHelper::upload($request->file('image'), Str::slug($request->name), $request->segment(2));
+            if ($image) {
                 Blog::create([
                     'user_id' => Auth::user()->id,
                     'category_id' => $request->category,
                     'name' => $request->name,
                     'slug' => Str::slug($request->name),
-                    'image' => $imageName,
+                    'image' => $image,
                     'content' => $request->content,
                     'status' => $request->status,
                 ]);
@@ -55,7 +55,7 @@ class BlogController extends Controller
             ImageHelper::delete($blog->image, $request->segment(2));
             $blog->delete();
 
-            return response(['message' => 'İletişim başarıyla silindi'], 200);
+            return response(['message' => 'Blog başarıyla silindi'], 200);
         } catch (\Throwable $th) {
             return response(['message' => $th->getMessage()], 500);
         }
@@ -63,17 +63,18 @@ class BlogController extends Controller
 
     public function update(Request $request)
     {
+        $oldBlog = Blog::find($request->id);
+
         $blogValidator = new BlogValidator();
-        $validator = Validator::make($request->all(), $blogValidator->rules(), $blogValidator->messages());
+        $validator = Validator::make($request->all(), $blogValidator->rules($oldBlog), $blogValidator->messages());
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
         if ($request->hasFile('image')) {
-            $oldImage = Blog::find($request->id)->image;
-            dd($oldImage);
-            $imageName = ImageHelper::update($request->my_modal_image, Str::slug($request->my_modal_name), $request->segment(2), $oldImage);
+            $oldImage = $oldBlog->image;
+            $imageName = ImageHelper::update($request->image, Str::slug($request->name), $request->segment(2), $oldImage);
             if ($imageName) {
                 Blog::where('id', $request->id)->update([
                     'name' => $request->name,
@@ -84,7 +85,7 @@ class BlogController extends Controller
             }
         }
 
-        return response()->json(['message' => 'İletişim Başarıyla Güncellendi'], 200);
+        return response()->json(['message' => 'Blog Başarıyla Güncellendi'], 200);
     }
 
     public function statusUpdate(Request $request)

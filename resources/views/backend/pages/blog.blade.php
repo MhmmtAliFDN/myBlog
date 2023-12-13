@@ -5,7 +5,6 @@
 @endpush
 
 @push('customCss')
-    <link rel="stylesheet" href="{{ asset('assets/backend/css/custom.css') }}">
 @endpush
 
 @push('customJs')
@@ -645,6 +644,8 @@
 
             const validator = $('#my_update_item_form').submit(function(e) {
                 e.preventDefault();
+                $('#update_button').hide();
+                $('#updating_button').show();
 
                 var formData = new FormData(this);
                 $.ajax({
@@ -654,6 +655,9 @@
                     contentType: false,
                     processData: false,
                     success: function(response) {
+                        $('#update_button').show();
+                        $('#updating_button').hide();
+
                         swalInit.fire({
                             icon: 'success',
                             title: response.message,
@@ -666,6 +670,9 @@
                         });
                     },
                     error: function(response) {
+                        $('#update_button').show();
+                        $('#updating_button').hide();
+
                         if (response.status === 422) {
                             var errorHtml = '<ul class="list-group list-group-flush">';
                             $.each(response.responseJSON.errors, function(index, error) {
@@ -684,6 +691,9 @@
                                 showConfirmButton: false,
                             });
                         } else {
+                            $('#update_button').show();
+                            $('#updating_button').hide();
+
                             swalInit.fire({
                                 icon: 'error',
                                 title: 'Sistemsel bir hata. Lütfen sonra tekrar deneyiniz.',
@@ -776,6 +786,7 @@
 @endpush
 
 @section('content')
+
     @push('header')
         <span class="breadcrumb-item active">{{ __('Blog') }}</span>
     @endpush
@@ -833,7 +844,11 @@
                                 <td class="my-select-checkbox"></td>
                                 <td>{{ $blog->id }}</td>
                                 <td>{{ $blog->user->name }}</td>
-                                <td>{{ $blog->category->name }}</td>
+                                @if ($blog->category->status=="Aktif")
+                                    <td>{{ $blog->category->name }}</td>
+                                @else
+                                    <td>{{ $blog->category->name }} (Pasif)</td>
+                                @endif
                                 <td>{{ $blog->name }}</td>
                                 <td>{{ $blog->slug }}</td>
                                 <td>{{ $blog->comment }}</td>
@@ -891,9 +906,6 @@
             </table>
         </div>
         <!-- /datatable -->
-        @foreach ($blogs as $blog)
-            {!! $blog->content !!}
-        @endforeach
     </div>
     <!-- /content area -->
 
@@ -916,9 +928,13 @@
                             <div class="col-sm-9">
                                 <select class="form-select" name="category">
                                     @foreach ($categories as $category)
-                                        @if ($category->status == 'Aktif')
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                        @endif
+                                        <option value="{{ $category->id }}">
+                                            @if ($category->status=='Aktif')
+                                                {{ $category->name }}
+                                            @else
+                                                {{ $category->name }} (Dikkat Pasif Kategori!)
+                                            @endif
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -964,8 +980,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('İptal') }}
-                        </button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('İptal') }}</button>
                         <button id="add_button" type="submit" class="btn btn-primary">{{ __('Ekle') }}
                             <i class="ph-paper-plane-tilt ms-2"></i>
                         </button>
@@ -1011,9 +1026,13 @@
                             <div class="col-sm-9">
                                 <select class="form-select" id="my_modal_category" name="category">
                                     @foreach ($categories as $category)
-                                        @if ($category->status == 'Aktif')
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                        @endif
+                                        <option value="{{ $category->id }}">
+                                            @if ($category->status=='Aktif')
+                                                {{ $category->name }}
+                                            @else
+                                                {{ $category->name }} (Dikkat Pasif Kategori!)
+                                            @endif
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -1151,7 +1170,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Resim:') }}</label>
+                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Resim URL:') }}</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="my_modal_image" name="image" disabled
                                     readonly>
@@ -1200,5 +1219,4 @@
         </div>
     </div>
     <!-- /detail blog modal -->
-
 @endsection

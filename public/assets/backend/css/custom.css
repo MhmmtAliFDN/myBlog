@@ -23,3 +23,12 @@
 .my-badge {
     --badge-padding-y: 0.6125rem !important;
 }
+
+#my-preloader {
+    background: #f1f4f9 url('/assets/backend/img/logo/loader2.gif') no-repeat center center;
+    background-size: 10%;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+}

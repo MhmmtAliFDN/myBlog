@@ -25,13 +25,13 @@ class BlogValidator extends FormRequest
         if ($blog==null) {
             return [
                 'name' => ['required', 'min: 5', 'max: 100', 'unique:blogs'],
-                //'content' => ['required', 'max: 65000'],
+                'content' => ['required'],
                 'image' => ['required', 'image', 'max:2048', /*'dimensions:min_width=100,min_height=100,max_width=500,max_height=500'*/],
             ];
         } else {
             return [
-                'name' => ['required', 'min: 5', 'max: 100', /*'unique:blogs',*/ Rule::unique('blogs')->ignore($blog->id)],
-                //'content' => ['required', 'max: 65000'],
+                'name' => ['required', 'min: 5', 'max: 100', Rule::unique('blogs')->ignore($blog->id)],
+                'content' => ['required'],
                 'image' => ['required', 'image', 'max:2048', /*'dimensions:min_width=100,min_height=100,max_width=500,max_height=500'*/],
             ];
         }
@@ -46,7 +46,6 @@ class BlogValidator extends FormRequest
             'name.unique' => 'Aynı isimde başka bir blog olamaz.',
 
             'content.required' => 'İçerik alanını boş olamaz.',
-            'content.max' => 'Lütfen içeriği daha kısa yazınız.',
 
             'image.required' => 'Lütfen bir resim ekleyiniz.',
             'image.image' => 'Dosya resim formatında olmalıdır.',

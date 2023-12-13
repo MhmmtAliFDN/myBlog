@@ -39,11 +39,15 @@ class ImageHelper
         }
     }
 
-    public static function update(UploadedFile $image, $name, $page, $oldImage)
+    public static function update(UploadedFile $image = null, $name, $page, $oldImage)
     {
-        ImageHelper::delete($oldImage, $page);
-        $imageName = ImageHelper::upload($image, $name, $page);
+        if ($image != null) {
+            ImageHelper::delete($oldImage, $page);
+            $imageName = ImageHelper::upload($image, $name, $page);
 
-        return $imageName;
+            return $imageName;
+        }
+
+        return $oldImage;
     }
 }

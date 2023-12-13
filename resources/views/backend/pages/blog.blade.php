@@ -24,6 +24,7 @@
     <script src="{{ asset('assets/backend/js/form/ckeditor.js') }} "></script>
     <script async charset="utf-8" src="{{ asset('assets/backend/js/form/embed.js') }}"></script>
     <script src="{{ asset('assets/backend/js/form/tr.js') }}"></script>
+    <script src="{{ asset('assets/backend/js/datatable/lightbox.min.js') }}"></script>
     <!-- /scripts -->
 
     <!-- CkEditor Add Modal -->
@@ -368,16 +369,16 @@
 
     <!-- CkEditor Media Embed -->
     <script>
-        document.querySelectorAll( 'oembed[url]' ).forEach( element => {
+        document.querySelectorAll('oembed[url]').forEach(element => {
             // Create the <a href="..." class="embedly-card"></a> element that Embedly uses
             // to discover the media.
-            const anchor = document.createElement( 'a' );
+            const anchor = document.createElement('a');
 
-            anchor.setAttribute( 'href', element.getAttribute( 'url' ) );
+            anchor.setAttribute('href', element.getAttribute('url'));
             anchor.className = 'embedly-card';
 
-            element.appendChild( anchor );
-        } );
+            element.appendChild(anchor);
+        });
     </script>
     <!-- /ckeditor media embed -->
 
@@ -496,6 +497,8 @@
                         return value < 10 ? "0" + value : value;
                     }
 
+                    var img = response.data[3];
+
                     $('#my_item_detail_form #my_modal_id').val(response.data[0].id);
                     $('#my_item_detail_form #my_modal_user').val(response.data[1]);
                     $('#my_item_detail_form #my_modal_category').val(response.data[2]);
@@ -508,6 +511,9 @@
                     $('#my_item_detail_form #my_modal_updated_at').val(formatingDate(updatedDate));
                     $('#my_item_detail_form #my_modal_content').val(response.data[0].content);
                     $('#my_item_detail_form #my_modal_status').val(response.data[0].status);
+
+                    $('#my_detail_modal_image_src').attr('src', img);
+                    $('#my_detail_modal_image_href').attr('href', img);
                 },
                 error: function(response) {
                     if (response.status === 500) {
@@ -616,13 +622,14 @@
                         'id': id,
                     },
                     success: function(response) {
-                        image = response.data[0].image;
-                        console.log(image);
+                        img = response.data[3];
+
                         $('#my_update_item_form #my_modal_id').val(response.data[0].id);
                         $('#my_update_item_form #my_modal_category').val(response.data[0].category_id);
                         $('#my_update_item_form #my_modal_name').val(response.data[0].name);
                         $('#my_update_item_form #my_modal_status').val(response.data[0].status);
-                        //$('#my_update_item_form #img_div').html('<img id="img" width="500" src="' + response.data[0].image + '" />');
+                        $('#my_update_item_form #my_update_modal_image_src').attr('src', img);
+                        $('#my_update_item_form #my_update_modal_image_href').attr('href', img);
                         my_update_modal_editor.setData(response.data[0].content);
                     },
                     error: function(response) {
@@ -783,6 +790,16 @@
         });
     </script>
     <!-- /blog delete -->
+
+    <!-- Lightbox -->
+    <script>
+        document.querySelectorAll('.my-lightbox-toggle').forEach((el) => el.addEventListener('click', (e) => {
+            e.preventDefault();
+            const lightbox = new Lightbox(el, options);
+            lightbox.show();
+        }));
+    </script>
+    <!-- /lightbox -->
 @endpush
 
 @section('content')
@@ -844,7 +861,7 @@
                                 <td class="my-select-checkbox"></td>
                                 <td>{{ $blog->id }}</td>
                                 <td>{{ $blog->user->name }}</td>
-                                @if ($blog->category->status=="Aktif")
+                                @if ($blog->category->status == 'Aktif')
                                     <td>{{ $blog->category->name }}</td>
                                 @else
                                     <td>{{ $blog->category->name }} (Pasif)</td>
@@ -929,7 +946,7 @@
                                 <select class="form-select" name="category">
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">
-                                            @if ($category->status=='Aktif')
+                                            @if ($category->status == 'Aktif')
                                                 {{ $category->name }}
                                             @else
                                                 {{ $category->name }} (Dikkat Pasif Kategori!)
@@ -954,7 +971,7 @@
                                 <input type="file" class="form-control" name="image" accept="image/*" required>
                                 <div class="form-text">
                                     {{ __('Yalnızca resim dosyası formatlarını desteklenmektedir.
-                                                                                                                                            Resim boyutu en fazla 2 MB olabilir.') }}
+                                                                                                                                                                                                                                                                                            Resim boyutu en fazla 2 MB olabilir.') }}
                                 </div>
                             </div>
                         </div>
@@ -980,7 +997,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('İptal') }}</button>
+                        <button type="button" class="btn btn-danger"
+                            data-bs-dismiss="modal">{{ __('İptal') }}</button>
                         <button id="add_button" type="submit" class="btn btn-primary">{{ __('Ekle') }}
                             <i class="ph-paper-plane-tilt ms-2"></i>
                         </button>
@@ -1027,7 +1045,7 @@
                                 <select class="form-select" id="my_modal_category" name="category">
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">
-                                            @if ($category->status=='Aktif')
+                                            @if ($category->status == 'Aktif')
                                                 {{ $category->name }}
                                             @else
                                                 {{ $category->name }} (Dikkat Pasif Kategori!)
@@ -1047,8 +1065,18 @@
 
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Güncel Resim:') }}</label>
-                            <div class="col-sm-9" id="img_div">
-
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="card">
+                                    <div class="card-img-actions m-1">
+                                        <img id="my_update_modal_image_src" class="card-img img-fluid">
+                                        <div class="card-img-actions-overlay card-img">
+                                            <a id="my_update_modal_image_href" class="btn btn-outline-white btn-icon rounded-pill"
+                                                data-toggle="lightbox">
+                                                <i class="ph-plus"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -1056,7 +1084,7 @@
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Resim:') }}</label>
                             <div class="col-sm-9">
                                 <input type="file" class="form-control" id="my_modal_image" name="image"
-                                    accept="image/*" required>
+                                    accept="image/*">
                                 <div class="form-text">
                                     {{ __('Yalnızca resim dosyası formatlarını desteklenmektedir. Resim boyutu en fazla 2 MB olabilir.') }}
                                 </div>
@@ -1170,10 +1198,28 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Resim URL:') }}</label>
+                            <label
+                                class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Resim URL:') }}</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="my_modal_image" name="image" disabled
                                     readonly>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Resim:') }}</label>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="card">
+                                    <div class="card-img-actions m-1">
+                                        <img id="my_detail_modal_image_src" class="card-img img-fluid">
+                                        <div class="card-img-actions-overlay card-img">
+                                            <a id="my_detail_modal_image_href" class="btn btn-outline-white btn-icon rounded-pill"
+                                                data-toggle="lightbox">
+                                                <i class="ph-plus"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

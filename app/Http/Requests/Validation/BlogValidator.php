@@ -32,7 +32,7 @@ class BlogValidator extends FormRequest
             return [
                 'name' => ['required', 'min: 5', 'max: 100', Rule::unique('blogs')->ignore($blog->id)],
                 'content' => ['required'],
-                'image' => ['required', 'image', 'max:2048', /*'dimensions:min_width=100,min_height=100,max_width=500,max_height=500'*/],
+                'image' => ['image', 'max:2048',  /*'dimensions:min_width=100,min_height=100,max_width=500,max_height=500'*/],
             ];
         }
     }

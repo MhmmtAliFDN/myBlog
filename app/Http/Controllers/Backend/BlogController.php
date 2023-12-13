@@ -72,17 +72,17 @@ class BlogController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        if ($request->hasFile('image')) {
-            $oldImage = $oldBlog->image;
-            $imageName = ImageHelper::update($request->image, Str::slug($request->name), $request->segment(2), $oldImage);
-            if ($imageName) {
-                Blog::where('id', $request->id)->update([
-                    'name' => $request->name,
-                    'category_id' => $request->category,
-                    'content' => $request->content,
-                    'status' => $request->status,
-                ]);
-            }
+        $oldImage = $oldBlog->image;
+        $image = ImageHelper::update($request->image, Str::slug($request->name), $request->segment(2), $oldImage);
+        if ($image) {
+            Blog::where('id', $request->id)->update([
+                'category_id' => $request->category,
+                'name' => $request->name,
+                'slug' => Str::slug($request->name),
+                'image' => $image,
+                'content' => $request->content,
+                'status' => $request->status,
+            ]);
         }
 
         return response()->json(['message' => 'Blog Başarıyla Güncellendi'], 200);
@@ -104,7 +104,8 @@ class BlogController extends Controller
             $blog = Blog::where('id', $request->id)->first();
             $user = Blog::find($request->id)->user->name;
             $category = Blog::find($request->id)->category->name;
-            return response(['data' => [$blog, $user, $category], 200]);
+            $image = asset($blog->image);
+            return response(['data' => [$blog, $user, $category, $image], 200]);
         } catch (\Throwable $th) {
             return response(['message' => 'Sistemsel bir hata oluştu. Veriler getirelemedi.'], 500);
         }

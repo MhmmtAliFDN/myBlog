@@ -5,7 +5,7 @@ namespace App\Http\Requests\Validation;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class BlogValidator extends FormRequest
+class PortfolioValidator extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,17 +20,17 @@ class BlogValidator extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules($blog=null): array
+    public function rules($portfolio=null): array
     {
-        if ($blog==null) {
+        if ($portfolio==null) {
             return [
-                'name' => ['required', 'min: 5', 'max: 100', 'unique:blogs'],
+                'name' => ['required', 'min: 5', 'max: 100', 'unique:portfolios'],
                 'content' => ['required'],
                 'image' => ['required', 'image', 'max:2048', /*'dimensions:min_width=100,min_height=100,max_width=500,max_height=500'*/],
             ];
         } else {
             return [
-                'name' => ['required', 'min: 5', 'max: 100', Rule::unique('blogs')->ignore($blog->id)],
+                'name' => ['required', 'min: 5', 'max: 100', Rule::unique('portfolios')->ignore($portfolio->id)],
                 'content' => ['required'],
                 'image' => ['image', 'max:2048',  /*'dimensions:min_width=100,min_height=100,max_width=500,max_height=500'*/],
             ];
@@ -40,10 +40,10 @@ class BlogValidator extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Blogunuzun ismi boş olamaz.',
-            'name.min' => 'Blogunuzun ismi 5 karakterden kısa olamaz.',
-            'name.max' => 'Blogunuzun ismi 100 karakterden uzun olamaz.',
-            'name.unique' => 'Aynı isimde başka bir blog olamaz.',
+            'name.required' => 'Çalışmanızın ismi boş olamaz.',
+            'name.min' => 'Çalışmanızın ismi 5 karakterden kısa olamaz.',
+            'name.max' => 'Çalışmanızın ismi 100 karakterden uzun olamaz.',
+            'name.unique' => 'Aynı isimde başka bir çalışma olamaz.',
 
             'content.required' => 'İçerik alanını boş olamaz.',
 

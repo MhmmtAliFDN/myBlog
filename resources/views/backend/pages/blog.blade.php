@@ -11,6 +11,7 @@
     <!-- Scripts -->
     <script src="{{ asset('assets/backend/js/datatable/my_datatable.js') }}"></script>
     <script src="{{ asset('assets/backend/js/form/my_form_validation.js') }}"></script>
+    <script src="{{ asset('assets/backend/js/form/my_text_editor.js') }}"></script>
     <script src="{{ asset('assets/backend/js/datatable/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/datatable/select.min.js') }}"></script>
     <script src="{{ asset('assets/backend/js/datatable/pdfmake.min.js') }}"></script>
@@ -29,340 +30,16 @@
 
     <!-- CkEditor Add Modal -->
     <script>
-        CKEDITOR.ClassicEditor.create(document.getElementById("my_add_modal_editor"), {
-            toolbar: {
-                items: [
-                    'heading', '|', 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor',
-                    'bold', 'italic', 'strikethrough', 'underline', '|', 'findAndReplace', '-',
-                    'bulletedList', 'numberedList', 'todoList', '|', 'outdent', 'indent', '|',
-                    'alignment', 'subscript', 'superscript', 'specialCharacters', 'horizontalLine',
-                    '|', 'link', 'blockQuote', '-', 'insertImage', 'mediaEmbed', '|', 'code', 'codeBlock',
-                    'htmlEmbed', 'sourceEditing', '|', 'exportPDF', 'exportWord'
-                    // 'selectAll', 'removeFormat', 'undo', 'redo', 'highlight',
-                    // 'insertTable', 'textPartLanguage', 'pageBreak',
-                ],
-                shouldNotGroupWhenFull: true
-            },
-            language: 'tr',
-            list: {
-                properties: {
-                    styles: true,
-                    startIndex: true,
-                    reversed: true
-                }
-            },
-            heading: {
-                options: [{
-                        model: 'paragraph',
-                        title: 'Paragraph',
-                        class: 'ck-heading_paragraph'
-                    },
-                    {
-                        model: 'heading1',
-                        view: 'h1',
-                        title: 'Heading 1',
-                        class: 'ck-heading_heading1'
-                    },
-                    {
-                        model: 'heading2',
-                        view: 'h2',
-                        title: 'Heading 2',
-                        class: 'ck-heading_heading2'
-                    },
-                    {
-                        model: 'heading3',
-                        view: 'h3',
-                        title: 'Heading 3',
-                        class: 'ck-heading_heading3'
-                    },
-                    {
-                        model: 'heading4',
-                        view: 'h4',
-                        title: 'Heading 4',
-                        class: 'ck-heading_heading4'
-                    },
-                    {
-                        model: 'heading5',
-                        view: 'h5',
-                        title: 'Heading 5',
-                        class: 'ck-heading_heading5'
-                    },
-                    {
-                        model: 'heading6',
-                        view: 'h6',
-                        title: 'Heading 6',
-                        class: 'ck-heading_heading6'
-                    }
-                ]
-            },
-            placeholder: 'İçeriği giriniz.',
-            fontFamily: {
-                options: [
-                    'default',
-                    'Arial, Helvetica, sans-serif',
-                    'Courier New, Courier, monospace',
-                    'Georgia, serif',
-                    'Lucida Sans Unicode, Lucida Grande, sans-serif',
-                    'Tahoma, Geneva, sans-serif',
-                    'Times New Roman, Times, serif',
-                    'Trebuchet MS, Helvetica, sans-serif',
-                    'Verdana, Geneva, sans-serif'
-                ],
-                supportAllValues: true
-            },
-            fontSize: {
-                options: [10, 12, 14, 'default', 18, 20, 22],
-                supportAllValues: true
-            },
-            htmlSupport: {
-                allow: [{
-                    name: /.*/,
-                    attributes: true,
-                    classes: true,
-                    styles: true
-                }]
-            },
-            htmlEmbed: {
-                showPreviews: true
-            },
-            link: {
-                decorators: {
-                    addTargetToExternalLinks: true,
-                    defaultProtocol: 'https://',
-                    toggleDownloadable: {
-                        mode: 'manual',
-                        label: 'Downloadable',
-                        attributes: {
-                            download: 'file'
-                        }
-                    }
-                }
-            },
-            // https://ckeditor.com/docs/ckeditor5/latest/features/mentions.html#configuration
-            mention: {
-                feeds: [{
-                    marker: '@',
-                    feed: [
-                        '@apple', '@bears', '@brownie', '@cake', '@cake', '@candy', '@canes',
-                        '@chocolate', '@cookie', '@cotton', '@cream',
-                        '@cupcake', '@danish', '@donut', '@dragée', '@fruitcake', '@gingerbread',
-                        '@gummi', '@ice', '@jelly-o',
-                        '@liquorice', '@macaroon', '@marzipan', '@oat', '@pie', '@plum', '@pudding',
-                        '@sesame', '@snaps', '@soufflé',
-                        '@sugar', '@sweet', '@topping', '@wafer'
-                    ],
-                    minimumCharacters: 1
-                }]
-            },
-            // The "super-build" contains more premium features that require additional configuration, disable them below.
-            // Do not turn them on unless you read the documentation and know how to configure them and setup the editor.
-            removePlugins: [
-                // These two are commercial, but you can try them out without registering to a trial.
-                // 'ExportPdf',
-                // 'ExportWord',
-                'AIAssistant',
-                'CKBox',
-                'CKFinder',
-                'EasyImage',
-                // This sample uses the Base64UploadAdapter to handle image uploads as it requires no configuration.
-                // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/base64-upload-adapter.html
-                // Storing images as Base64 is usually a very bad idea.
-                // Replace it on production website with other solutions:
-                // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/image-upload.html
-                // 'Base64UploadAdapter',
-                'RealTimeCollaborativeComments',
-                'RealTimeCollaborativeTrackChanges',
-                'RealTimeCollaborativeRevisionHistory',
-                'PresenceList',
-                'Comments',
-                'TrackChanges',
-                'TrackChangesData',
-                'RevisionHistory',
-                'Pagination',
-                'WProofreader',
-                // Careful, with the Mathtype plugin CKEditor will not load when loading this sample
-                // from a local file system (file://) - load this site via HTTP server if you enable MathType.
-                'MathType',
-                // The following features are part of the Productivity Pack and require additional license.
-                'SlashCommand',
-                'Template',
-                'DocumentOutline',
-                'FormatPainter',
-                'TableOfContents',
-                'PasteFromOfficeEnhanced'
-            ]
+        document.addEventListener('DOMContentLoaded', function() {
+            AddModalEditor.init();
         });
     </script>
     <!-- /ckeditor add modal -->
 
     <!-- CkEditor Update Modal -->
     <script>
-        let my_update_modal_editor;
-        CKEDITOR.ClassicEditor.create(document.getElementById("my_update_modal_editor"), {
-            toolbar: {
-                items: [
-                    'heading', '|', 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor',
-                    'bold', 'italic', 'strikethrough', 'underline', '|', 'findAndReplace', '-',
-                    'bulletedList', 'numberedList', 'todoList', '|', 'outdent', 'indent', '|',
-                    'alignment', 'subscript', 'superscript', 'specialCharacters', 'horizontalLine',
-                    '|', 'link', 'blockQuote', '-', 'insertImage', 'mediaEmbed', '|', 'code', 'codeBlock',
-                    'htmlEmbed', 'sourceEditing', '|', 'exportPDF', 'exportWord'
-                    // 'selectAll', 'removeFormat', 'undo', 'redo', 'highlight',
-                    // 'insertTable', 'textPartLanguage', 'pageBreak',
-                ],
-                shouldNotGroupWhenFull: true
-            },
-            language: 'tr',
-            list: {
-                properties: {
-                    styles: true,
-                    startIndex: true,
-                    reversed: true
-                }
-            },
-            heading: {
-                options: [{
-                        model: 'paragraph',
-                        title: 'Paragraph',
-                        class: 'ck-heading_paragraph'
-                    },
-                    {
-                        model: 'heading1',
-                        view: 'h1',
-                        title: 'Heading 1',
-                        class: 'ck-heading_heading1'
-                    },
-                    {
-                        model: 'heading2',
-                        view: 'h2',
-                        title: 'Heading 2',
-                        class: 'ck-heading_heading2'
-                    },
-                    {
-                        model: 'heading3',
-                        view: 'h3',
-                        title: 'Heading 3',
-                        class: 'ck-heading_heading3'
-                    },
-                    {
-                        model: 'heading4',
-                        view: 'h4',
-                        title: 'Heading 4',
-                        class: 'ck-heading_heading4'
-                    },
-                    {
-                        model: 'heading5',
-                        view: 'h5',
-                        title: 'Heading 5',
-                        class: 'ck-heading_heading5'
-                    },
-                    {
-                        model: 'heading6',
-                        view: 'h6',
-                        title: 'Heading 6',
-                        class: 'ck-heading_heading6'
-                    }
-                ]
-            },
-            placeholder: 'İçeriği giriniz.',
-            fontFamily: {
-                options: [
-                    'default',
-                    'Arial, Helvetica, sans-serif',
-                    'Courier New, Courier, monospace',
-                    'Georgia, serif',
-                    'Lucida Sans Unicode, Lucida Grande, sans-serif',
-                    'Tahoma, Geneva, sans-serif',
-                    'Times New Roman, Times, serif',
-                    'Trebuchet MS, Helvetica, sans-serif',
-                    'Verdana, Geneva, sans-serif'
-                ],
-                supportAllValues: true
-            },
-            fontSize: {
-                options: [10, 12, 14, 'default', 18, 20, 22],
-                supportAllValues: true
-            },
-            htmlSupport: {
-                allow: [{
-                    name: /.*/,
-                    attributes: true,
-                    classes: true,
-                    styles: true
-                }]
-            },
-            htmlEmbed: {
-                showPreviews: true
-            },
-            link: {
-                decorators: {
-                    addTargetToExternalLinks: true,
-                    defaultProtocol: 'https://',
-                    toggleDownloadable: {
-                        mode: 'manual',
-                        label: 'Downloadable',
-                        attributes: {
-                            download: 'file'
-                        }
-                    }
-                }
-            },
-            // https://ckeditor.com/docs/ckeditor5/latest/features/mentions.html#configuration
-            mention: {
-                feeds: [{
-                    marker: '@',
-                    feed: [
-                        '@apple', '@bears', '@brownie', '@cake', '@cake', '@candy', '@canes',
-                        '@chocolate', '@cookie', '@cotton', '@cream',
-                        '@cupcake', '@danish', '@donut', '@dragée', '@fruitcake', '@gingerbread',
-                        '@gummi', '@ice', '@jelly-o',
-                        '@liquorice', '@macaroon', '@marzipan', '@oat', '@pie', '@plum', '@pudding',
-                        '@sesame', '@snaps', '@soufflé',
-                        '@sugar', '@sweet', '@topping', '@wafer'
-                    ],
-                    minimumCharacters: 1
-                }]
-            },
-            // The "super-build" contains more premium features that require additional configuration, disable them below.
-            // Do not turn them on unless you read the documentation and know how to configure them and setup the editor.
-            removePlugins: [
-                // These two are commercial, but you can try them out without registering to a trial.
-                // 'ExportPdf',
-                // 'ExportWord',
-                'AIAssistant',
-                'CKBox',
-                'CKFinder',
-                'EasyImage',
-                // This sample uses the Base64UploadAdapter to handle image uploads as it requires no configuration.
-                // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/base64-upload-adapter.html
-                // Storing images as Base64 is usually a very bad idea.
-                // Replace it on production website with other solutions:
-                // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/image-upload.html
-                // 'Base64UploadAdapter',
-                'RealTimeCollaborativeComments',
-                'RealTimeCollaborativeTrackChanges',
-                'RealTimeCollaborativeRevisionHistory',
-                'PresenceList',
-                'Comments',
-                'TrackChanges',
-                'TrackChangesData',
-                'RevisionHistory',
-                'Pagination',
-                'WProofreader',
-                // Careful, with the Mathtype plugin CKEditor will not load when loading this sample
-                // from a local file system (file://) - load this site via HTTP server if you enable MathType.
-                'MathType',
-                // The following features are part of the Productivity Pack and require additional license.
-                'SlashCommand',
-                'Template',
-                'DocumentOutline',
-                'FormatPainter',
-                'TableOfContents',
-                'PasteFromOfficeEnhanced'
-            ]
-        }).then(editor => {
-            window.editor = editor;
-            my_update_modal_editor = editor;
+        document.addEventListener('DOMContentLoaded', function() {
+            UpdateModalEditor.init();
         });
     </script>
     <!-- /ckeditor update modal -->
@@ -614,6 +291,13 @@
                 id = item.attr('item-id');
                 var image;
 
+                let my_update_modal_editor;
+                var ckEditor = UpdateModalEditor.getEditor();
+                ckEditor.then(editor => {
+                    window.editor = editor;
+                    my_update_modal_editor = editor;
+                });
+
                 $.ajax({
                     type: 'GET',
                     url: '{{ route('backend.blog.get') }}',
@@ -798,7 +482,9 @@
             var datatable = BlogDataTable.getDataTable();
 
             dataTable.on('select', function() {
-                var selectedRowsCount = dataTable.rows({ selected: true }).count();
+                var selectedRowsCount = dataTable.rows({
+                    selected: true
+                }).count();
 
                 // Seçilen satır sayısına göre butonun görünürlüğünü ayarla
                 if (selectedRowsCount >= 2) {
@@ -809,7 +495,9 @@
             });
 
             dataTable.on('deselect', function() {
-                var selectedRowsCount = dataTable.rows({ selected: true }).count();
+                var selectedRowsCount = dataTable.rows({
+                    selected: true
+                }).count();
 
                 // Seçilen satır sayısına göre butonun görünürlüğünü ayarla
                 if (selectedRowsCount >= 2) {
@@ -1078,8 +766,7 @@
                             <div class="col-sm-9">
                                 <input type="file" class="form-control" name="image" accept="image/*" required>
                                 <div class="form-text">
-                                    {{ __('Yalnızca resim dosyası formatlarını desteklenmektedir.
-                                                                                                                                                                                                                                                                                                                                Resim boyutu en fazla 2 MB olabilir.') }}
+                                    {{ __('Yalnızca resim dosyası formatlarını desteklenmektedir.')}}                                                                                                                                                                                                                                         Resim boyutu en fazla 2 MB olabilir.') }}
                                 </div>
                             </div>
                         </div>
@@ -1129,7 +816,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ __('İletişim Güncelleme Formu') }}</h5>
+                    <h5 class="modal-title">{{ __('Blog Güncelleme Formu') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
@@ -1244,7 +931,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ __('İletişim Ayrıntıları') }}</h5>
+                    <h5 class="modal-title">{{ __('Blog Ayrıntıları') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 

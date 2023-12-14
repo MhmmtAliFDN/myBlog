@@ -52,7 +52,13 @@ Route::prefix('mafpanel')->middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/comment-report', [CommentReportController::class, 'index'])->name('backend.commentreport.index');
 
-    Route::get('/portfolio', [PortfolioController::class, 'index'])->name('backend.portfolio.index');
+    Route::get('/calismalarim', [PortfolioController::class, 'index'])->name('backend.portfolio.index');
+    Route::get('/calismalarim/getir', [PortfolioController::class, 'get'])->name('backend.portfolio.get');
+    Route::post('/calismalarim/ekle', [PortfolioController::class, 'add'])->name('backend.portfolio.add');
+    Route::post('/calismalarim/sil', [PortfolioController::class, 'delete'])->name('backend.portfolio.delete');
+    Route::post('/calismalarim/coklu-sil', [PortfolioController::class, 'deleteMultiple'])->name('backend.portfolio.deleteMultiple');
+    Route::post('/calismalarim/guncelle', [PortfolioController::class, 'update'])->name('backend.portfolio.update');
+    Route::post('/calismalarim/durum-guncelle', [PortfolioController::class, 'statusUpdate'])->name('backend.portfolio.statusUpdate');
 
     Route::get('/blog-kategori', [BlogCategoryController::class, 'index'])->name('backend.blogcategory.index');
     Route::get('/blog-kategori/getir', [BlogCategoryController::class, 'get'])->name('backend.blogcategory.get');

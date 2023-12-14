@@ -59,7 +59,7 @@
                     </a>
                     <div class="dropdown-menu">
                         <a href="{{ route('backend.portfolio.index') }}" class="dropdown-item rounded
-                        {{Route::currentRouteName() === 'backend.portfolio.index' ? 'active' : ''}}"><i class="ph-note-pencil me-2"></i>{{__('Çalışmalırım')}}</a>
+                        {{Route::currentRouteName() === 'backend.portfolio.index' ? 'active' : ''}}"><i class="ph-note-pencil me-2"></i>{{__('Çalışmalarım')}}</a>
                         <a href="{{ route('backend.portfoliocategory.index') }}"
                             class="dropdown-item rounded
                         {{Route::currentRouteName() === 'backend.portfoliocategory.index' ? 'active' : ''}}"><i class="ph-folders me-2"></i>{{__('Kategoriler')}}</a>

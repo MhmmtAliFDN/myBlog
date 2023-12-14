@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('category_id');
-            $table->string('name', 100);
-            $table->string('slug', 100);
-            $table->string('image', 100)->default(asset('img/portfolio/default.jpg'));
-            $table->text('content', 1000);
+            $table->string('name', 100)->unique();
+            $table->string('slug', 100)->unique();
+            $table->string('image', 100)->default(asset('img/calismalarim/default.jpg'));
+            $table->longText('content');
             $table->enum('status', ['Aktif', 'Pasif'])->default('Aktif');
             $table->timestamps();
         });

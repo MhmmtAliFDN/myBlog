@@ -30,13 +30,14 @@ Route::get('/', function () {
 
 //-----------------------------Backend Routes-----------------------------//
 
-Route::prefix('mafpanel')->middleware(['auth', 'verified'])->group(function() {
+Route::prefix('mafpanel')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('backend.dashboard.index');
 
     Route::get('/blog', [BlogController::class, 'index'])->name('backend.blog.index');
     Route::get('/blog/getir', [BlogController::class, 'get'])->name('backend.blog.get');
     Route::post('/blog/ekle', [BlogController::class, 'add'])->name('backend.blog.add');
     Route::post('/blog/sil', [BlogController::class, 'delete'])->name('backend.blog.delete');
+    Route::post('/blog/coklu-sil', [BlogController::class, 'deleteMultiple'])->name('backend.blog.deleteMultiple');
     Route::post('/blog/guncelle', [BlogController::class, 'update'])->name('backend.blog.update');
     Route::post('/blog/durum-guncelle', [BlogController::class, 'statusUpdate'])->name('backend.blog.statusUpdate');
 
@@ -83,4 +84,4 @@ Route::middleware('auth')->group(function () {
 
 //-----------------------------/auth routes-----------------------------//
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

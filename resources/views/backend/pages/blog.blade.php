@@ -625,7 +625,8 @@
                         img = response.data[3];
 
                         $('#my_update_item_form #my_modal_id').val(response.data[0].id);
-                        $('#my_update_item_form #my_modal_category').val(response.data[0].category_id);
+                        $('#my_update_item_form #my_modal_category').val(response.data[0]
+                            .category_id);
                         $('#my_update_item_form #my_modal_name').val(response.data[0].name);
                         $('#my_update_item_form #my_modal_status').val(response.data[0].status);
                         $('#my_update_item_form #my_update_modal_image_src').attr('src', img);
@@ -791,6 +792,113 @@
     </script>
     <!-- /blog delete -->
 
+    <!-- Blog Delete Multiple -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var datatable = BlogDataTable.getDataTable();
+
+            dataTable.on('select', function() {
+                var selectedRowsCount = dataTable.rows({ selected: true }).count();
+
+                // Seçilen satır sayısına göre butonun görünürlüğünü ayarla
+                if (selectedRowsCount >= 2) {
+                    $('#my_delete_items').show();
+                } else {
+                    $('#my_delete_items').hide();
+                }
+            });
+
+            dataTable.on('deselect', function() {
+                var selectedRowsCount = dataTable.rows({ selected: true }).count();
+
+                // Seçilen satır sayısına göre butonun görünürlüğünü ayarla
+                if (selectedRowsCount >= 2) {
+                    $('#my_delete_items').show();
+                } else {
+                    $('#my_delete_items').hide();
+                }
+            });
+        });
+
+
+
+        $('#my_delete_items').on('click', function() {
+            var selectedRows = dataTable.rows('.selected').data();
+            var selectedIds = [];
+
+            for (var i = 0; i < selectedRows.length; i++) {
+                var id = selectedRows[i][1]; // Burada 'id' yerine gerçek sütun adını kullanın
+                selectedIds.push(id);
+            }
+
+            swalInit.fire({
+                title: 'Birden çok satırı silmek istediğinize emin misiniz?',
+                text: "Onaylarsanız birden çok satırı tek seferde sileceksiniz. Bu geri dönüşü olmayan bir silme işlemidir!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Evet, sil',
+                cancelButtonText: 'İptal et',
+                buttonsStyling: false,
+                allowOutsideClick: false,
+                customClass: {
+                    confirmButton: 'btn btn-danger',
+                    cancelButton: 'btn btn-success'
+                }
+            }).then(function(result) {
+                if (result.value) {
+                    $.ajax({
+                        url: '{{ route('backend.blog.deleteMultiple') }}',
+                        method: 'POST',
+                        data: {
+                            '_token': '{{ csrf_token() }}',
+                            'ids': selectedIds,
+                        },
+                        success: function(respone) {
+                            swalInit.fire({
+                                icon: 'success',
+                                toast: true,
+                                text: respone.message,
+                                timer: 2000,
+                                timerProgressBar: true,
+                                showCancelButton: false,
+                                showConfirmButton: false,
+                                position: 'top-end'
+                            }).then(function() {
+                                location.reload();
+                            });
+                        },
+                        error: function(response) {
+                            if (response.status === 500) {
+                                swalInit.fire({
+                                    icon: 'warning',
+                                    toast: true,
+                                    text: response.responseJSON.message,
+                                    timer: 2000,
+                                    timerProgressBar: true,
+                                    showCancelButton: false,
+                                    showConfirmButton: false,
+                                    position: 'top-end'
+                                });
+                            }
+                        }
+                    });
+                } else if (result.dismiss === swal.DismissReason.cancel) {
+                    swalInit.fire({
+                        icon: 'error',
+                        toast: true,
+                        text: 'Silme işlemi iptal edildi',
+                        timer: 2000,
+                        timerProgressBar: true,
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        position: 'top-end'
+                    });
+                }
+            });
+        });
+    </script>
+    <!-- /blog delete multiple -->
+
     <!-- Lightbox -->
     <script>
         document.querySelectorAll('.my-lightbox-toggle').forEach((el) => el.addEventListener('click', (e) => {
@@ -819,7 +927,7 @@
                         <h5 class="mb-0">{{ __('Bloglar') }}</h5>
                     </div>
                     <div class="">
-                        <button type="button" class="btn btn-danger me-3" hidden>
+                        <button type="button" class="btn btn-danger me-3" id="my_delete_items" style="display:none;">
                             {{ __('Çoklu Sil') }}
                             <i class="ph-trash ms-1"></i>
                         </button>
@@ -971,7 +1079,7 @@
                                 <input type="file" class="form-control" name="image" accept="image/*" required>
                                 <div class="form-text">
                                     {{ __('Yalnızca resim dosyası formatlarını desteklenmektedir.
-                                                                                                                                                                                                                                                                                            Resim boyutu en fazla 2 MB olabilir.') }}
+                                                                                                                                                                                                                                                                                                                                Resim boyutu en fazla 2 MB olabilir.') }}
                                 </div>
                             </div>
                         </div>
@@ -1064,13 +1172,15 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Güncel Resim:') }}</label>
+                            <label
+                                class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Güncel Resim:') }}</label>
                             <div class="col-sm-6 col-lg-3">
                                 <div class="card">
                                     <div class="card-img-actions m-1">
                                         <img id="my_update_modal_image_src" class="card-img img-fluid">
                                         <div class="card-img-actions-overlay card-img">
-                                            <a id="my_update_modal_image_href" class="btn btn-outline-white btn-icon rounded-pill"
+                                            <a id="my_update_modal_image_href"
+                                                class="btn btn-outline-white btn-icon rounded-pill"
                                                 data-toggle="lightbox">
                                                 <i class="ph-plus"></i>
                                             </a>
@@ -1213,7 +1323,8 @@
                                     <div class="card-img-actions m-1">
                                         <img id="my_detail_modal_image_src" class="card-img img-fluid">
                                         <div class="card-img-actions-overlay card-img">
-                                            <a id="my_detail_modal_image_href" class="btn btn-outline-white btn-icon rounded-pill"
+                                            <a id="my_detail_modal_image_href"
+                                                class="btn btn-outline-white btn-icon rounded-pill"
                                                 data-toggle="lightbox">
                                                 <i class="ph-plus"></i>
                                             </a>

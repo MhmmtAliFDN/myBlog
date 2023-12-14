@@ -61,6 +61,23 @@ class BlogController extends Controller
         }
     }
 
+    public function deleteMultiple(Request $request)
+    {
+        $ids = $request->ids;
+        foreach ($ids as $id) {
+            $id = (int) $id;
+
+            try {
+                $blog = Blog::find($id);
+                ImageHelper::delete($blog->image, $request->segment(2));
+                $blog->delete();
+            } catch (\Throwable $th) {
+                return response(['message' => $th->getMessage()], 500);
+            }
+        }
+        return response(['message' => 'Bloglar başarıyla silindi'], 200);
+    }
+
     public function update(Request $request)
     {
         $oldBlog = Blog::find($request->id);

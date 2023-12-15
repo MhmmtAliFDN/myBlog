@@ -34,6 +34,14 @@ Route::get('/', function () {
 Route::prefix('mafpanel')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('backend.dashboard.index');
 
+    Route::get('/iletisim', [ContactController::class, 'index'])->name('backend.contact.index');
+    Route::get('/iletisim/getir', [ContactController::class, 'get'])->name('backend.contact.get');
+    Route::post('/iletisim/ekle', [ContactController::class, 'add'])->name('backend.contact.add');
+    Route::post('/iletisim/sil', [ContactController::class, 'delete'])->name('backend.contact.delete');
+    Route::post('/iletisim/coklu-sil', [ContactController::class, 'deleteMultiple'])->name('backend.contact.deleteMultiple');
+    Route::post('/iletisim/guncelle', [ContactController::class, 'update'])->name('backend.contact.update');
+    Route::post('/iletisim/durum-guncelle', [ContactController::class, 'statusUpdate'])->name('backend.contact.statusUpdate');
+
     Route::get('/blog', [BlogController::class, 'index'])->name('backend.blog.index');
     Route::get('/blog/getir', [BlogController::class, 'get'])->name('backend.blog.get');
     Route::post('/blog/ekle', [BlogController::class, 'add'])->name('backend.blog.add');
@@ -49,13 +57,6 @@ Route::prefix('mafpanel')->middleware(['auth', 'verified'])->group(function () {
     Route::post('/blog-kategori/coklu-sil', [BlogCategoryController::class, 'deleteMultiple'])->name('backend.blogcategory.deleteMultiple');
     Route::post('/blog-kategori/guncelle', [BlogCategoryController::class, 'update'])->name('backend.blogcategory.update');
     Route::post('/blog-kategori/durum-guncelle', [BlogCategoryController::class, 'statusUpdate'])->name('backend.blogcategory.statusUpdate');
-
-    Route::get('/iletisim', [ContactController::class, 'index'])->name('backend.contact.index');
-    Route::get('/iletisim/getir', [ContactController::class, 'get'])->name('backend.contact.get');
-    Route::post('/iletisim/ekle', [ContactController::class, 'add'])->name('backend.contact.add');
-    Route::post('/iletisim/sil', [ContactController::class, 'delete'])->name('backend.contact.delete');
-    Route::post('/iletisim/guncelle', [ContactController::class, 'update'])->name('backend.contact.update');
-    Route::post('/iletisim/durum-guncelle', [ContactController::class, 'statusUpdate'])->name('backend.contact.statusUpdate');
 
     Route::get('/comment', [CommentController::class, 'index'])->name('backend.comment.index');
 

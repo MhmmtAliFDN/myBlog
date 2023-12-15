@@ -60,25 +60,25 @@ const FormValidation = function() {
                 }
             },
             rules: {
-                my_modal_name: {
+                name: {
                     minlength: 5,
                     maxlength: 50,
                 },
-                my_modal_phone: {
+                phone: {
                     minlength: 18
                 },
-                my_modal_email: {
+                email: {
                     email: true
                 },
-                my_modal_title: {
+                title: {
                     maxlength: 100
                 },
-                my_modal_content: {
+                content: {
                     maxlength: 500
                 },
             },
             messages: {
-                my_modal_phone: {
+                phone: {
                     minlength: "Lütfen telefon numarasını 10 hane olarak giriniz.",
                 },
             }
@@ -118,25 +118,25 @@ const FormValidation = function() {
                 }
             },
             rules: {
-                my_modal_name: {
+                name: {
                     minlength: 5,
                     maxlength: 50,
                 },
-                my_modal_phone: {
+                phone: {
                     minlength: 18
                 },
-                my_modal_email: {
+                email: {
                     email: true
                 },
-                my_modal_title: {
+                title: {
                     maxlength: 100
                 },
-                my_modal_content: {
+                content: {
                     maxlength: 500
                 },
             },
             messages: {
-                my_modal_phone: {
+                phone: {
                     minlength: "Lütfen telefon numarasını 10 hane olarak giriniz.",
                 },
             }
@@ -166,7 +166,7 @@ const ExtendedFormControls = function() {
         }
 
         const myAddItemForm = document.getElementById('my_add_item_form');
-        const maskAddPhoneElement = myAddItemForm.querySelector('[name="my_modal_phone"]');
+        const maskAddPhoneElement = myAddItemForm.querySelector('[name="phone"]');
 
         if (maskAddPhoneElement) {
             const maskPhone = IMask(maskAddPhoneElement, {
@@ -175,7 +175,7 @@ const ExtendedFormControls = function() {
         }
 
         const myUpdateItemForm = document.getElementById('my_update_item_form');
-        const maskUpdatePhoneElement = myUpdateItemForm.querySelector('[name="my_modal_phone"]');
+        const maskUpdatePhoneElement = myUpdateItemForm.querySelector('[name="phone"]');
 
         if (maskUpdatePhoneElement) {
             const maskPhone = IMask(maskUpdatePhoneElement, {

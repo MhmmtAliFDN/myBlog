@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Validation\ContactValidator;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
@@ -12,132 +13,84 @@ use function Laravel\Prompts\text;
 
 class ContactController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $contacts = $this->getAll();
         return view('backend.pages.contact',compact('contacts'));
     }
 
-    public function add(Request $request) {
-        $request->merge([
-            'name' => $request->input('my_modal_name'),
-            'phone' => $request->input('my_modal_phone'),
-            'email' => $request->input('my_modal_email'),
-            'title' => $request->input('my_modal_title'),
-            'content' => $request->input('my_modal_content'),
-        ]);
-
-        $rules = [
-            'name' => ['required', 'min: 5', 'max: 50'],
-            'phone' => ['required', 'min:18'],
-            'email' => ['required', 'email:rfc,dns', 'max: 50'],
-            'title' => ['required', 'max: 100'],
-            'content' => ['required', 'max: 500'],
-        ];
-
-        $messages = [
-            'name.required' => 'İsim alanı boş olamaz.',
-            'name.min' => 'İsminiz 5 karakterden kısa olamaz.',
-            'name.max' => 'İsminiz 50 karakterden uzun olamaz.',
-
-            'phone.required' => 'Telefon numarası alanı boş olamaz.',
-            'phone.min' => 'Telefon numaranız 10 haneden kısa olamaz.',
-
-            'email.required' => 'Lütfen e-posta alanını doldurunuz.',
-            'email.max' => 'E-postanız 50 karakterden uzun olamaz.',
-            'email.email' => 'Gerçek bir e-posta giriniz: ornek_eposta@gmail.com',
-
-            'title.required' => 'Konu alanı boş olamaz.',
-            'title.max' => 'Lütfen konuyu daha kısa yazınız.',
-
-            'content.required' => 'İçerik alanını boş olamaz.',
-            'content.max' => 'Lütfen içeriği daha kısa yazınız.',
-        ];
-
-        $validator = Validator::make($request->all(), $rules, $messages);
+    public function add(Request $request)
+    {
+        $contactValidator = new ContactValidator();
+        $validator = Validator::make($request->all(), $contactValidator->rules(), $contactValidator->messages());
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
         Contact::create([
-            'name' => $request->my_modal_name,
-            'email' => $request->my_modal_email,
-            'phone' => $request->my_modal_phone,
-            'title' => $request->my_modal_title,
-            'content' => $request->my_modal_content,
-            'status' => $request->my_modal_status,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'title' => $request->title,
+            'content' => $request->content,
+            'status' => $request->status,
         ]);
 
         return response()->json(['message' => 'İletişim Başarıyla Eklendi'], 200);
     }
 
-    public function delete(Request $request) {
+    public function delete(Request $request)
+    {
         try {
-            Contact::where('id', $request->id)->first()->delete();
+            $contact = Contact::find($request->id);
+            $contact->delete();
+
             return response(['message' => 'İletişim başarıyla silindi'], 200);
         } catch (\Throwable $th) {
             return response(['message' => 'Sistemsel bir hata oluştu'], 500);
         }
     }
 
-    public function update(Request $request) {
-        $request->merge([
-            'name' => $request->input('my_modal_name'),
-            'phone' => $request->input('my_modal_phone'),
-            'email' => $request->input('my_modal_email'),
-            'title' => $request->input('my_modal_title'),
-            'content' => $request->input('my_modal_content'),
-            'status' => $request->input('my_modal_status'),
-        ]);
+    public function deleteMultiple(Request $request)
+    {
+        $ids = $request->ids;
+        foreach ($ids as $id) {
+            $id = (int) $id;
 
-        $rules = [
-            'name' => ['required', 'min: 5', 'max: 50'],
-            'phone' => ['required', 'min:18'],
-            'email' => ['required', 'email:rfc,dns', 'max: 50'],
-            'title' => ['required', 'max: 100'],
-            'content' => ['required', 'max: 500'],
-        ];
+            try {
+                $contact = Contact::find($id);
+                $contact->delete();
+            } catch (\Throwable $th) {
+                return response(['message' => 'Sistemsel bir hata oluştu'], 500);
+            }
+        }
+        return response(['message' => 'İletişimler başarıyla silindi'], 200);
+    }
 
-        $messages = [
-            'name.required' => 'İsim alanı boş olamaz.',
-            'name.min' => 'İsminiz 5 karakterden kısa olamaz.',
-            'name.max' => 'İsminiz 50 karakterden uzun olamaz.',
-
-            'phone.required' => 'Telefon numarası alanı boş olamaz.',
-            'phone.min' => 'Telefon numaranız 10 haneden kısa olamaz.',
-
-            'email.required' => 'Lütfen e-posta alanını doldurunuz.',
-            'email.max' => 'E-postanız 50 karakterden uzun olamaz.',
-            'email.email' => 'Gerçek bir e-posta giriniz: ornek_eposta@gmail.com',
-
-            'title.required' => 'Konu alanı boş olamaz.',
-            'title.max' => 'Lütfen konuyu daha kısa yazınız.',
-
-            'content.required' => 'İçerik alanını boş olamaz.',
-            'content.max' => 'Lütfen içeriği daha kısa yazınız.',
-        ];
-
-        $validator = Validator::make($request->all(), $rules, $messages);
+    public function update(Request $request)
+    {
+        $contactValidator = new ContactValidator();
+        $validator = Validator::make($request->all(), $contactValidator->rules(), $contactValidator->messages());
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-
-
-        Contact::where('id', $request->my_modal_id)->update([
-            'name' => $request->my_modal_name,
-            'email' => $request->my_modal_email,
-            'phone' => $request->my_modal_phone,
-            'title' => $request->my_modal_title,
-            'content' => $request->my_modal_content,
-            'status' => $request->my_modal_status,
+        Contact::where('id', $request->id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'title' => $request->title,
+            'content' => $request->content,
+            'status' => $request->status,
         ]);
 
         return response()->json(['message' => 'İletişim Başarıyla Güncellendi'], 200);
     }
 
-    public function statusUpdate(Request $request) {
+    public function statusUpdate(Request $request)
+    {
         try {
             Contact::where('id', $request->id)->first()->update(['status' => $request->status]);
             return response(['message' => 'Durum başarıyla güncellendi'], 200);

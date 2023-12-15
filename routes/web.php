@@ -46,9 +46,9 @@ Route::prefix('mafpanel')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/blog-kategori/getir', [BlogCategoryController::class, 'get'])->name('backend.blogcategory.get');
     Route::post('/blog-kategori/ekle', [BlogCategoryController::class, 'add'])->name('backend.blogcategory.add');
     Route::post('/blog-kategori/sil', [BlogCategoryController::class, 'delete'])->name('backend.blogcategory.delete');
+    Route::post('/blog-kategori/coklu-sil', [BlogCategoryController::class, 'deleteMultiple'])->name('backend.blogcategory.deleteMultiple');
     Route::post('/blog-kategori/guncelle', [BlogCategoryController::class, 'update'])->name('backend.blogcategory.update');
     Route::post('/blog-kategori/durum-guncelle', [BlogCategoryController::class, 'statusUpdate'])->name('backend.blogcategory.statusUpdate');
-
 
     Route::get('/iletisim', [ContactController::class, 'index'])->name('backend.contact.index');
     Route::get('/iletisim/getir', [ContactController::class, 'get'])->name('backend.contact.get');

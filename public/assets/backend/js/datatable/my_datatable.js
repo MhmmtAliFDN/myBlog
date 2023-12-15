@@ -252,7 +252,7 @@ const BlogCategoryDataTable = function() {
         });
 
         // Column selectors
-        $('.my_datatable').DataTable({
+        dataTable = $('.my_datatable').DataTable({
             buttons: {
                 buttons: [
                     {
@@ -325,10 +325,17 @@ const BlogCategoryDataTable = function() {
         });
     };
 
+    const init = function() {
+        _componentDatatableButtonsHtml5();
+    };
+
+    const getDataTable = function() {
+        return dataTable;
+    }
+
     return {
-        init: function() {
-            _componentDatatableButtonsHtml5();
-        }
+        init: init,
+        getDataTable: getDataTable
     }
 }();
 

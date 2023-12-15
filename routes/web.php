@@ -9,7 +9,6 @@ use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\PortfolioCategoryController;
 use App\Http\Controllers\Backend\PortfolioController;
 use App\Http\Controllers\ProfileController;
-use App\Models\PortfolioCategory;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,7 +57,13 @@ Route::prefix('mafpanel')->middleware(['auth', 'verified'])->group(function () {
     Route::post('/blog-kategori/guncelle', [BlogCategoryController::class, 'update'])->name('backend.blogcategory.update');
     Route::post('/blog-kategori/durum-guncelle', [BlogCategoryController::class, 'statusUpdate'])->name('backend.blogcategory.statusUpdate');
 
-    Route::get('/comment', [CommentController::class, 'index'])->name('backend.comment.index');
+    Route::get('/yorum', [CommentController::class, 'index'])->name('backend.comment.index');
+    Route::get('/yorum/getir', [CommentController::class, 'get'])->name('backend.comment.get');
+    Route::post('/yorum/ekle', [commentController::class, 'add'])->name('backend.comment.add');
+    Route::post('/yorum/sil', [commentController::class, 'delete'])->name('backend.comment.delete');
+    Route::post('/yorum/coklu-sil', [commentController::class, 'deleteMultiple'])->name('backend.comment.deleteMultiple');
+    Route::post('/yorum/guncelle', [commentController::class, 'update'])->name('backend.comment.update');
+    Route::post('/yorum/durum-guncelle', [commentController::class, 'statusUpdate'])->name('backend.comment.statusUpdate');
 
     Route::get('/comment-report', [CommentReportController::class, 'index'])->name('backend.commentreport.index');
 

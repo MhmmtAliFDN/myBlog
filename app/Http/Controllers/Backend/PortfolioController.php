@@ -57,7 +57,7 @@ class PortfolioController extends Controller
 
             return response(['message' => 'Çalışma başarıyla silindi'], 200);
         } catch (\Throwable $th) {
-            return response(['message' => $th->getMessage()], 500);
+            return response(['message' => 'Sistemsel bir hata oluştu'], 500);
         }
     }
 

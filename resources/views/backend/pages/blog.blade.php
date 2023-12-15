@@ -47,8 +47,6 @@
     <!-- CkEditor Media Embed -->
     <script>
         document.querySelectorAll('oembed[url]').forEach(element => {
-            // Create the <a href="..." class="embedly-card"></a> element that Embedly uses
-            // to discover the media.
             const anchor = document.createElement('a');
 
             anchor.setAttribute('href', element.getAttribute('url'));
@@ -486,7 +484,6 @@
                     selected: true
                 }).count();
 
-                // Seçilen satır sayısına göre butonun görünürlüğünü ayarla
                 if (selectedRowsCount >= 2) {
                     $('#my_delete_items').show();
                 } else {
@@ -499,7 +496,6 @@
                     selected: true
                 }).count();
 
-                // Seçilen satır sayısına göre butonun görünürlüğünü ayarla
                 if (selectedRowsCount >= 2) {
                     $('#my_delete_items').show();
                 } else {
@@ -508,14 +504,12 @@
             });
         });
 
-
-
         $('#my_delete_items').on('click', function() {
             var selectedRows = dataTable.rows('.selected').data();
             var selectedIds = [];
 
             for (var i = 0; i < selectedRows.length; i++) {
-                var id = selectedRows[i][1]; // Burada 'id' yerine gerçek sütun adını kullanın
+                var id = selectedRows[i][1];
                 selectedIds.push(id);
             }
 

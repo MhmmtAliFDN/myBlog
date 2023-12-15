@@ -5,7 +5,6 @@
 @endpush
 
 @push('customCss')
-    <link rel="stylesheet" href="{{asset('assets/backend/css/custom.css') }}">
 @endpush
 
 @push('customJs')
@@ -57,7 +56,7 @@
     <script>
         $(document).on('change', '#my_item_status', function() {
             var id = $(this).closest(".table_item").attr("item-id");
-            var status = $(this).find("option:selected").text(); //İlk başta $(this) yerine #my_item_status kullanmıştım. Bu da sayfada olan değil sadece ilk satırdaki id'yi alıyordu ve sürekli hatalı çalışıyordu.
+            var status = $(this).find("option:selected").text();
             var val = $(this).find("option:selected").val();
 
             $.ajax({
@@ -166,10 +165,12 @@
                     url: $(this).attr('action'),
                     data: $(this).serialize(),
                     success: function(response) {
+                        $('#add_button').show();
+                        $('#adding_button').hide();
+
                         swalInit.fire({
                             icon: 'success',
                             title: response.message,
-                            //text: "Benimle iletişim kurduğunuz için teşekkür ederim. En kısa zamanda size dönüş yapacağım.",
                             timer: 3000,
                             timerProgressBar: true,
                             showCancelButton: false,
@@ -179,6 +180,9 @@
                         });
                     },
                     error: function(response) {
+                        $('#add_button').show();
+                        $('#adding_button').hide();
+
                         if (response.status === 422) {
                             var errorHtml = '<ul class="list-group list-group-flush">';
                             $.each(response.responseJSON.errors, function(index, error) {
@@ -197,6 +201,9 @@
                                 showConfirmButton: false,
                             });
                         } else {
+                            $('#add_button').show();
+                            $('#adding_button').hide();
+
                             swalInit.fire({
                                 icon: 'error',
                                 title: 'Sistemsel bir hata. Lütfen sonra tekrar deneyiniz.',
@@ -253,15 +260,20 @@
 
             const validator = $('#my_update_item_form').submit(function(e) {
                 e.preventDefault();
+                $('#update_button').hide();
+                $('#updating_button').show();
+
                 $.ajax({
                     type: 'POST',
                     url: '{{ route('backend.portfoliocategory.update') }}',
                     data: $(this).serialize(),
                     success: function(response) {
+                        $('#update_button').show();
+                        $('#updating_button').hide();
+
                         swalInit.fire({
                             icon: 'success',
                             title: response.message,
-                            //text: "Benimle iletişim kurduğunuz için teşekkür ederim. En kısa zamanda size dönüş yapacağım.",
                             timer: 3000,
                             timerProgressBar: true,
                             showCancelButton: false,
@@ -271,6 +283,9 @@
                         });
                     },
                     error: function(response) {
+                        $('#update_button').show();
+                        $('#updating_button').hide();
+
                         if (response.status === 422) {
                             var errorHtml = '<ul class="list-group list-group-flush">';
                             $.each(response.responseJSON.errors, function(index, error) {
@@ -289,6 +304,9 @@
                                 showConfirmButton: false,
                             });
                         } else {
+                            $('#update_button').show();
+                            $('#updating_button').hide();
+
                             swalInit.fire({
                                 icon: 'error',
                                 title: 'Sistemsel bir hata. Lütfen sonra tekrar deneyiniz.',
@@ -379,25 +397,116 @@
     </script>
     <!-- /portfolio category delete -->
 
-    {{-- <script>
-        $(document).ready(function() {
-            var table = $('#my_datatable').DataTable();
+    <!-- Portfolio Category Delete Multiple -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var datatable = PortfolioCategoryDataTable.getDataTable();
 
-            $('td.my-select-checkbox').on('click.dtSelect', function() {
-                //var checkbox = $(this).is('.select-checkbox');
-                console.log(1);
-                if ($('.dtSelect')) {
+            dataTable.on('select', function() {
+                var selectedRowsCount = dataTable.rows({
+                    selected: true
+                }).count();
 
-                    console.log("a");
+                if (selectedRowsCount >= 2) {
+                    $('#my_delete_items').show();
                 } else {
-                    console.log("seçili değil");
+                    $('#my_delete_items').hide();
+                }
+            });
+
+            dataTable.on('deselect', function() {
+                var selectedRowsCount = dataTable.rows({
+                    selected: true
+                }).count();
+
+                if (selectedRowsCount >= 2) {
+                    $('#my_delete_items').show();
+                } else {
+                    $('#my_delete_items').hide();
                 }
             });
         });
-    </script> --}}
+
+        $('#my_delete_items').on('click', function() {
+            var selectedRows = dataTable.rows('.selected').data();
+            var selectedIds = [];
+
+            for (var i = 0; i < selectedRows.length; i++) {
+                var id = selectedRows[i][1];
+                selectedIds.push(id);
+            }
+
+            swalInit.fire({
+                title: 'Birden çok satırı silmek istediğinize emin misiniz?',
+                text: "Onaylarsanız birden çok satırı tek seferde sileceksiniz. Bu geri dönüşü olmayan bir silme işlemidir!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Evet, sil',
+                cancelButtonText: 'İptal et',
+                buttonsStyling: false,
+                allowOutsideClick: false,
+                customClass: {
+                    confirmButton: 'btn btn-danger',
+                    cancelButton: 'btn btn-success'
+                }
+            }).then(function(result) {
+                if (result.value) {
+                    $.ajax({
+                        url: '{{ route('backend.portfoliocategory.deleteMultiple') }}',
+                        method: 'POST',
+                        data: {
+                            '_token': '{{ csrf_token() }}',
+                            'ids': selectedIds,
+                        },
+                        success: function(respone) {
+                            swalInit.fire({
+                                icon: 'success',
+                                toast: true,
+                                text: respone.message,
+                                timer: 2000,
+                                timerProgressBar: true,
+                                showCancelButton: false,
+                                showConfirmButton: false,
+                                position: 'top-end'
+                            }).then(function() {
+                                location.reload();
+                            });
+                        },
+                        error: function(response) {
+                            if (response.status === 500) {
+                                swalInit.fire({
+                                    icon: 'warning',
+                                    toast: true,
+                                    text: response.responseJSON.message,
+                                    timer: 2000,
+                                    timerProgressBar: true,
+                                    showCancelButton: false,
+                                    showConfirmButton: false,
+                                    position: 'top-end'
+                                });
+                            }
+                        }
+                    });
+                } else if (result.dismiss === swal.DismissReason.cancel) {
+                    swalInit.fire({
+                        icon: 'error',
+                        toast: true,
+                        text: 'Silme işlemi iptal edildi',
+                        timer: 2000,
+                        timerProgressBar: true,
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        position: 'top-end'
+                    });
+                }
+            });
+        });
+    </script>
+    <!-- /portfolio category delete multiple -->
 @endpush
 
 @section('content')
+
     @push('header')
         <span class="breadcrumb-item active">{{ __('Kategori') }}</span>
     @endpush
@@ -413,7 +522,7 @@
                         <h5 class="mb-0">{{ __('Kategoriler') }}</h5>
                     </div>
                     <div class="">
-                        <button type="button" class="btn btn-danger me-3" hidden>
+                        <button type="button" class="btn btn-danger me-3" id="my_delete_items" style="display:none;">
                             {{ __('Çoklu Sil') }}
                             <i class="ph-trash ms-1"></i>
                         </button>
@@ -487,9 +596,8 @@
                                                 data-bs-target="#my_update_item_modal">
                                                 <i class="ph-wrench"></i>
                                             </button>
-                                            <button class="btn btn-outline-danger rounded-pill btn-sm"
-                                                id="my_delete_item" data-bs-popup="tooltip" title="Sil"
-                                                data-bs-placement="bottom">
+                                            <button class="btn btn-outline-danger rounded-pill btn-sm" id="my_delete_item"
+                                                data-bs-popup="tooltip" title="Sil" data-bs-placement="bottom">
                                                 <i class="ph-trash"></i>
                                             </button>
                                         </div>
@@ -522,7 +630,7 @@
                             <label
                                 class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Kategori Adı:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="my_modal_name" placeholder="Yazılım" required>
+                                <input type="text" class="form-control" name="name" placeholder="Yazılım" required>
                             </div>
                         </div>
 
@@ -530,7 +638,7 @@
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Durum:') }}</label>
                             <div class="col-sm-2 mt-1">
                                 <select class="form-control my-badge badge bg-opacity-20 rounded-pill text-reset"
-                                    name="my_modal_status">
+                                    name="status">
                                     <option value="Aktif">{{ __('Aktif') }}</option>
                                     <option value="Pasif">{{ __('Pasif') }}</option>
                                 </select>
@@ -541,8 +649,13 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('İptal') }}
                         </button>
-                        <button type="submit" class="btn btn-primary">{{ __('Ekle') }}
+                        <button id="add_button" type="submit" class="btn btn-primary">{{ __('Ekle') }}
                             <i class="ph-paper-plane-tilt ms-2"></i>
+                        </button>
+
+                        <button id="adding_button" class="btn btn-primary" type="button" style="display:none;" disabled>
+                            <span role="status">{{ __('Ekleniyor') }}</span>
+                            <span class="spinner-border spinner-border-sm ms-2" aria-hidden="true"></span>
                         </button>
                     </div>
                 </form>
@@ -552,8 +665,7 @@
     <!-- /add portfolio category modal -->
 
     <!-- Update Portfolio Category modal -->
-    <div id="my_update_item_modal" class="modal fade" data-bs-keyboard="false" data-bs-backdrop="static"
-        tabindex="-1">
+    <div id="my_update_item_modal" class="modal fade" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -561,15 +673,16 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
-                <form class="form-horizontal" id="my_update_item_form" action="{{ route('backend.portfoliocategory.update') }}"
-                    method="POST">
+                <form class="form-horizontal" id="my_update_item_form"
+                    action="{{ route('backend.portfoliocategory.update') }}" method="POST">
                     @csrf
                     <div class="modal-body">
-                        <input type="hidden" id="my_modal_id" name="my_modal_id" value="{{ $category->id }}">
+                        <input type="hidden" id="my_modal_id" name="id" value="{{ $category->id }}">
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('ID:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_id" name="my_modal_id" disabled readonly>
+                                <input type="text" class="form-control" id="my_modal_id" name="id" disabled
+                                    readonly>
                             </div>
                         </div>
 
@@ -577,16 +690,7 @@
                             <label
                                 class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Kategori Adı:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_name" name="my_modal_name"
-                                    placeholder="Ahmet Yılmaz" required>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label
-                                class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Slug:') }}</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_slug" name="my_modal_slug" disabled readonly>
+                                <input type="text" class="form-control" id="my_modal_name" name="name" required>
                             </div>
                         </div>
 
@@ -594,7 +698,7 @@
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Durum:') }}</label>
                             <div class="col-sm-2 mt-1">
                                 <select class="form-control my-badge badge bg-opacity-20 rounded-pill text-reset"
-                                    id="my_modal_status" name="my_modal_status">
+                                    id="my_modal_status" name="status">
                                     <option value="Aktif">{{ __('Aktif') }}</option>
                                     <option value="Pasif">{{ __('Pasif') }}</option>
                                 </select>
@@ -605,8 +709,14 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('İptal') }}
                         </button>
-                        <button type="submit" class="btn btn-primary">{{ __('Ekle') }}
+                        <button id="update_button" type="submit" class="btn btn-primary">{{ __('Güncelle') }}
                             <i class="ph-paper-plane-tilt ms-2"></i>
+                        </button>
+
+                        <button id="updating_button" class="btn btn-primary" type="button" style="display:none;"
+                            disabled>
+                            <span role="status">{{ __('Güncelleniyor') }}</span>
+                            <span class="spinner-border spinner-border-sm ms-2" aria-hidden="true"></span>
                         </button>
                     </div>
                 </form>
@@ -630,16 +740,16 @@
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('ID:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_id" name="my_modal_id" disabled
+                                <input type="text" class="form-control" id="my_modal_id" name="id" disabled
                                     readonly>
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label
-                                class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Ad - Soyad:') }}</label>
+                                class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Kategori Adı:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_name" name="my_modal_name"
+                                <input type="text" class="form-control" id="my_modal_name" name="name"
                                     disabled readonly>
                             </div>
                         </div>
@@ -647,8 +757,8 @@
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Slug:') }}</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="my_modal_slug" name="my_modal_slug" disabled
-                                    readonly>
+                                <input type="text" class="form-control" id="my_modal_slug" name="slug"
+                                    disabled readonly>
                             </div>
                         </div>
 
@@ -657,7 +767,7 @@
                                 class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Oluşturulma Tarihi:') }}</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="my_modal_created_at"
-                                    name="my_modal_created_at" disabled readonly>
+                                    name="created_at" disabled readonly>
                             </div>
                         </div>
 
@@ -666,7 +776,7 @@
                                 class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Değiştirilme Tarihi:') }}</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="my_modal_updated_at"
-                                    name="my_modal_updated_at" disabled readonly>
+                                    name="updated_at" disabled readonly>
                             </div>
                         </div>
 
@@ -674,7 +784,7 @@
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Durum:') }}</label>
                             <div class="col-sm-2 mt-1">
                                 <select class="form-control my-badge badge bg-opacity-20 rounded-pill text-reset"
-                                    id="my_modal_status" name="my_modal_status" disabled readonly>
+                                    id="my_modal_status" name="status" disabled readonly>
                                     <option value="Aktif">{{ __('Aktif') }}</option>
                                     <option value="Pasif">{{ __('Pasif') }}</option>
                                 </select>

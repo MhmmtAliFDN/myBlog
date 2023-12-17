@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, shrink-to-fit=no">
     <meta name="keywords" content="WebSite Template" />
     <meta name="description" content="Muhammet Ali Fidan - Blog Sitesi">
     <meta name="author" content="www.muhammetalifidan.com.tr">
@@ -56,7 +56,9 @@
 
         @include('frontend.inc.navigation')
 
-        @yield('content')
+        <div role="main" class="main">
+            @yield('content')
+        </div>
 
         @include('frontend.inc.footer')
     </div>
@@ -80,7 +82,7 @@
     <script src="{{asset('assets/frontend/js/theme.init.js')}}"></script>
 
     {{-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script> --}}
-    <script>
+    {{-- <script>
         /*
     			Map Settings
 
@@ -271,7 +273,7 @@
 
         mapRef.mapTypes.set('map_style', styledMap);
         mapRef.setMapTypeId('map_style');
-    </script>
+    </script> --}}
 
 </body>
 

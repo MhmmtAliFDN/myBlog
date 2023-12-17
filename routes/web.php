@@ -8,6 +8,10 @@ use App\Http\Controllers\Backend\ContactController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\PortfolioCategoryController;
 use App\Http\Controllers\Backend\PortfolioController;
+use App\Http\Controllers\Frontend\AboutController;
+use App\Http\Controllers\Frontend\BlogController as FrontendBlogController;
+use App\Http\Controllers\Frontend\ContactController as FrontendContactController;
+use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,9 +21,13 @@ use Illuminate\Support\Facades\Route;
 
 //-----------------------------Frontend Routes-----------------------------//
 
-Route::get('/', function () {
-    return view('frontend.pages.home');
-});
+Route::get('/', [HomeController::class, 'index'])->name('frontend.home.index');
+Route::get('/calismalarim', [ContactController::class, 'index'])->name('frontend.portfolio.index');
+Route::get('/blog', [FrontendBlogController::class, 'index'])->name('frontend.blog.index');
+Route::get('/hakkimda', [AboutController::class, 'index'])->name('frontend.about.index');
+Route::get('/hakkimda/ozgecmis-indir', [AboutController::class, 'downloadcv'])->name('frontend.about.downloadcv');
+Route::get('/iletisim', [FrontendContactController::class, 'index'])->name('frontend.contact.index');
+Route::post('/iletisim/ekle', [FrontendContactController::class, 'add'])->name('frontend.contact.add');
 
 //-----------------------------Frontend Routes-----------------------------//
 
@@ -54,7 +62,7 @@ Route::prefix('mafpanel')->middleware(['auth', 'verified'])->group(function () {
     Route::post('/blog-kategori/guncelle', [BlogCategoryController::class, 'update'])->name('backend.blogcategory.update');
     Route::post('/blog-kategori/durum-guncelle', [BlogCategoryController::class, 'statusUpdate'])->name('backend.blogcategory.statusUpdate');
 
-    // Route::get('/yorum', [CommentController::class, 'index'])->name('backend.comment.index');
+    Route::get('/yorum', [CommentController::class, 'index'])->name('backend.comment.index');
     // Route::get('/yorum/getir', [CommentController::class, 'get'])->name('backend.comment.get');
     // Route::post('/yorum/ekle', [commentController::class, 'add'])->name('backend.comment.add');
     // Route::post('/yorum/sil', [commentController::class, 'delete'])->name('backend.comment.delete');

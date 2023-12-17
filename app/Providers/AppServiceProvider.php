@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Blog;
+use App\Models\BlogCategory;
 use App\Models\Comment;
 use App\Models\Contact;
+use App\Models\Portfolio;
+use App\Models\PortfolioCategory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -22,6 +26,23 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        view()->composer('frontend.inc.navigation', function ($view) {
+            [
+                $view->with(
+                    'blogs', Blog::where('status', 'Aktif')->select('id', 'category_id', 'name')->get(),
+                ),
+                $view->with(
+                    'blogCategories', BlogCategory::where('status', 'Aktif')->select('id', 'name')->get(),
+                ),
+                $view->with(
+                    'portfolios', Portfolio::where('status', 'Aktif')->select('id', 'category_id', 'name')->get(),
+                ),
+                $view->with(
+                    'portfolioCategories', PortfolioCategory::where('status', 'Aktif')->select('id', 'name')->get(),
+                ),
+            ];
+        });
+
         view()->composer('backend.inc.notifications', function ($view) {
             [
                 $view->with(

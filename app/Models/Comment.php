@@ -29,7 +29,7 @@ class Comment extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function commentReport() {
+    public function commentReports() {
         return $this->hasMany(CommentReport::class);
     }
 }

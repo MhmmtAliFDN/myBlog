@@ -29,7 +29,7 @@ class Blog extends Model
         return $this->belongsTo(BlogCategory::class);
     }
 
-    public function comment() {
+    public function comments() {
         return $this->hasMany(Comment::class);
     }
 }

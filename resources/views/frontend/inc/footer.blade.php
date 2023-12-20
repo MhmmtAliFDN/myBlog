@@ -5,7 +5,7 @@
                 <a href="demo-business-consulting-4.html" class="text-decoration-none">
                     <img src="{{asset('img/images/logo/coderlog.webp')}}" width="123" height="32" class="img-fluid mb-4 rounded-circle" alt="CoderLog" />
                 </a>
-                <p class="text-3-5 font-weight-medium pe-lg-2 text-white">{{_('Kod mizah gibidir. Açıklamak zorunda kaldığınızda kötüdür.')}} <br> {{_('- Cory House')}} </p>
+                <p class="text-3-5 font-weight-medium pe-lg-2 text-white">{{_('Kod mizah gibidir. Açıklamak zorunda kalıyorsanız kötüdür.')}} <br> {{_('- Cory House')}} </p>
                 <ul class="list list-unstyled">
                     <li class="d-flex align-items-center mb-4">
                         <i class="icon icon-envelope text-color-light text-5 font-weight-bold position-relative top-1 me-3-5"></i>

@@ -29,16 +29,16 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('frontend.inc.navigation', function ($view) {
             [
                 $view->with(
-                    'blogs', Blog::where('status', 'Aktif')->select('id', 'category_id', 'name')->get(),
+                    'blogs', Blog::where('status', 'Aktif')->select('id', 'category_id', 'name', 'slug')->get(),
                 ),
                 $view->with(
-                    'blogCategories', BlogCategory::where('status', 'Aktif')->select('id', 'name')->get(),
+                    'blogCategories', BlogCategory::where('status', 'Aktif')->select('id', 'name', 'slug')->get(),
                 ),
                 $view->with(
-                    'portfolios', Portfolio::where('status', 'Aktif')->select('id', 'category_id', 'name')->get(),
+                    'portfolios', Portfolio::where('status', 'Aktif')->select('id', 'category_id', 'name', 'slug')->get(),
                 ),
                 $view->with(
-                    'portfolioCategories', PortfolioCategory::where('status', 'Aktif')->select('id', 'name')->get(),
+                    'portfolioCategories', PortfolioCategory::where('status', 'Aktif')->select('id', 'name', 'slug')->get(),
                 ),
             ];
         });

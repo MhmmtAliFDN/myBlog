@@ -117,14 +117,15 @@
                                                         <div class="row px-1">
                                                             @foreach ($blogCategories as $category)
                                                                 <div class="col-lg-3">
-                                                                    <span
-                                                                        class="dropdown-mega-sub-title">{{ $category->name }}</span>
+                                                                    <a class="category-link" href="{{route('frontend.blog.getbycategory', $category->slug)}}">{{ $category->name }}</span>
                                                                     <ul class="dropdown-mega-sub-nav">
 
                                                                         @foreach ($blogs as $blog)
                                                                             @if ($blog->category_id == $category->id)
-                                                                                <li><a class="dropdown-item"
-                                                                                        href="elements-accordions.html">{{ $blog->name }}</a>
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="{{route('frontend.blog.getsinglepost', ['categorySlug' => $blog->category->slug, 'blogSlug' => $blog->slug])}}">{{ $blog->name }}
+                                                                                    </a>
                                                                                 </li>
                                                                             @endif
                                                                         @endforeach

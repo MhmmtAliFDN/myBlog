@@ -23,7 +23,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('frontend.home.index');
 Route::get('/calismalarim', [ContactController::class, 'index'])->name('frontend.portfolio.index');
+
 Route::get('/blog', [FrontendBlogController::class, 'index'])->name('frontend.blog.index');
+Route::get('/blog/{categorySlug}', [FrontendBlogController::class, 'getByCategory'])->name('frontend.blog.getbycategory');
+Route::get('/blog/{categorySlug}/{blogSlug}', [FrontendBlogController::class, 'getSinglePost'])->name('frontend.blog.getsinglepost');
+
+
 Route::get('/hakkimda', [AboutController::class, 'index'])->name('frontend.about.index');
 Route::get('/hakkimda/ozgecmis-indir', [AboutController::class, 'downloadcv'])->name('frontend.about.downloadcv');
 Route::get('/iletisim', [FrontendContactController::class, 'index'])->name('frontend.contact.index');

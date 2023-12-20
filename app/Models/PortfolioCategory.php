@@ -15,7 +15,7 @@ class PortfolioCategory extends Model
         'status',
     ];
 
-    public function portfolio() {
+    public function portfolios() {
         return $this->hasMany(Portfolio::class);
     }
 }

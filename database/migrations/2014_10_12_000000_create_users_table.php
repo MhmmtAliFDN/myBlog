@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('image', 100)->default(asset('img/profile/default.png'));
-            $table->enum('status', ['pending', 'active', 'inactive'])->default('active');
+            $table->enum('status', ['Beklemede', 'Aktif', 'Pasif'])->default('Aktif');
             $table->rememberToken();
             $table->timestamps();
         });

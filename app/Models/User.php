@@ -44,19 +44,19 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function blog() {
+    public function blogs() {
         $this->hasMany(Blog::class);
     }
 
-    public function comment() {
+    public function comments() {
         $this->hasMany(Comment::class);
     }
 
-    public function commentReport() {
+    public function commentReports() {
         $this->hasMany(CommentReport::class);
     }
 
-    public function portfolio() {
+    public function portfolios() {
         $this->hasMany(Portfolio::class);
     }
 

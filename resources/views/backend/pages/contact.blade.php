@@ -42,7 +42,7 @@
     <!-- Form Validation -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            FormValidation.init();
+            ContactFormValidation.init();
         });
     </script>
     <!-- /form validation -->
@@ -663,7 +663,7 @@
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Telefon:') }}</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" name="phone"
-                                    placeholder="+90 (500)-000-0000" value="+90 (5" required>
+                                    placeholder="+90 (500)-000-0000" required>
                                 <div class="form-text text-muted">
                                     {{ __('10 haneli telefon numanızı giriniz - +90 (555)-555-5555') }}</div>
                             </div>

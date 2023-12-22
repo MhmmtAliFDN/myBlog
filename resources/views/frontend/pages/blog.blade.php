@@ -42,9 +42,7 @@
                                         <h2 class="font-weight-semibold text-5 line-height-6 mt-3 mb-2"><a
                                                 href="{{ route('frontend.blog.getsinglepost', ['categorySlug' => $blog->category->slug, 'blogSlug' => $blog->slug]) }}">{{ $blog->name }}</a>
                                         </h2>
-                                        {{-- <p>Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad
-                                            litora
-                                            torquent per conubia nostra, per inceptos himenaeos.</p> --}}
+                                        <p>{{$blog->summary}}</p>
 
                                         <div class="post-meta">
                                             <span><i class="far fa-user"></i> {{ $blog->user->name }} </span>

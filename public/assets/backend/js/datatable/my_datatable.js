@@ -1,7 +1,7 @@
 const ContactDataTable = function() {
 
     // Basic Datatable examples
-    const _componentDatatableButtonsHtml5 = function() {
+    const _componentDatatable = function() {
         if (!$().DataTable) {
             console.warn('Warning - datatables.min.js is not loaded.');
             return;
@@ -100,7 +100,7 @@ const ContactDataTable = function() {
     };
 
     const init = function() {
-        _componentDatatableButtonsHtml5();
+        _componentDatatable();
     };
 
     const getDataTable = function() {
@@ -116,7 +116,7 @@ const ContactDataTable = function() {
 const BlogDataTable = function() {
 
     // Basic Datatable examples
-    const _componentDatatableButtonsHtml5 = function() {
+    const _componentDatatable = function() {
         if (!$().DataTable) {
             console.warn('Warning - datatables.min.js is not loaded.');
             return;
@@ -205,7 +205,7 @@ const BlogDataTable = function() {
                     targets: 6
                 },
                 {
-                    targets: [-3,-4,-5,-6,-9],
+                    targets: [-3,-4,-5,-6,-7,-10],
                     visible: false
                 }
             ],
@@ -218,7 +218,7 @@ const BlogDataTable = function() {
     };
 
     const init = function() {
-        _componentDatatableButtonsHtml5();
+        _componentDatatable();
     };
 
     const getDataTable = function() {
@@ -234,7 +234,7 @@ const BlogDataTable = function() {
 const BlogCategoryDataTable = function() {
 
     // Basic Datatable examples
-    const _componentDatatableButtonsHtml5 = function() {
+    const _componentDatatable = function() {
         if (!$().DataTable) {
             console.warn('Warning - datatables.min.js is not loaded.');
             return;
@@ -333,7 +333,7 @@ const BlogCategoryDataTable = function() {
     };
 
     const init = function() {
-        _componentDatatableButtonsHtml5();
+        _componentDatatable();
     };
 
     const getDataTable = function() {
@@ -349,7 +349,7 @@ const BlogCategoryDataTable = function() {
 const PortfolioDataTable = function() {
 
     // Basic Datatable examples
-    const _componentDatatableButtonsHtml5 = function() {
+    const _componentDatatable = function() {
         if (!$().DataTable) {
             console.warn('Warning - datatables.min.js is not loaded.');
             return;
@@ -451,7 +451,7 @@ const PortfolioDataTable = function() {
     };
 
     const init = function() {
-        _componentDatatableButtonsHtml5();
+        _componentDatatable();
     };
 
     const getDataTable = function() {
@@ -467,7 +467,7 @@ const PortfolioDataTable = function() {
 const PortfolioCategoryDataTable = function() {
 
     // Basic Datatable examples
-    const _componentDatatableButtonsHtml5 = function() {
+    const _componentDatatable = function() {
         if (!$().DataTable) {
             console.warn('Warning - datatables.min.js is not loaded.');
             return;
@@ -566,7 +566,7 @@ const PortfolioCategoryDataTable = function() {
     };
 
     const init = function() {
-        _componentDatatableButtonsHtml5();
+        _componentDatatable();
     };
 
     const getDataTable = function() {

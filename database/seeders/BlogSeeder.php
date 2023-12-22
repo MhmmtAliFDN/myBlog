@@ -22,6 +22,7 @@ class BlogSeeder extends Seeder
             'name'=> 'Yazılımda İsimlendirme Kuralları',
             'slug'=> Str::slug('Yazılımda İsimlendirme Kuralları', '-'),
             'image'=> asset('img/blog/naming_convention.jpg'),
+            'summary' => 'Programlamada isimlendirme kuralları kodunuzun okunurluğu için önemlidir.',
             'content'=> "<p>Programlamada naming convention'lar, kodun anlaşılır,
             düzenli ve bakımı kolay olmasını sağlar. İyi bir naming convention,
             diğer geliştiricilerin kodunuzu anlamasını kolaylaştırır ve hataları
@@ -41,6 +42,7 @@ class BlogSeeder extends Seeder
             'name'=> 'Verilerimiz Her Gün Daha Çok Çalınıyor',
             'slug'=> Str::slug('Verilerimiz Her Gün Daha Çok Çalınıyor', '-'),
             'image'=> asset('img/blog/veri-guvenligi.jpg'),
+            'summary' => 'Verilerimiz bizim kişiliğimizdir, onları dikkatsizce paylaşmak, evinizin kapısını kilitlememek gibidir.',
             'content'=> "<p>Veri güvenliği, bugünün dijital dünyasında önemli
             bir rol oynamaktadır. Veriler, şirketlerin, bireylerin ve
             hükümetlerin işleyişinde kritik bir varlık haline gelmiştir.
@@ -63,6 +65,7 @@ class BlogSeeder extends Seeder
             'name'=> 'Yakında Sabit Disklere İhtiyaç Duymayacağız',
             'slug'=> Str::slug('Yakında Sabit Disklere İhtiyaç Duymayacağız', '-'),
             'image'=> asset('img/blog/bulut-bilisimi.jpg'),
+            'summary' => 'Bulut bilişimin, işletmelere ve bireylere esneklik, ölçeklenebilirlik ve erişim kolaylığı sağladığı belirtilmiştir.',
             'content'=> "<p>Bulut bilişim, bilgi teknolojilerinde devrim
             yaratmış bir paradigma olarak öne çıkıyor. Bu yaklaşım, verilerin
             ve uygulamaların yerel sunucular yerine uzak sunucular üzerinde

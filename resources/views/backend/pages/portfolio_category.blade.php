@@ -33,7 +33,7 @@
     <!-- Form Validation -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            FormValidation.init();
+            PortfolioCategoryFormValidation.init();
         });
     </script>
     <!-- /form validation -->

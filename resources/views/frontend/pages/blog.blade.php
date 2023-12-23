@@ -24,72 +24,86 @@
             <div class="col-lg-9 order-lg-1">
                 <div class="blog-posts">
 
-                    <div class="row px-3">
+                    @if ($blogs->count() > 0)
 
-                        @foreach ($blogs as $blog)
-                            <div class="col-sm-6">
-                                <article class="post post-medium border-0 pb-0 mb-5">
-                                    <div class="post-image">
-                                        <a href="{{ route('frontend.blog.getsinglepost', ['categorySlug' => $blog->category->slug, 'blogSlug' => $blog->slug]) }}">
-                                            <img src="{{ asset($blog->image) }}"
-                                                class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0"
-                                                alt="blog-image" />
-                                        </a>
+                        <div class="row px-3">
+
+                                @foreach ($blogs as $blog)
+                                    <div class="col-sm-6">
+                                        <article class="post post-medium border-0 pb-0 mb-5">
+                                            <div class="post-image">
+                                                <a href="{{ route('frontend.blog.getsinglepost', ['categorySlug' => $blog->category->slug, 'blogSlug' => $blog->slug]) }}">
+                                                    <img src="{{ asset($blog->image) }}"
+                                                        class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0"
+                                                        alt="blog-image" />
+                                                </a>
+                                            </div>
+
+                                            <div class="post-content">
+
+                                                <h2 class="font-weight-semibold text-5 line-height-6 mt-3 mb-2"><a
+                                                        href="{{ route('frontend.blog.getsinglepost', ['categorySlug' => $blog->category->slug, 'blogSlug' => $blog->slug]) }}">{{ $blog->name }}</a>
+                                                </h2>
+                                                <p>{{$blog->summary}}</p>
+
+                                                <div class="post-meta">
+                                                    <span><i class="far fa-user"></i>{{ $blog->user->name }}</span>
+                                                    <span><i class="far fa-folder"></i> <a
+                                                            href="{{ route('frontend.blog.getbycategory', $blog->category->slug) }}">{{ $blog->category->name }}</a></span>
+                                                    <span><i class="fa-regular fa-eye"></i>{{ $blog->view }}</span>
+                                                    <span class="d-block mt-2"><a href="{{ route('frontend.blog.getsinglepost', ['categorySlug' => $blog->category->slug, 'blogSlug' => $blog->slug]) }}"
+                                                            class="btn btn-xs btn-light text-1 text-uppercase">{{ _('Daha Fazlasını Oku') }}</a></span>
+                                                </div>
+
+                                            </div>
+                                        </article>
                                     </div>
+                                @endforeach
 
-                                    <div class="post-content">
-
-                                        <h2 class="font-weight-semibold text-5 line-height-6 mt-3 mb-2"><a
-                                                href="{{ route('frontend.blog.getsinglepost', ['categorySlug' => $blog->category->slug, 'blogSlug' => $blog->slug]) }}">{{ $blog->name }}</a>
-                                        </h2>
-                                        <p>{{$blog->summary}}</p>
-
-                                        <div class="post-meta">
-                                            <span><i class="far fa-user"></i> {{ $blog->user->name }} </span>
-                                            <span><i class="far fa-folder"></i> <a
-                                                    href="{{ route('frontend.blog.getbycategory', $blog->category->slug) }}">{{ $blog->category->name }}</a></span>
-                                            <span><i class="fa-regular fa-eye"></i>{{ $blog->view }}</span>
-                                            <span class="d-block mt-2"><a href="{{ route('frontend.blog.getsinglepost', ['categorySlug' => $blog->category->slug, 'blogSlug' => $blog->slug]) }}"
-                                                    class="btn btn-xs btn-light text-1 text-uppercase">{{ _('Daha Fazlasını Oku') }}</a></span>
-                                        </div>
-
-                                    </div>
-                                </article>
-                            </div>
-                        @endforeach
-
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col">
-                            <ul class="pagination float-end">
-
-                                @if ($blogs->currentPage() > 1)
-                                    <li class="page-item">
-                                        <a class="page-link" href="{{ $blogs->previousPageUrl() }}">
-                                            <i class="fas fa-angle-left"></i>
-                                        </a>
-                                    </li>
-                                @endif
-
-                                @for ($i = 1; $i <= $blogs->lastPage(); $i++)
-                                    <li class="page-item {{ $i == $blogs->currentPage() ? 'active' : '' }}">
-                                        <a class="page-link" href="{{ $blogs->url($i) }}">{{ $i }}</a>
-                                    </li>
-                                @endfor
-
-                                @if ($blogs->hasMorePages())
-                                    <li class="page-item">
-                                        <a class="page-link" href="{{ $blogs->nextPageUrl() }}">
-                                            <i class="fas fa-angle-right"></i>
-                                        </a>
-                                    </li>
-                                @endif
-
-                            </ul>
                         </div>
-                    </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <ul class="pagination float-end">
+
+                                    @if ($blogs->currentPage() > 1)
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $blogs->previousPageUrl() }}">
+                                                <i class="fas fa-angle-left"></i>
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                    @for ($i = 1; $i <= $blogs->lastPage(); $i++)
+                                        <li class="page-item {{ $i == $blogs->currentPage() ? 'active' : '' }}">
+                                            <a class="page-link" href="{{ $blogs->url($i) }}">{{ $i }}</a>
+                                        </li>
+                                    @endfor
+
+                                    @if ($blogs->hasMorePages())
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $blogs->nextPageUrl() }}">
+                                                <i class="fas fa-angle-right"></i>
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                </ul>
+                            </div>
+                        </div>
+
+                    @else
+                        <section class="http-error">
+                            <div class="row justify-content-center py-3">
+                                <div class="col-md-7 text-center">
+                                    <div class="http-error-main">
+                                        <h2>404!</h2>
+                                        <p>{{_('Üzgünüm, böyle bir blog bulamadık.')}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    @endif
 
                 </div>
             </div>

@@ -10,10 +10,11 @@ use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
         $blogQuery = Blog::query();
         $categoryQuery = BlogCategory::query();
+        $query = $request->input('ara');
 
         $activeBlogs = $blogQuery->where('status', 'Aktif')
             ->whereHas('category', function ($query) {
@@ -23,7 +24,12 @@ class BlogController extends Controller
                 $query->where('status', 'Aktif');
             });
 
+        if ($query) {
+            $activeBlogs = $this->getByFilter($activeBlogs, $query);
+        }
+
         $blogs = $activeBlogs->paginate(6);
+
         $categories = $categoryQuery->where('status', 'Aktif')->get();
         $popularBlogs = $activeBlogs->orderBy('view', 'desc')->take(3)->get();
 
@@ -50,11 +56,6 @@ class BlogController extends Controller
         $popularBlogs = $blogQuery->orderBy('view', 'desc')->take(3)->get();
 
         return view('frontend.pages.blog', compact('blogs', 'categories', 'popularBlogs'));
-    }
-
-    public function getByUser(): View
-    {
-        return view();
     }
 
     public function getSinglePost(Request $request): View
@@ -90,38 +91,20 @@ class BlogController extends Controller
         return view('frontend.pages.blog-single', compact('blog', 'day', 'monthName', 'blogs', 'popularBlogs', 'categories'));
     }
 
-    // public function getByFilter(Request $request): View
-    // {
-    //     $filter = $request->ara;
+    private function getByFilter($activeBlogs, $query)
+    {
+        $filteredBlogs = $activeBlogs->where(function($activeBlogs) use ($query) {
+            $activeBlogs->where('name', 'like', "%$query%")
+                ->orWhere('summary', 'like', "%$query%");
+            })
+            ->orWhereHas('category', function($activeBlogs) use ($query) {
+                $activeBlogs->where('name', 'like', "%$query%");
+            })
+            ->orWhereHas('user', function($activeBlogs) use ($query) {
+                $activeBlogs->where('name', 'like', "%$query%");
+            });
 
-    //     $blogQuery = Blog::query();
-    //     $categoryQuery = BlogCategory::query();
-
-    //     $activeBlogs = $blogQuery->where('status', 'Aktif')
-    //         ->whereHas('category', function ($query) {
-    //             $query->where('status', 'Aktif');
-    //         })
-    //         ->whereHas('user', function ($query) {
-    //             $query->where('status', 'active');
-    //         });
-
-    //     $filteredBlogs = $activeBlogs->where(function($activeBlogs) use ($filter) {
-    //         $activeBlogs->where('name', 'like', "%$filter%")
-    //             ->orWhere('content', 'like', "%$filter%");
-
-    //         })
-    //         ->orWhereHas('category', function($activeBlogs) use ($filter) {
-    //             $activeBlogs->where('name', 'like', "%$filter%");
-    //         })
-    //         ->orWhereHas('user', function($activeBlogs) use ($filter) {
-    //             $activeBlogs->where('name', 'like', "%$filter%");
-    //         })->get();
-
-    //     $blogs = $filteredBlogs->paginate(6);
-    //     $categories = $categoryQuery->where('status', 'Aktif')->get();
-    //     $popularBlogs = $activeBlogs->orderBy('view', 'desc')->take(3)->get();
-
-    //     return view('frontend.pages.blog', compact('blogs', 'categories', 'popularBlogs'));
-    // }
+        return $filteredBlogs;
+    }
 
 }

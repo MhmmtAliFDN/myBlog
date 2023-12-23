@@ -1,10 +1,10 @@
 <aside class="sidebar">
-    <form action="#" method="get">
+    <form action="{{route('frontend.blog.index')}}" method="get">
         <div class="input-group mb-3 pb-1">
-            <input class="form-control text-1" placeholder="Ara..." name="ara" id="ara"
-                type="text" value="{{ isset($ara) ? $ara : ''}}">
-            <button type="submit" class="btn btn-dark text-1 p-2"><i
-                    class="fas fa-search m-2"></i></button>
+            <input class="form-control text-1" placeholder="Ara..." name="ara" id="ara" type="text">
+            <button type="submit" class="btn btn-dark text-1 p-2">
+                <i class="fas fa-search m-2"></i>
+            </button>
         </div>
     </form>
     <h5 class="font-weight-semi-bold pt-4">{{ _('KATEGORİLER') }}</h5>

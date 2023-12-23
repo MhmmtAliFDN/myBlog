@@ -78,7 +78,7 @@
     <!-- Form Validation -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            FormValidation.init();
+            PortfolioFormValidation.init();
         });
     </script>
     <!-- /form validation -->

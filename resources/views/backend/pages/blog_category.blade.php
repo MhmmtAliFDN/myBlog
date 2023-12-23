@@ -33,7 +33,7 @@
     <!-- Form Validation -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            FormValidation.init();
+            BlogCategoryFormValidation.init();
         });
     </script>
     <!-- /form validation -->

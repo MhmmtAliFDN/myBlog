@@ -76,7 +76,7 @@
     <!-- Form Validation -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            FormValidation.init();
+            BlogFormValidation.init();
         });
     </script>
     <!-- /form validation -->
@@ -691,6 +691,11 @@
                                 <td class="text-center">
                                     <div class="d-inline-flex">
                                         <div class="d-flex">
+                                            <a href="http://www.myblog.test/blog/{{$blog->category->slug}}/{{$blog->slug}}"
+                                                class="btn btn-outline-info rounded-pill btn-sm my-buttons-margin"
+                                                data-bs-popup="tooltip" title="Sayfaya Git" target="_blank">
+                                                <i class="ph-link"></i>
+                                            </a>
                                             <button type="button"
                                                 class="btn btn-outline-info rounded-pill btn-sm my-buttons-margin"
                                                 id="my_item_detail" data-bs-popup="tooltip" title="Ayrıntılar"

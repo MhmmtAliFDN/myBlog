@@ -289,7 +289,7 @@
                             class="card card-border card-border-top card-border-hover bg-color-light border-0 box-shadow-6 box-shadow-hover anim-hover-translate-top-10px transition-3ms anim-hover-inner-wrapper">
                             <div class="card-body p-relative zindex-1 p-5 text-center">
                                 <div class="anim-hover-inner-translate-top-20px transition-3ms">
-                                    <img width="72" height="73" src="{{ $portfolios[$i]->technology }}"
+                                    {{-- <img width="72" height="73" src="{{ $portfolios[$i]->technology }}" --}}
                                         alt="" data-icon data-plugin-options="{'onlySVG': true}" />
                                     <h4 class="card-title mt-4 mb-2 text-5 font-weight-bold">
                                         {{ $portfolios[$i]->name }}</h4>
@@ -402,8 +402,8 @@
                                             </span>
                                         </span>
                                     </div>
-                                    <img src="{{ $blog->image }}" class="img-fluid border-radius"
-                                        alt="Lorem Ipsum Dolor" />
+                                    <img src="{{ asset($blog->image) }}" class="img-fluid border-radius"
+                                        alt="blog-image" />
                                 </div>
                                 <div class="card-body py-4 px-0">
                                     <span

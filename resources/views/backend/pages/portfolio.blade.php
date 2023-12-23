@@ -47,8 +47,6 @@
     <!-- CkEditor Media Embed -->
     <script>
         document.querySelectorAll('oembed[url]').forEach(element => {
-            // Create the <a href="..." class="embedly-card"></a> element that Embedly uses
-            // to discover the media.
             const anchor = document.createElement('a');
 
             anchor.setAttribute('href', element.getAttribute('url'));
@@ -186,6 +184,7 @@
                     $('#my_item_detail_form #my_modal_image').val(response.data[0].image);
                     $('#my_item_detail_form #my_modal_created_at').val(formatingDate(createdDate));
                     $('#my_item_detail_form #my_modal_updated_at').val(formatingDate(updatedDate));
+                    $('#my_item_detail_form #my_modal_summary').val(response.data[0].summary);
                     $('#my_item_detail_form #my_modal_content').val(response.data[0].content);
                     $('#my_item_detail_form #my_modal_status').val(response.data[0].status);
 
@@ -313,6 +312,7 @@
                             .category_id);
                         $('#my_update_item_form #my_modal_name').val(response.data[0].name);
                         $('#my_update_item_form #my_modal_status').val(response.data[0].status);
+                        $('#my_update_item_form #my_modal_summary').val(response.data[0].summary);
                         $('#my_update_item_form #my_update_modal_image_src').attr('src', img);
                         $('#my_update_item_form #my_update_modal_image_href').attr('href', img);
                         my_update_modal_editor.setData(response.data[0].content);
@@ -639,6 +639,7 @@
                         <th>{{ __('Resim') }}</th>
                         <th>{{ __('Oluşturulma Zamanı') }}</th>
                         <th>{{ __('Güncelleme Zamanı') }}</th>
+                        <th>{{ __('Özet') }}</th>
                         <th>{{ __('İçerik') }}</th>
                         <th>{{ __('Durum') }}</th>
                         <th>{{ __('Düzenle') }}</th>
@@ -661,6 +662,7 @@
                                 <td>{{ $portfolio->image }}</td>
                                 <td>{{ $portfolio->created_at }}</td>
                                 <td>{{ $portfolio->updated_at }}</td>
+                                <td>{{ $portfolio->summary }}</td>
                                 <td>{{ $portfolio->content }}</td>
                                 <td>
                                     <select id="my_item_status"
@@ -684,6 +686,11 @@
                                 <td class="text-center">
                                     <div class="d-inline-flex">
                                         <div class="d-flex">
+                                            <a href="http://www.myblog.test/blog/{{$portfolio->category->slug}}/{{$portfolio->slug}}"
+                                                class="btn btn-outline-info rounded-pill btn-sm my-buttons-margin"
+                                                data-bs-popup="tooltip" title="Sayfaya Git" target="_blank">
+                                                <i class="ph-link"></i>
+                                            </a>
                                             <button type="button"
                                                 class="btn btn-outline-info rounded-pill btn-sm my-buttons-margin"
                                                 id="my_item_detail" data-bs-popup="tooltip" title="Ayrıntılar"
@@ -764,10 +771,17 @@
                         </div>
 
                         <div class="row mb-3">
+                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Özet:') }}</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" name="summary" rows="2" placeholder="Laravel ile Blog Sitesi"
+                                    required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('İçerik:') }}</label>
                             <div class="col-sm-9">
-                                <textarea class="form-control" id="my_add_modal_editor" name="content"
-                                    placeholder="MVC standartlarını kullanarak web sitesi oluşturdum." required></textarea>
+                                <textarea class="form-control" id="my_add_modal_editor" name="content" required></textarea>
                             </div>
                         </div>
 
@@ -877,6 +891,13 @@
                                 <div class="form-text">
                                     {{ __('Yalnızca resim dosyası formatlarını desteklenmektedir. Resim boyutu en fazla 2 MB olabilir.') }}
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Özet:') }}</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" id="my_modal_summary" name="summary" rows="2" required></textarea>
                             </div>
                         </div>
 
@@ -1012,6 +1033,13 @@
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="my_modal_updated_at" name="updated_at"
                                     disabled readonly>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Özet:') }}</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" id="my_modal_summary" name="summary" rows="2" disabled readonly></textarea>
                             </div>
                         </div>
 

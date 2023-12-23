@@ -26,8 +26,7 @@
 
 @section('content')
     <div class="container py-4">
-
-        <div id="blog-single-pt" class="row">
+        <div class="row">
             <div class="col-lg-3 order-lg-2">
                 @include('frontend.inc.blog-sidebar')
             </div>

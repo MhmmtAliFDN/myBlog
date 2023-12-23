@@ -8,7 +8,6 @@ use App\Models\Comment;
 use App\Models\Contact;
 use App\Models\Portfolio;
 use App\Models\PortfolioCategory;
-use Illuminate\Contracts\View\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -32,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
                     'blogs', Blog::where('status', 'Aktif')->select('id', 'category_id', 'name', 'slug')->get(),
                 ),
                 $view->with(
-                    'blogCategories', BlogCategory::where('status', 'Aktif')->select('id', 'name', 'slug')->get(),
+                    'blogCategories', BlogCategory::where('status', 'Aktif')->with('blogs')->select('id', 'name', 'slug')->get(),
                 ),
                 $view->with(
                     'portfolios', Portfolio::where('status', 'Aktif')->select('id', 'category_id', 'name', 'slug')->get(),

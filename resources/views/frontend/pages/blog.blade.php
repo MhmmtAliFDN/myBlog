@@ -11,8 +11,31 @@
 @endpush
 
 @section('content')
-    <section id="blog-pt" class="page-header page-header-modern bg-color-light-scale-1 page-header-md">
-    </section>
+<section class="page-header page-header-modern bg-color-light-scale-1 page-header-md">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+
+            <div class="col">
+                <div class="row">
+                    <div class="col-md-12 align-self-center p-static order-2 text-center">
+                        <div class="overflow-hidden pb-2">
+                            <h1 class="text-dark font-weight-bold text-9 appear-animation"
+                                data-appear-animation="maskUp" data-appear-animation-delay="100">{{_('Kaleme Aldığım Bloglarım')}}</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-12 align-self-center order-1">
+                        <ul class="breadcrumb d-block text-center appear-animation"
+                            data-appear-animation="fadeIn" data-appear-animation-delay="300">
+                            <li><a href="{{route('frontend.home.index')}}">{{_('Ana Sayfa')}}</a></li>
+                            <li class="active">{{_('Bloglarım')}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
 
     <div class="container py-4">
 

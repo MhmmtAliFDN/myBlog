@@ -16,11 +16,13 @@
             </a>
         </li>
         @foreach ($categories as $category)
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('frontend.blog.getbycategory', $category->slug) }}">
-                    {{ $category->name }}
-                </a>
-            </li>
+            @if (($category->blogs->count() > 0) && ($category->blogs->where('status', 'Pasif')->isEmpty()))
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('frontend.blog.getbycategory', $category->slug) }}">
+                        {{ $category->name }}
+                    </a>
+                </li>
+            @endif
         @endforeach
 
     </ul>

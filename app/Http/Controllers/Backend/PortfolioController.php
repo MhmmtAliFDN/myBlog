@@ -39,6 +39,7 @@ class PortfolioController extends Controller
                     'name' => $request->name,
                     'slug' => Str::slug($request->name),
                     'image' => $image,
+                    'summary' => $request->summary,
                     'content' => $request->content,
                     'status' => $request->status,
                 ]);
@@ -97,6 +98,7 @@ class PortfolioController extends Controller
                 'name' => $request->name,
                 'slug' => Str::slug($request->name),
                 'image' => $image,
+                'summary' => $request->summary,
                 'content' => $request->content,
                 'status' => $request->status,
             ]);

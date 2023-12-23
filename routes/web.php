@@ -12,6 +12,7 @@ use App\Http\Controllers\Frontend\AboutController;
 use App\Http\Controllers\Frontend\BlogController as FrontendBlogController;
 use App\Http\Controllers\Frontend\ContactController as FrontendContactController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\PortfolioController as FrontendPortfolioController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +23,10 @@ use Illuminate\Support\Facades\Route;
 //-----------------------------Frontend Routes-----------------------------//
 
 Route::get('/', [HomeController::class, 'index'])->name('frontend.home.index');
-Route::get('/calismalarim', [ContactController::class, 'index'])->name('frontend.portfolio.index');
+
+Route::get('/calismalarim', [FrontendPortfolioController::class, 'index'])->name('frontend.portfolio.index');
+Route::get('/calismalarim/{categorySlug}', [FrontendPortfolioController::class, 'getByCategory'])->name('frontend.portfolio.getbycategory');
+Route::get('/calismalarim/{categorySlug}/{portfolioSlug}', [FrontendPortfolioController::class, 'getSinglePortfolio'])->name('frontend.portfolio.getsingleportfolio');
 
 Route::get('/blog', [FrontendBlogController::class, 'index'])->name('frontend.blog.index');
 Route::get('/blog/{categorySlug}', [FrontendBlogController::class, 'getByCategory'])->name('frontend.blog.getbycategory');

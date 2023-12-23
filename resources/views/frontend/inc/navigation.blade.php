@@ -1,4 +1,4 @@
-<header id="header" class="header-transparent"
+<header id="header" class="header"
     data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': false, 'stickyChangeLogo': false, 'stickyStartAt': 53, 'stickySetTop': '-53px'}">
     <div class="header-body border-top-0 h-auto box-shadow-none">
         <div class="header-top header-top-borders">
@@ -83,24 +83,26 @@
                                             </a>
                                             <ul class="dropdown-menu">
                                                 @foreach ($portfolioCategories as $category)
-                                                    <li class="dropdown-submenu">
-                                                        <a class="dropdown-item" href="#">
-                                                            {{ $category->name }}
-                                                        </a>
+                                                    @if (($category->portfolios->count() > 0) && ($category->portfolios->where('status', 'Pasif')->isEmpty()))
+                                                        <li class="dropdown-submenu">
+                                                            <a class="dropdown-item" href="#">
+                                                                {{ $category->name }}
+                                                            </a>
 
-                                                        <ul class="dropdown-menu">
-                                                            <li>
-                                                                @foreach ($portfolios as $portfolio)
-                                                                    @if ($portfolio->category_id == $category->id)
-                                                                        <a class="dropdown-item"
-                                                                            href="portfolio-single-wide-slider.html">
-                                                                            {{ $portfolio->name }}
-                                                                        </a>
-                                                                    @endif
-                                                                @endforeach
-                                                            </li>
-                                                        </ul>
-                                                    </li>
+                                                            <ul class="dropdown-menu">
+                                                                <li>
+                                                                    @foreach ($portfolios as $portfolio)
+                                                                        @if ($portfolio->category_id == $category->id)
+                                                                            <a class="dropdown-item"
+                                                                                href="portfolio-single-wide-slider.html">
+                                                                                {{ $portfolio->name }}
+                                                                            </a>
+                                                                        @endif
+                                                                    @endforeach
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    @endif
                                                 @endforeach
 
                                             </ul>
@@ -116,22 +118,24 @@
                                                     <div class="dropdown-mega-content container px-2">
                                                         <div class="row px-1">
                                                             @foreach ($blogCategories as $category)
-                                                                <div class="col-lg-3">
-                                                                    <a class="category-link" href="{{route('frontend.blog.getbycategory', $category->slug)}}">{{ $category->name }}</span>
-                                                                    <ul class="dropdown-mega-sub-nav">
+                                                                @if (($category->blogs->count() > 0) && ($category->blogs->where('status', 'Pasif')->isEmpty()))
+                                                                    <div class="col-lg-3">
+                                                                        <a class="category-link" href="{{route('frontend.blog.getbycategory', $category->slug)}}">{{ $category->name }}</span>
+                                                                        <ul class="dropdown-mega-sub-nav">
 
-                                                                        @foreach ($blogs as $blog)
-                                                                            @if ($blog->category_id == $category->id)
-                                                                                <li>
-                                                                                    <a class="dropdown-item"
-                                                                                        href="{{route('frontend.blog.getsinglepost', ['categorySlug' => $blog->category->slug, 'blogSlug' => $blog->slug])}}">{{ $blog->name }}
-                                                                                    </a>
-                                                                                </li>
-                                                                            @endif
-                                                                        @endforeach
+                                                                            @foreach ($blogs as $blog)
+                                                                                @if ($blog->category_id == $category->id)
+                                                                                    <li>
+                                                                                        <a class="dropdown-item"
+                                                                                            href="{{route('frontend.blog.getsinglepost', ['categorySlug' => $blog->category->slug, 'blogSlug' => $blog->slug])}}">{{ $blog->name }}
+                                                                                        </a>
+                                                                                    </li>
+                                                                                @endif
+                                                                            @endforeach
 
-                                                                    </ul>
-                                                                </div>
+                                                                        </ul>
+                                                                    </div>
+                                                                @endif
                                                             @endforeach
                                                         </div>
                                                     </div>
@@ -139,7 +143,7 @@
                                             </ul>
                                         </li>
 
-                                        <li>
+                                        <li class="dropdown">
                                             <a class="nav-link" href="{{ route('frontend.about.index') }}">
                                                 {{ __('Hakkımda') }}
                                             </a>

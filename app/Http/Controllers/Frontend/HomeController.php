@@ -19,7 +19,7 @@ class HomeController extends Controller
         ->get();
 
         $portfolios = Portfolio::where('status', 'Aktif')
-        ->select('id', 'name', 'technology')
+        ->select('id', 'name')
         ->orderBy('created_at', 'desc')
         ->take(3)
         ->get();

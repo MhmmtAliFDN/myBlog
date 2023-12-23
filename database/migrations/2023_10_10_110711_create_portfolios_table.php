@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name', 100)->unique();
             $table->string('slug', 100)->unique();
             $table->string('image', 100)->default(asset('img/calismalarim/default.jpg'));
-            $table->string('technology', 100)->nullable();
+            $table->string('summary', 255);
             $table->longText('content');
             $table->enum('status', ['Aktif', 'Pasif'])->default('Aktif');
             $table->timestamps();

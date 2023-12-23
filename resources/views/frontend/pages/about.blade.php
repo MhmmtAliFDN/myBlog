@@ -12,9 +12,35 @@
 @endpush
 
 @section('content')
+<section class="page-header page-header-modern bg-color-light-scale-1 page-header-md">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+
+            <div class="col">
+                <div class="row">
+                    <div class="col-md-12 align-self-center p-static order-2 text-center">
+                        <div class="overflow-hidden pb-2">
+                            <h1 class="text-dark font-weight-bold text-9 appear-animation"
+                                data-appear-animation="maskUp" data-appear-animation-delay="100">{{_('Nacizane Geçmişim')}}</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-12 align-self-center order-1">
+                        <ul class="breadcrumb d-block text-center appear-animation"
+                            data-appear-animation="fadeIn" data-appear-animation-delay="300">
+                            <li><a href="{{route('frontend.home.index')}}">{{_('Ana Sayfa')}}</a></li>
+                            <li class="active">{{_('Hakkımda')}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
     <div class="container pt-5">
 
-        <div id="about-pt" class="row mb-2">
+        <div class="row mb-2">
             <div class="col-md-7 order-2">
                 <div class="overflow-hidden">
                     <h2 class="text-color-dark font-weight-bold text-12 mb-2 pt-0 mt-0 appear-animation"

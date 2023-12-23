@@ -1065,7 +1065,6 @@
                             </div>
                         </div>
 
-
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('İçerik:') }}</label>
                             <div class="col-sm-9">

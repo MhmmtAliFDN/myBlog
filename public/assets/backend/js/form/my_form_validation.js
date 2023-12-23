@@ -1026,9 +1026,6 @@ const PortfolioFormValidation = function() {
                     minlength: 5,
                     maxlength: 100,
                 },
-                image: {
-                    required: true,
-                },
                 content: {
                     required: true,
                 },

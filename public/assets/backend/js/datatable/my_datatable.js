@@ -391,7 +391,7 @@ const PortfolioDataTable = function() {
                         text: 'Kopyala',
                         exportOptions: {
                             //columns: [ 0, ':visible' ]
-                            columns: [0, 1, 2, 3, 4, 7]
+                            columns: [0, 1, 2, 3, 4, 7, 9]
                         }
                     },
                     {
@@ -399,14 +399,14 @@ const PortfolioDataTable = function() {
                         className: 'btn btn-light',
                         exportOptions: {
                             //columns: ':visible'
-                            columns: [0, 1, 2, 3, 4, 7]
+                            columns: [0, 1, 2, 3, 4, 7, 9]
                         }
                     },
                     {
                         extend: 'pdfHtml5',
                         className: 'btn btn-light',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 7]
+                            columns: [0, 1, 2, 3, 4, 7, 9]
                         }
                     },
                     {
@@ -414,7 +414,7 @@ const PortfolioDataTable = function() {
                         className: 'btn btn-light',
                         text: 'Yazdır',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 7]
+                            columns: [0, 1, 2, 3, 4, 7, 9]
                         }
                     },
                     {
@@ -438,7 +438,7 @@ const PortfolioDataTable = function() {
                     targets: 6
                 },
                 {
-                    targets: [-3,-4,-5,-6],
+                    targets: [-3,-4,-5,-6,-7,-8],
                     visible: false
                 }
             ],

@@ -46,9 +46,11 @@
                     href="#">{{ _('TÜMÜ') }}</a>
             </li>
             @foreach ($categories as $category)
-                <li class="nav-item" data-option-value=".{{$category->slug}}"><a class="nav-link text-2-5 text-uppercase"
-                        href="#">{{$category->name}}</a>
-                </li>
+                @if (($category->portfolios->count() > 0) && ($category->portfolios->where('status', 'Pasif')->isEmpty()))
+                    <li class="nav-item" data-option-value=".{{$category->slug}}"><a class="nav-link text-2-5 text-uppercase"
+                            href="#">{{$category->name}}</a>
+                    </li>
+                @endif
             @endforeach
 
         </ul>
@@ -62,7 +64,7 @@
 
                             <div class="col-lg-6">
                                 <div class="portfolio-item">
-                                    <a href="portfolio-single-wide-slider.html">
+                                    <a href="{{route('frontend.portfolio.getsingleportfolio', ['categorySlug' => $portfolio->category->slug, 'portfolioSlug' => $portfolio->slug])}}">
                                         <span
                                             class="thumb-info thumb-info-no-zoom thumb-info-lighten border-radius-0 appear-animation"
                                             data-appear-animation="fadeIn" data-appear-animation-delay="100">
@@ -95,7 +97,7 @@
                                     <li><i class="fas fa-caret-right left-10"></i> <strong
                                             class="text-color-primary">{{_('Proje Sahibi:')}}</strong> {{$portfolio->user->name}}</li>
                                     <li><i class="fas fa-caret-right left-10"></i> <strong
-                                            class="text-color-primary">{{_('Yayım Tarihi:')}}</strong> {{$portfolio->created_at}}</li>
+                                            class="text-color-primary">{{_('Yayın Tarihi:')}}</strong> {{$portfolio->created_at}}</li>
                                     <li><i class="fas fa-caret-right left-10"></i> <strong
                                             class="text-color-primary">Skills:</strong> <a href="#"
                                             class="badge badge-dark badge-sm badge-pill px-2 py-1 ml-1">DESIGN</a><a

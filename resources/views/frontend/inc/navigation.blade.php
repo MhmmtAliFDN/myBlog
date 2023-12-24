@@ -55,7 +55,7 @@
                 <div class="header-column">
                     <div class="header-row">
                         <div class="header-logo">
-                            <a href="{{route('frontend.home.index')}}">
+                            <a href="{{ route('frontend.home.index') }}">
                                 <img class="rounded-circle" id="coderlog-logo" alt="Coderlog"
                                     src="{{ asset('img/images/logo/coderlog.webp') }}">
                             </a>
@@ -83,23 +83,23 @@
                                             </a>
                                             <ul class="dropdown-menu">
                                                 @foreach ($portfolioCategories as $category)
-                                                    @if (($category->portfolios->count() > 0) && ($category->portfolios->where('status', 'Pasif')->isEmpty()))
+                                                    @if ($category->portfolios->count() > 0 && $category->portfolios->where('status', 'Pasif')->isEmpty())
                                                         <li class="dropdown-submenu">
                                                             <a class="dropdown-item" href="#">
                                                                 {{ $category->name }}
                                                             </a>
 
                                                             <ul class="dropdown-menu">
-                                                                <li>
-                                                                    @foreach ($portfolios as $portfolio)
-                                                                        @if ($portfolio->category_id == $category->id)
+                                                                @foreach ($portfolios as $portfolio)
+                                                                    @if ($portfolio->category_id == $category->id)
+                                                                        <li>
                                                                             <a class="dropdown-item"
-                                                                                href="portfolio-single-wide-slider.html">
+                                                                                href="{{ route('frontend.portfolio.getsingleportfolio', ['categorySlug' => $portfolio->category->slug, 'portfolioSlug' => $portfolio->slug]) }}">
                                                                                 {{ $portfolio->name }}
                                                                             </a>
-                                                                        @endif
-                                                                    @endforeach
-                                                                </li>
+                                                                        </li>
+                                                                    @endif
+                                                                @endforeach
                                                             </ul>
                                                         </li>
                                                     @endif
@@ -118,22 +118,23 @@
                                                     <div class="dropdown-mega-content container px-2">
                                                         <div class="row px-1">
                                                             @foreach ($blogCategories as $category)
-                                                                @if (($category->blogs->count() > 0) && ($category->blogs->where('status', 'Pasif')->isEmpty()))
+                                                                @if ($category->blogs->count() > 0 && $category->blogs->where('status', 'Pasif')->isEmpty())
                                                                     <div class="col-lg-3">
-                                                                        <a class="category-link" href="{{route('frontend.blog.getbycategory', $category->slug)}}">{{ $category->name }}</span>
-                                                                        <ul class="dropdown-mega-sub-nav">
+                                                                        <a class="category-link"
+                                                                            href="{{ route('frontend.blog.getbycategory', $category->slug) }}">{{ $category->name }}</span>
+                                                                            <ul class="dropdown-mega-sub-nav">
 
-                                                                            @foreach ($blogs as $blog)
-                                                                                @if ($blog->category_id == $category->id)
-                                                                                    <li>
-                                                                                        <a class="dropdown-item"
-                                                                                            href="{{route('frontend.blog.getsinglepost', ['categorySlug' => $blog->category->slug, 'blogSlug' => $blog->slug])}}">{{ $blog->name }}
-                                                                                        </a>
-                                                                                    </li>
-                                                                                @endif
-                                                                            @endforeach
+                                                                                @foreach ($blogs as $blog)
+                                                                                    @if ($blog->category_id == $category->id)
+                                                                                        <li>
+                                                                                            <a class="dropdown-item"
+                                                                                                href="{{ route('frontend.blog.getsinglepost', ['categorySlug' => $blog->category->slug, 'blogSlug' => $blog->slug]) }}">{{ $blog->name }}
+                                                                                            </a>
+                                                                                        </li>
+                                                                                    @endif
+                                                                                @endforeach
 
-                                                                        </ul>
+                                                                            </ul>
                                                                     </div>
                                                                 @endif
                                                             @endforeach

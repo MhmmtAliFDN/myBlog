@@ -25,7 +25,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('frontend.home.index');
 
 Route::get('/calismalarim', [FrontendPortfolioController::class, 'index'])->name('frontend.portfolio.index');
-Route::get('/calismalarim/{categorySlug}', [FrontendPortfolioController::class, 'getByCategory'])->name('frontend.portfolio.getbycategory');
 Route::get('/calismalarim/{categorySlug}/{portfolioSlug}', [FrontendPortfolioController::class, 'getSinglePortfolio'])->name('frontend.portfolio.getsingleportfolio');
 
 Route::get('/blog', [FrontendBlogController::class, 'index'])->name('frontend.blog.index');

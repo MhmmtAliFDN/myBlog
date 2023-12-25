@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('category_id');
             $table->string('name', 100)->unique();
             $table->string('slug', 100)->unique();
-            $table->string('image', 100)->default(asset('img/calismalarim/default.jpg'));
+            $table->string('image', 100)->default(asset('img/default.webp'));
             $table->string('summary', 255);
             $table->longText('content');
             $table->enum('status', ['Aktif', 'Pasif'])->default('Aktif');

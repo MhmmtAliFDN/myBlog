@@ -118,12 +118,12 @@
                     <li><i class="fas fa-caret-right left-10"></i> <strong
                             class="text-color-primary">{{ _('Geliştirici:') }}</strong> {{ $portfolio->user->name }}</li>
                     <li><i class="fas fa-caret-right left-10"></i> <strong
-                            class="text-color-primary">{{ _('Yayın Tarihi:') }}</strong> {{ $year }}</li>
-                    <li><i class="fas fa-caret-right left-10"></i> <strong
+                            class="text-color-primary">{{ _('Yayın Tarihi:') }}</strong> {{$monthName}} {{ $year }}</li>
+                    {{-- <li><i class="fas fa-caret-right left-10"></i> <strong
                             class="text-color-primary">{{ _('Kullanılan Teknolojiler:') }}</strong> <a href="#"
                             class="badge badge-dark badge-sm rounded-pill px-2 py-1 ms-1">DESIGN</a><a href="#"
                             class="badge badge-dark badge-sm rounded-pill px-2 py-1 ms-1">BRAND</a><a href="#"
-                            class="badge badge-dark badge-sm rounded-pill px-2 py-1 ms-1">WEBSITES</a></li>
+                            class="badge badge-dark badge-sm rounded-pill px-2 py-1 ms-1">WEBSITES</a></li> --}}
                     <li><i class="fas fa-caret-right left-10"></i> <strong
                             class="text-color-primary">{{ _('Proje URL:') }}</strong> <a
                             href="{{ route('frontend.home.index') }}" target="_blank"
@@ -147,7 +147,7 @@
                                 href="{{ route('frontend.portfolio.getsingleportfolio', ['categorySlug' => $portfolio->category->slug, 'portfolioSlug' => $portfolio->slug]) }}">
                                 <span class="thumb-info thumb-info-lighten thumb-info-no-borders border-radius-0">
                                     <span class="thumb-info-wrapper border-radius-0">
-                                        <img src="{{ $portfolio->image }}" class="img-fluid border-radius-0"
+                                        <img src="{{ asset($portfolio->image) }}" class="img-fluid border-radius-0"
                                             alt="proje-resmi">
                                         <span class="thumb-info-title">
                                             <span class="thumb-info-inner">{{ $portfolio->category->name }}</span>

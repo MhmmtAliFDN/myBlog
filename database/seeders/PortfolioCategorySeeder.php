@@ -20,13 +20,8 @@ class PortfolioCategorySeeder extends Seeder
         ]);
 
         PortfolioCategory::create([
-            'name' => 'Veri Analitiği',
-            'slug' => Str::slug('Veri Analitiği'),
-        ]);
-
-        PortfolioCategory::create([
-            'name' => 'Tübitak Projesi',
-            'slug' => Str::slug('Tübitak Projesi'),
+            'name' => 'Mobil Uygulama Geliştirme',
+            'slug' => Str::slug('Mobil Uygulama Geliştirme'),
             'status' => 'Pasif',
         ]);
     }

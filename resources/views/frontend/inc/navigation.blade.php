@@ -85,7 +85,7 @@
                                                 @foreach ($portfolioCategories as $category)
                                                     @if ($category->portfolios->count() > 0 && $category->portfolios->where('status', 'Pasif')->isEmpty())
                                                         <li class="dropdown-submenu">
-                                                            <a class="dropdown-item" href="#">
+                                                            <a class="dropdown-item" href="{{route('frontend.portfolio.index')}}#{{$category->slug}}">
                                                                 {{ $category->name }}
                                                             </a>
 

@@ -98,16 +98,27 @@
                                     <li><i class="fas fa-caret-right left-10"></i> <strong
                                             class="text-color-primary">{{ _('Proje Sahibi:') }}</strong>
                                         {{ $portfolio->user->name }}</li>
+
+                                    @php
+                                        $created_at = $portfolio->created_at;
+                                        $carbonDate = \Carbon\Carbon::parse($created_at);
+
+                                        $month = $carbonDate->format('m');
+                                        $year =  $carbonDate->format('Y');
+
+                                        \Carbon\Carbon::setLocale('tr');
+                                        $monthName = $carbonDate->translatedFormat('F');
+                                    @endphp
                                     <li><i class="fas fa-caret-right left-10"></i> <strong
                                             class="text-color-primary">{{ _('Yayın Tarihi:') }}</strong>
-                                        {{ $portfolio->created_at }}</li>
-                                    <li><i class="fas fa-caret-right left-10"></i> <strong
+                                        {{ $monthName }} {{$year}}</li>
+                                    {{-- <li><i class="fas fa-caret-right left-10"></i> <strong
                                             class="text-color-primary">Skills:</strong> <a href="#"
                                             class="badge badge-dark badge-sm badge-pill px-2 py-1 ml-1">DESIGN</a><a
                                             href="#"
                                             class="badge badge-dark badge-sm badge-pill px-2 py-1 ml-1">BRAND</a><a
                                             href="#"
-                                            class="badge badge-dark badge-sm badge-pill px-2 py-1 ml-1">WEBSITES</a></li>
+                                            class="badge badge-dark badge-sm badge-pill px-2 py-1 ml-1">WEBSITES</a></li> --}}
                                 </ul>
 
                             </div>

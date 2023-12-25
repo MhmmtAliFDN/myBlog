@@ -11,8 +11,20 @@ use Illuminate\Http\Request;
 class PortfolioController extends Controller
 {
     public function index(): View {
-        $portfolios = Portfolio::where('status', 'Aktif')->with('user', 'category')->get();
-        $categories = PortfolioCategory::where('status', 'Aktif')->get();
+        $portfolioQuery = Portfolio::query();
+        $categoryQuery = PortfolioCategory::query();
+
+        $activePortfolios = $portfolioQuery->where('status', 'Aktif')
+        ->whereHas('category', function ($query) {
+            $query->where('status', 'Aktif');
+        })
+        ->whereHas('user', function ($query) {
+            $query->where('status', 'Aktif');
+        });
+
+        $portfolios = $activePortfolios->get();
+        $categories = $categoryQuery->where('status', 'Aktif')->get();
+
         return view('frontend.pages.portfolio', compact('portfolios', 'categories'));
     }
 
@@ -31,20 +43,19 @@ class PortfolioController extends Controller
                 ->get();
         }
 
-        $categories = $categoryQuery->where('status', 'Aktif')->get();
         $categorySlug = $request->categorySlug;
-
         $portfolioSlug = $request->portfolioSlug;
+
+        $categories = $categoryQuery->where('status', 'Aktif')->get();
         $portfolio = $portfolioQuery->where('slug', $portfolioSlug)->with('category', 'user')->first();
 
         $createdAt = $portfolio->created_at;
-        $day = $createdAt->format('d');
-        $month = $createdAt->format('m');
-        $monthName = $createdAt->translatedFormat('M');
+        $monthName = $createdAt->translatedFormat('F');
         $year = $createdAt->format('Y');
+
         $currentPageUrl = $request->fullUrl();
 
-        return view('frontend.pages.portfolio-single', compact('portfolios', 'categories', 'portfolio', 'day', 'monthName', 'year', 'currentPageUrl'));
+        return view('frontend.pages.portfolio-single', compact('portfolios', 'categories', 'portfolio', 'monthName', 'year', 'currentPageUrl'));
     }
 
     public function sharePortfolio(Request $request)

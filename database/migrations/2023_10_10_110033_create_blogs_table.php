@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('view')->default(0);
             $table->string('name', 100)->unique();
             $table->string('slug', 100)->unique();
-            $table->string('image', 120)->default(asset('img/blog/default.jpg'));
+            $table->string('image', 120)->default(asset('img/default.webp'));
             $table->string('summary', 255);
             $table->longText('content');
             $table->enum('status', ['Aktif', 'Pasif'])->default('Aktif');

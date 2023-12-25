@@ -20,14 +20,13 @@ class BlogCategorySeeder extends Seeder
         ]);
 
         BlogCategory::create([
-            'name' => 'Teknolojik Gelişmeler',
-            'slug' => Str::slug('Teknolojik Gelişmeler'),
+            'name' => 'Donanım',
+            'slug' => Str::slug('Donanım'),
         ]);
 
         BlogCategory::create([
-            'name' => 'Tasarım',
-            'slug' => Str::slug('Tasarım'),
-            'status' => 'Pasif',
+            'name' => 'Teknolojik Gelişmeler',
+            'slug' => Str::slug('Teknolojik Gelişmeler'),
         ]);
     }
 }

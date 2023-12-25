@@ -1,14 +1,14 @@
 @extends('frontend.layouts.app')
 
 @push('title')
-    <title>{{ __('Muhammet Ali Fidan | İletişim') }}</title>
+    <title>{{ __('İletişim | Muhammet Ali Fidan') }}</title>
 @endpush
 
 @push('customCss')
 @endpush
 
 @push('customJs')
-    <script src="{{asset('assets/frontend/js/form/jquery.min.js')}}"></script>
+    <script src="{{ asset('assets/frontend/js/form/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/frontend/js/form/my_form_validation.js') }}"></script>
     <script src="{{ asset('assets/frontend/js/form/validate.min.js') }}"></script>
     <script src="{{ asset('assets/frontend/js/form/imask.min.js') }}"></script>
@@ -99,31 +99,31 @@
 @endpush
 
 @section('content')
-<section class="page-header page-header-modern bg-color-light-scale-1 page-header-md">
-    <div class="container-fluid">
-        <div class="row align-items-center">
+    <section class="page-header page-header-modern bg-color-light-scale-1 page-header-md">
+        <div class="container-fluid">
+            <div class="row align-items-center">
 
-            <div class="col">
-                <div class="row">
-                    <div class="col-md-12 align-self-center p-static order-2 text-center">
-                        <div class="overflow-hidden pb-2">
-                            <h1 class="text-dark font-weight-bold text-9 appear-animation"
-                                data-appear-animation="maskUp" data-appear-animation-delay="100">{{_('İsteklerini Dile Getir')}}</h2>
+                <div class="col">
+                    <div class="row">
+                        <div class="col-md-12 align-self-center p-static order-2 text-center">
+                            <div class="overflow-hidden pb-2">
+                                <h1 class="text-dark font-weight-bold text-9 appear-animation" data-appear-animation="maskUp"
+                                    data-appear-animation-delay="100">{{ _('İsteklerini Dile Getir') }}</h2>
+                            </div>
+                        </div>
+                        <div class="col-md-12 align-self-center order-1">
+                            <ul class="breadcrumb d-block text-center appear-animation" data-appear-animation="fadeIn"
+                                data-appear-animation-delay="300">
+                                <li><a href="{{ route('frontend.home.index') }}">{{ _('Ana Sayfa') }}</a></li>
+                                <li class="active">{{ _('İletişim') }}</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="col-md-12 align-self-center order-1">
-                        <ul class="breadcrumb d-block text-center appear-animation"
-                            data-appear-animation="fadeIn" data-appear-animation-delay="300">
-                            <li><a href="{{route('frontend.home.index')}}">{{_('Ana Sayfa')}}</a></li>
-                            <li class="active">{{_('İletişim')}}</li>
-                        </ul>
-                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
-    </div>
-</section>
+    </section>
     <div class="container">
 
         <div class="row">
@@ -132,7 +132,8 @@
                 <h2 class="font-weight-bold text-8 mt-2 mb-0">{{ _('İletişim Formu') }}</h2>
                 <p class="mb-4">{{ _('Bana merak ettiklerini saygı çerçevesinde sorabilirsin.') }}</p>
 
-                <form class="form-horizontal" id="my_add_item_form" action="{{ route('frontend.contact.add') }}" method="POST">
+                <form class="form-horizontal" id="my_add_item_form" action="{{ route('frontend.contact.add') }}"
+                    method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="row mb-3">

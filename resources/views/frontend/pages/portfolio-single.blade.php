@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 
 @push('title')
-    <title>{{ __('Muhammet Ali Fidan | Proje') }}</title>
+    <title>{{ __('Proje | Muhammet Ali Fidan') }}</title>
 @endpush
 
 @push('customCss')
@@ -90,7 +90,8 @@
 
                 <hr class="solid my-5">
 
-                <strong class="text-uppercase text-1 me-3 text-dark float-start position-relative top-2">{{_('Paylaş')}}</strong>
+                <strong
+                    class="text-uppercase text-1 me-3 text-dark float-start position-relative top-2">{{ _('Paylaş') }}</strong>
                 <ul class="social-icons">
                     <li class="social-icons-facebook"><a
                             href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($currentPageUrl) }}"
@@ -104,8 +105,7 @@
                             href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode($currentPageUrl) }}"
                             target="_blank" title="Linkedin"><i class="fab fa-linkedin-in"></i></a>
                     </li>
-                    <li class="social-icons-whatsapp"><a
-                            href="whatsapp://send?text={{ urlencode($currentPageUrl) }}"
+                    <li class="social-icons-whatsapp"><a href="whatsapp://send?text={{ urlencode($currentPageUrl) }}"
                             target="_blank" title="Whatsapp"><i class="fab fa-whatsapp fa-lg"></i></a>
                     </li>
                 </ul>

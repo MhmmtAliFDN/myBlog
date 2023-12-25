@@ -7,6 +7,8 @@
 
     @stack('title')
 
+    <link rel="shortcut icon" href="{{asset('assets/frontend/icon/coderlog2.ico')}}" type="image/x-icon" />
+
 	<!-- Global stylesheets -->
 	<link href="{{asset('assets/backend/fonts/inter/inter.css')}}" rel="stylesheet" type="text/css">
 	<link href="{{asset('assets/backend/icons/phosphor/styles.min.css')}}" rel="stylesheet" type="text/css">

@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 
 @push('title')
-    <title>{{ __('Muhammet Ali Fidan | Ana Sayfa') }}</title>
+    <title>{{ __('Ana Sayfa | Muhammet Ali Fidan') }}</title>
 @endpush
 
 @push('customCss')
@@ -247,7 +247,7 @@
 
                     <div class="d-block pt-4 appear-animation" data-appear-animation="fadeInUpShorter"
                         data-appear-animation-delay="300">
-                        <a href="demo-business-consulting-4-about-us.html"
+                        <a href="{{ route('frontend.about.index') }}"
                             class="btn btn-modern btn-primary btn-arrow-effect-1 text-capitalize text-2-5 px-5 py-3 anim-hover-translate-top-5px transition-2ms">{{ _('Hakkımda Daha Detaylı Bilgi') }}
                             <i class="fas fa-arrow-right ms-2"></i></a>
                     </div>
@@ -276,27 +276,28 @@
 
                     <p class="font-weight-medium text-4-5 line-height-5 appear-animation"
                         data-appear-animation="fadeInUpShorter" data-appear-animation-delay="400">
-                        {{ _('Asp.Net, Angular, Typescript, PHP, Laravel, HTML, CSS ve JavaScript') }}</p>
+                        {{ _('Asp.Net, Angular, Typescript, PHP, Laravel, HTML, CSS, JavaScript ve Flutter') }}</p>
 
                 </div>
             </div>
 
             <div class="row py-5 appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="300">
 
-                @for ($i = 0; $i < min(3, count($portfolios)); $i++)
+                @foreach ($portfolios as $portfolio)
                     <div class="col-md-4">
                         <div
                             class="card card-border card-border-top card-border-hover bg-color-light border-0 box-shadow-6 box-shadow-hover anim-hover-translate-top-10px transition-3ms anim-hover-inner-wrapper">
                             <div class="card-body p-relative zindex-1 p-5 text-center">
                                 <div class="anim-hover-inner-translate-top-20px transition-3ms">
-                                    {{-- <img width="72" height="73" src="{{ $portfolios[$i]->technology }}" --}}
-                                        alt="" data-icon data-plugin-options="{'onlySVG': true}" />
+                                    <img width="250" height="200" class="rounded"
+                                        src="{{ asset($portfolio->image) }}" alt="proje-resmi" />
                                     <h4 class="card-title mt-4 mb-2 text-5 font-weight-bold">
-                                        {{ $portfolios[$i]->name }}</h4>
+                                        {{ $portfolio->name }}</h4>
+                                    <p>{{ $portfolio->summary }}</p>
                                 </div>
                                 <div
                                     class="w-100 text-center p-absolute opacity-0 bottom-30 left-0 transformY-p100 anim-hover-inner-opacity-10 anim-hover-inner-translate-top-0px transition-4ms">
-                                    <a href="demo-business-consulting-4-services-detail.html"
+                                    <a href="{{ route('frontend.portfolio.getsingleportfolio', ['categorySlug' => $portfolio->category->slug, 'portfolioSlug' => $portfolio->slug]) }}"
                                         class="read-more text-color-primary font-weight-semibold mt-2 text-2">
                                         {{ _('Proje Hakkında Daha Fazla Bilgi') }} <i
                                             class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
@@ -304,7 +305,7 @@
                             </div>
                         </div>
                     </div>
-                @endfor
+                @endforeach
 
             </div>
 
@@ -379,7 +380,8 @@
 
                 @foreach ($blogs as $blog)
                     <div class="col-9 col-md-6 col-lg-4">
-                        <a href="demo-business-consulting-4-blog-post.html" class="text-decoration-none">
+                        <a href="{{ route('frontend.blog.getsinglepost', ['categorySlug' => $blog->category->slug, 'blogSlug' => $blog->slug]) }}"
+                            class="text-decoration-none">
                             <div class="card border-0 bg-transparent">
                                 <div class="card-img-top position-relative overlay overflow-hidden border-radius">
                                     <div
@@ -403,14 +405,14 @@
                                         </span>
                                     </div>
                                     <img src="{{ asset($blog->image) }}" class="img-fluid border-radius"
-                                        alt="blog-image" />
+                                        alt="blog-resmi" />
                                 </div>
                                 <div class="card-body py-4 px-0">
                                     <span
                                         class="d-block text-color-grey font-weight-semibold positive-ls-2 text-2">{{ $blog->user->name }}</span>
                                     <h4 class="font-weight-bold text-5 text-color-hover-primary mb-2">{{ $blog->name }}
                                     </h4>
-                                    <a href="demo-business-consulting-4-blog-post.html"
+                                    <a href="{{ route('frontend.blog.getsinglepost', ['categorySlug' => $blog->category->slug, 'blogSlug' => $blog->slug]) }}"
                                         class="read-more text-color-primary font-weight-semibold mt-0 text-2">{{ _('Devamını Okuyun') }}
                                         <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
                                 </div>

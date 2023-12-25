@@ -13,13 +13,12 @@ class HomeController extends Controller
     {
         $blogs = Blog::where('status', 'Aktif')
         ->with('user')
-        ->select('name', 'user_id', 'image', 'created_at')
         ->orderBy('created_at', 'desc')
         ->take(3)
         ->get();
 
         $portfolios = Portfolio::where('status', 'Aktif')
-        ->select('id', 'name')
+        ->with('category')
         ->orderBy('created_at', 'desc')
         ->take(3)
         ->get();

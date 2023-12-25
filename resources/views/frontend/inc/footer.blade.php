@@ -60,7 +60,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col">
                         <div class="alert alert-success d-none" id="newsletterSuccess">
                             <strong>{{_('Başarılı!')}}</strong> {{_("Bültene kayıt oldun.")}}
@@ -78,7 +78,7 @@
                             </form>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

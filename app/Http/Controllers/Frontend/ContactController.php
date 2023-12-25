@@ -31,6 +31,6 @@ class ContactController extends Controller
             'content' => $request->content,
         ]);
 
-        return response()->json(['message' => 'Formunuz Başarıyla Gönderildi'], 200);
+        return response()->json(['message' => 'Mesajınız Başarıyla İletildi'], 200);
     }
 }

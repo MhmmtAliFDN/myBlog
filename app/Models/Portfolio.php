@@ -17,6 +17,7 @@ class Portfolio extends Model
         'image',
         'summary',
         'content',
+        'stage',
         'status',
     ];
 

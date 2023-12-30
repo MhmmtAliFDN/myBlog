@@ -86,6 +86,7 @@ Route::prefix('mafpanel')->middleware(['auth', 'verified'])->group(function () {
     Route::post('/calismalarim/sil', [PortfolioController::class, 'delete'])->name('backend.portfolio.delete');
     Route::post('/calismalarim/coklu-sil', [PortfolioController::class, 'deleteMultiple'])->name('backend.portfolio.deleteMultiple');
     Route::post('/calismalarim/guncelle', [PortfolioController::class, 'update'])->name('backend.portfolio.update');
+    Route::post('/calismalarim/asama-guncelle', [PortfolioController::class, 'stageUpdate'])->name('backend.portfolio.stageUpdate');
     Route::post('/calismalarim/durum-guncelle', [PortfolioController::class, 'statusUpdate'])->name('backend.portfolio.statusUpdate');
 
     Route::get('/calismalarim-kategori', [PortfolioCategoryController::class, 'index'])->name('backend.portfoliocategory.index');

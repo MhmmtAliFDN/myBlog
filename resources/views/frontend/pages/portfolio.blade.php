@@ -112,6 +112,9 @@
                                     <li><i class="fas fa-caret-right left-10"></i> <strong
                                             class="text-color-primary">{{ _('Yayın Tarihi:') }}</strong>
                                         {{ $monthName }} {{$year}}</li>
+                                    <li><i class="fas fa-caret-right left-10"></i> <strong
+                                            class="text-color-primary">{{ _('Aşama:') }}</strong>
+                                        {{ $portfolio->stage }}</li>
                                     {{-- <li><i class="fas fa-caret-right left-10"></i> <strong
                                             class="text-color-primary">Skills:</strong> <a href="#"
                                             class="badge badge-dark badge-sm badge-pill px-2 py-1 ml-1">DESIGN</a><a

@@ -28,7 +28,7 @@ class CommentSeeder extends Seeder
             'blog_id' => 3,
             'parent_id' => null,
             'content' => 'Bok gibi yazı.',
-            'is_reported' => true,
+            'is_reported' => false,
             'report_count' => 20,
             'status' => 'Pasif'
         ]);

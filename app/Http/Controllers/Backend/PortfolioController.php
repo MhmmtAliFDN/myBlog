@@ -41,6 +41,7 @@ class PortfolioController extends Controller
                     'image' => $image,
                     'summary' => $request->summary,
                     'content' => $request->content,
+                    'stage' => $request->stage,
                     'status' => $request->status,
                 ]);
 
@@ -100,11 +101,22 @@ class PortfolioController extends Controller
                 'image' => $image,
                 'summary' => $request->summary,
                 'content' => $request->content,
+                'stage' => $request->stage,
                 'status' => $request->status,
             ]);
         }
 
         return response()->json(['message' => 'Çalışma Başarıyla Güncellendi'], 200);
+    }
+
+    public function stageUpdate(Request $request)
+    {
+        try {
+            Portfolio::where('id', $request->id)->first()->update(['stage' => $request->stage]);
+            return response(['message' => 'Aşama başarıyla güncellendi'], 200);
+        } catch (\Throwable $th) {
+            return response(['message' => 'Sistemsel bir hata oluştu'], 500);
+        }
     }
 
     public function statusUpdate(Request $request)

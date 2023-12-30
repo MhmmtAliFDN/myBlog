@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('image', 100)->default(asset('img/default.webp'));
             $table->string('summary', 255);
             $table->longText('content');
+            $table->enum('stage', ['Başlangıç', 'Geliştirme', 'Tamamlandı'])->default('Tamamlandı');
             $table->enum('status', ['Aktif', 'Pasif'])->default('Aktif');
             $table->timestamps();
         });

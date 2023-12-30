@@ -438,7 +438,7 @@ const PortfolioDataTable = function() {
                     targets: 6
                 },
                 {
-                    targets: [-3,-4,-5,-6,-7,-8],
+                    targets: [-4,-5,-6,-7,-8,-9],
                     visible: false
                 }
             ],

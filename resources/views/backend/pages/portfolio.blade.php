@@ -139,6 +139,50 @@
     </script>
     <!-- /status update -->
 
+    <!-- Stage Update -->
+    <script>
+        $(document).on('change', '#my_item_stage', function() {
+            var id = $(this).closest(".table_item").attr("item-id");
+            var stage = $(this).find("option:selected").text();
+            var val = $(this).find("option:selected").val();
+
+            $.ajax({
+                url: '{{ route('backend.portfolio.stageUpdate') }}',
+                method: 'POST',
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    'id': id,
+                    'stage': stage,
+                },
+                success: function(response) {
+                    swalInit.fire({
+                        text: response.message,
+                        icon: 'success',
+                        toast: true,
+                        timer: 1500,
+                        timerProgressBar: true,
+                        showConfirmButton: false,
+                        position: 'top-end'
+                    }).then(function() {
+                        location.reload();
+                    });
+                },
+                error: function(response) {
+                    swalInit.fire({
+                        text: response.responseJSON.message,
+                        icon: 'error',
+                        toast: true,
+                        timer: 1500,
+                        timerProgressBar: true,
+                        showConfirmButton: false,
+                        position: 'top-end'
+                    });
+                }
+            })
+        })
+    </script>
+    <!-- /stage update -->
+
     <!-- Portfolio Detail -->
     <script>
         $(document).on('click', '#my_item_detail', function() {
@@ -186,6 +230,7 @@
                     $('#my_item_detail_form #my_modal_updated_at').val(formatingDate(updatedDate));
                     $('#my_item_detail_form #my_modal_summary').val(response.data[0].summary);
                     $('#my_item_detail_form #my_modal_content').val(response.data[0].content);
+                    $('#my_item_detail_form #my_modal_stage').val(response.data[0].stage);
                     $('#my_item_detail_form #my_modal_status').val(response.data[0].status);
 
                     $('#my_detail_modal_image_src').attr('src', img);
@@ -311,8 +356,10 @@
                         $('#my_update_item_form #my_modal_category').val(response.data[0]
                             .category_id);
                         $('#my_update_item_form #my_modal_name').val(response.data[0].name);
+                        $('#my_update_item_form #my_modal_summary').val(response.data[0]
+                            .summary);
+                        $('#my_update_item_form #my_modal_stage').val(response.data[0].stage);
                         $('#my_update_item_form #my_modal_status').val(response.data[0].status);
-                        $('#my_update_item_form #my_modal_summary').val(response.data[0].summary);
                         $('#my_update_item_form #my_update_modal_image_src').attr('src', img);
                         $('#my_update_item_form #my_update_modal_image_href').attr('href', img);
                         my_update_modal_editor.setData(response.data[0].content);
@@ -641,6 +688,7 @@
                         <th>{{ __('Güncelleme Zamanı') }}</th>
                         <th>{{ __('Özet') }}</th>
                         <th>{{ __('İçerik') }}</th>
+                        <th>{{ __('Aşama') }}</th>
                         <th>{{ __('Durum') }}</th>
                         <th>{{ __('Düzenle') }}</th>
                     </tr>
@@ -665,6 +713,20 @@
                                 <td>{{ $portfolio->summary }}</td>
                                 <td>{{ $portfolio->content }}</td>
                                 <td>
+                                    <select id="my_item_stage"
+                                        class="badge bg-opacity-20 rounded-pill text-reset">
+                                        <option value="1" <?php if ($portfolio->stage == 'Başlangıç') {
+                                            echo 'selected';
+                                        } ?>>{{ __('Başlangıç') }}</option>
+                                        <option value="2" <?php if ($portfolio->stage == 'Geliştirme') {
+                                            echo 'selected';
+                                        } ?>>{{ __('Geliştirme') }}</option>
+                                        <option value="3" <?php if ($portfolio->stage == 'Tamamlandı') {
+                                            echo 'selected';
+                                        } ?>>{{ __('Tamamlandı') }}</option>
+                                    </select>
+                                </td>
+                                <td>
                                     <select id="my_item_status"
                                         class="badge bg-opacity-20 rounded-pill text-reset
                                         <?php
@@ -686,7 +748,7 @@
                                 <td class="text-center">
                                     <div class="d-inline-flex">
                                         <div class="d-flex">
-                                            <a href="http://www.myblog.test/blog/{{$portfolio->category->slug}}/{{$portfolio->slug}}"
+                                            <a href="{{route('frontend.portfolio.getsingleportfolio', ['categorySlug' => $portfolio->category->slug, 'portfolioSlug' => $portfolio->slug])}}"
                                                 class="btn btn-outline-info rounded-pill btn-sm my-buttons-margin"
                                                 data-bs-popup="tooltip" title="Sayfaya Git" target="_blank">
                                                 <i class="ph-link"></i>
@@ -730,8 +792,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
-                <form class="form-horizontal" id="my_add_item_form" action="{{ route('backend.portfolio.add') }}" method="POST"
-                    enctype="multipart/form-data">
+                <form class="form-horizontal" id="my_add_item_form" action="{{ route('backend.portfolio.add') }}"
+                    method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
 
@@ -765,7 +827,7 @@
                             <div class="col-sm-9">
                                 <input type="file" class="form-control" name="image" accept="image/*" required>
                                 <div class="form-text">
-                                    {{ __('Yalnızca resim dosyası formatlarını desteklenmektedir.') }}                                                                                                                                                                                                                                                                                                                           Resim boyutu en fazla 2 MB olabilir.') }}
+                                    {{ __('Resim boyutu en fazla 2 MB olabilir.') }}
                                 </div>
                             </div>
                         </div>
@@ -773,8 +835,7 @@
                         <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Özet:') }}</label>
                             <div class="col-sm-9">
-                                <textarea class="form-control" name="summary" rows="2" placeholder="Laravel ile Blog Sitesi"
-                                    required></textarea>
+                                <textarea class="form-control" name="summary" rows="2" placeholder="Laravel ile Blog Sitesi" required></textarea>
                             </div>
                         </div>
 
@@ -782,6 +843,18 @@
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('İçerik:') }}</label>
                             <div class="col-sm-9">
                                 <textarea class="form-control" id="my_add_modal_editor" name="content" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Aşama:') }}</label>
+                            <div class="col-sm-2 mt-1">
+                                <select class="form-control my-badge badge bg-opacity-20 rounded-pill text-reset"
+                                    name="stage">
+                                    <option value="Başlangıç">{{ __('Başlangıç') }}</option>
+                                    <option value="Geliştirme">{{ __('Geliştirme') }}</option>
+                                    <option value="Tamamlandı">{{ __('Tamamlandı') }}</option>
+                                </select>
                             </div>
                         </div>
 
@@ -909,6 +982,18 @@
                         </div>
 
                         <div class="row mb-3">
+                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Aşama:') }}</label>
+                            <div class="col-sm-2 mt-1">
+                                <select class="form-control my-badge badge bg-opacity-20 rounded-pill text-reset"
+                                    id="my_modal_stage" name="stage">
+                                    <option value="Başlangıç">{{ __('Başlangıç') }}</option>
+                                    <option value="Geliştirme">{{ __('Geliştirme') }}</option>
+                                    <option value="Tamamlandı">{{ __('Tamamlandı') }}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
                             <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Durum:') }}</label>
                             <div class="col-sm-2 mt-1">
                                 <select class="form-control my-badge badge bg-opacity-20 rounded-pill text-reset"
@@ -968,7 +1053,8 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Kategori:') }}</label>
+                            <label
+                                class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Kategori:') }}</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="my_modal_category" name="category"
                                     disabled readonly>
@@ -1048,6 +1134,18 @@
                             <div class="col-sm-9">
                                 <textarea class="form-control" id="my_modal_content" name="content" rows="3" cols="3" disabled
                                     readonly></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-form-label text-center col-sm-3 fs-lg fw-bold">{{ __('Aşama:') }}</label>
+                            <div class="col-sm-2 mt-1">
+                                <select class="form-control my-badge badge bg-opacity-20 rounded-pill text-reset"
+                                    id="my_modal_stage" name="stage" disabled readonly>
+                                    <option value="Başlangıç">{{ __('Başlangıç') }}</option>
+                                    <option value="Geliştirme">{{ __('Geliştirme') }}</option>
+                                    <option value="Tamamlandı">{{ __('Tamamlandı') }}</option>
+                                </select>
                             </div>
                         </div>
 

@@ -691,7 +691,7 @@
                                 <td class="text-center">
                                     <div class="d-inline-flex">
                                         <div class="d-flex">
-                                            <a href="http://www.myblog.test/blog/{{$blog->category->slug}}/{{$blog->slug}}"
+                                            <a href="{{route('frontend.blog.getsinglepost',['categorySlug' => $blog->category->slug, 'blogSlug' => $blog->slug])}}"
                                                 class="btn btn-outline-info rounded-pill btn-sm my-buttons-margin"
                                                 data-bs-popup="tooltip" title="Sayfaya Git" target="_blank">
                                                 <i class="ph-link"></i>

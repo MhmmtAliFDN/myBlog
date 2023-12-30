@@ -47,7 +47,17 @@ class ImageHelper
 
             return $imageName;
         }
+        else if ($image == null && $oldImage != $name) {
+            $pathInfo = pathinfo($oldImage);
+            $folderPath = $pathInfo['dirname'];
+            $fileExtension = $pathInfo['extension'];
+            $newFilePath = $folderPath . DIRECTORY_SEPARATOR . $name . '.' . $fileExtension;
+            File::move($oldImage, $newFilePath);
 
-        return $oldImage;
+            return $newFilePath;
+        }
+        else {
+            return $oldImage;
+        }
     }
 }

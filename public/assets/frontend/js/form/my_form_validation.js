@@ -43,25 +43,48 @@ const FormValidation = function() {
             },
             rules: {
                 name: {
+                    required: true,
                     minlength: 5,
                     maxlength: 50,
                 },
                 phone: {
+                    required: true,
                     minlength: 18
                 },
                 email: {
+                    required: true,
                     email: true
                 },
                 title: {
+                    required: true,
                     maxlength: 100
                 },
                 content: {
+                    required: true,
                     maxlength: 500
                 },
             },
             messages: {
+                name: {
+                    required: "Bu alanın doldurulması zorunludur.",
+                    minlength: "Lütfen en az 5 karakter uzunluğunda bir değer giriniz.",
+                    maxlength: "Lütfen en fazla 50 karakter uzunluğunda bir değer giriniz.",
+                },
                 phone: {
+                    required: "Bu alanın doldurulması zorunludur.",
                     minlength: "Lütfen telefon numarasını 10 hane olarak giriniz.",
+                },
+                email: {
+                    required: "Bu alanın doldurulması zorunludur.",
+                    email: "Lütfen geçerli bir e-posta adresi giriniz.",
+                },
+                title: {
+                    required: "Bu alanın doldurulması zorunludur.",
+                    maxlength: "Lütfen en fazla 100 karakter uzunluğunda bir değer giriniz.",
+                },
+                content: {
+                    required: "Bu alanın doldurulması zorunludur.",
+                    maxlength: "Lütfen en fazla 500 karakter uzunluğunda bir değer giriniz.",
                 },
             }
         });

@@ -53,10 +53,10 @@
                     <div class="col-lg-6">
                         <h4 class="text-color-light font-weight-bold mb-3">{{_('Ekstra Linkler')}}</h4>
                         <ul class="list list-unstyled columns-lg-2">
-                            <li><a href="https://www.youtube.com/@coder_log" class="text-color-grey text-color-hover-primary">{{_('Youtube')}}</a></li>
-                            <li><a href="https://www.instagram.com/coderlog/" class="text-color-grey text-color-hover-primary">{{_('Instagram')}}</a></li>
-                            <li><a href="https://twitter.com/coderlogx" class="text-color-grey text-color-hover-primary">{{_('X (Twitter)')}}</a></li>
-                            <li><a href="https://www.linkedin.com/in/muhammetalifidan/" class="text-color-grey text-color-hover-primary">{{_('LinkedIn')}}</a></li>
+                            <li><a href="https://www.youtube.com/@coder_log" class="text-color-grey text-color-hover-primary" target="_blank">{{_('Youtube')}}</a></li>
+                            <li><a href="https://www.instagram.com/coderlog/" class="text-color-grey text-color-hover-primary" target="_blank">{{_('Instagram')}}</a></li>
+                            <li><a href="https://twitter.com/coderlogx" class="text-color-grey text-color-hover-primary" target="_blank">{{_('X (Twitter)')}}</a></li>
+                            <li><a href="https://www.linkedin.com/in/muhammetalifidan/" class="text-color-grey text-color-hover-primary" target="_blank">{{_('LinkedIn')}}</a></li>
                         </ul>
                     </div>
                 </div>

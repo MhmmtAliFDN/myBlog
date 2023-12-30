@@ -127,8 +127,8 @@
                                                                                 @foreach ($blogs as $blog)
                                                                                     @if ($blog->category_id == $category->id)
                                                                                         <li>
-                                                                                            <a class="dropdown-item"
-                                                                                                href="{{ route('frontend.blog.getsinglepost', ['categorySlug' => $blog->category->slug, 'blogSlug' => $blog->slug]) }}">{{ $blog->name }}
+                                                                                            <a class="dropdown-item" data-bs-toggle="tooltip" data-bs-animation="false" data-bs-placement="bottom" title="{{$blog->name}}"
+                                                                                                href="{{ route('frontend.blog.getsinglepost', ['categorySlug' => $blog->category->slug, 'blogSlug' => $blog->slug]) }}">{{ Str::limit($blog->name, 30, '...') }}
                                                                                             </a>
                                                                                         </li>
                                                                                     @endif

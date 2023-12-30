@@ -13,7 +13,6 @@
     <script src="{{ asset('assets/frontend/js/form/validate.min.js') }}"></script>
     <script src="{{ asset('assets/frontend/js/form/imask.min.js') }}"></script>
     <script src="{{ asset('assets/frontend/js/form/sweetalert2.js') }}"></script>
-    <script src="{{ asset('assets/frontend/js/form/messages_tr.js') }}"></script>
 
     <!-- Form Masking -->
     <script>
@@ -36,8 +35,7 @@
         const Toast = Swal.mixin({
             showCancelButton: false,
             showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
+            showCloseButton: true,
         });
     </script>
     <!-- /sweet alert custom -->
@@ -56,6 +54,9 @@
                         $('#adding_button').hide();
 
                         Toast.fire({
+                            timer: 3000,
+                            timerProgressBar: true,
+                            showCloseButton: false,
                             icon: 'success',
                             title: response.message,
                             toast: true,

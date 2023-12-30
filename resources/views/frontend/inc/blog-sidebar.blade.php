@@ -1,4 +1,4 @@
-<aside class="sidebar">
+<aside class="sidebar" >
     <form action="{{route('frontend.blog.index')}}" method="get">
         <div class="input-group mb-3 pb-1">
             <input class="form-control text-1" placeholder="Ara..." name="ara" id="ara" type="text">
@@ -57,7 +57,7 @@
                                 $monthName = strtoupper($carbonDate->translatedFormat('F'));
                             @endphp
                             <div class="post-info">
-                                <a href="{{route('frontend.blog.getsinglepost', ['categorySlug' => $blog->category->slug, 'blogSlug' => $blog->slug])}}">{{ $blog->name }}</a>
+                                <a data-bs-toggle="tooltip" data-bs-animation="false" data-bs-placement="bottom" title="{{$blog->name}}" href="{{route('frontend.blog.getsinglepost', ['categorySlug' => $blog->category->slug, 'blogSlug' => $blog->slug])}}" >{{ Str::limit($blog->name, 50, '...') }}</a>
                                 <div class="post-meta">
                                     <i class="fa-solid fa-calendar-days my-2"></i>
                                     {{$day}} {{ $monthName }} {{$year}}

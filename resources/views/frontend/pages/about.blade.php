@@ -173,7 +173,7 @@
                             <div class="timeline-box-arrow"></div>
                             <div class="p-2">
                                 <img alt="envepo-logo" class="img-fluid"
-                                    src="{{ asset('img/images/logo/envepo.svg') }}" />
+                                    src="{{ asset('img/images/logo/envepo.webp') }}" />
                                 <h3 class="font-weight-bold text-3 mt-3 mb-1">{{ _('Envepo Yazılım A.Ş.') }}</h3>
                                 <p class="mb-0 text-2">
                                     {{ _("Envepo Yazılım şirketinde 4 hafta zorunlu 2 hafta gönüllü olarak toplam 6 hafta

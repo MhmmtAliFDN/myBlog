@@ -73,7 +73,9 @@
                                                 <span><i class="far fa-user"></i>{{ $blog->user->name }}</span>
                                                 <span><i class="far fa-folder"></i> <a
                                                         href="{{ route('frontend.blog.getbycategory', $blog->category->slug) }}">{{ $blog->category->name }}</a></span>
-                                                <span><i class="fa-regular fa-eye"></i>{{ $blog->view }}</span>
+                                                @if ($blog->view > 0)
+                                                    <span><i class="fa-regular fa-eye"></i>{{ $blog->view }}</span>
+                                                @endif
                                                 <span class="d-block mt-2"><a
                                                         href="{{ route('frontend.blog.getsinglepost', ['categorySlug' => $blog->category->slug, 'blogSlug' => $blog->slug]) }}"
                                                         class="btn btn-xs btn-light text-1 text-uppercase">{{ _('Daha Fazlasını Oku') }}</a></span>

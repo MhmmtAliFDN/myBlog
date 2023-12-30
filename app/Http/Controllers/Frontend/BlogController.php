@@ -81,6 +81,7 @@ class BlogController extends Controller
         $categorySlug = $request->categorySlug;
 
         $blog = $blogQuery->where('slug', $blogSlug)->with('category', 'user', 'comments')->first();
+        $blog->increment('view');
 
         $createdAt = $blog->created_at;
         $day = $createdAt->format('d');

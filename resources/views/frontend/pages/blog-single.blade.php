@@ -22,6 +22,15 @@
         });
     </script>
     <!-- /ckeditor media embed -->
+
+    <script>
+        var content = document.getElementById('blogContent').textContent;
+        var wordCount = content.split(/\s+/).length;
+        var readingSpeed = 200;
+        var readingTime = Math.ceil(wordCount / readingSpeed);
+
+        document.getElementById('readingTime').innerHTML = 'Okuma Süresi: ' + readingTime + ' dakika';
+    </script>
 @endpush
 
 @section('content')
@@ -55,10 +64,11 @@
                                 <span><i class="far fa-folder"></i> {{ _('Kategori') }} <a
                                         href="{{ route('frontend.blog.getbycategory', ['categorySlug' => $blog->category->slug]) }}">{{ $blog->category->name }}</a>
                                 </span>
+                                <span><i class="fa-regular fa-clock"></i><label id="readingTime"></label></span>
                                 {{-- <span><i class="far fa-comments"></i> <a href="#">12 Comments</a></span> --}}
                             </div>
 
-                            <div class="text-4">
+                            <div id="blogContent" class="text-4">
                                 {!! $blog->content !!}
                             </div>
 

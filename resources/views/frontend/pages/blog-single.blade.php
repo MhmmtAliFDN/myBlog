@@ -76,7 +76,7 @@
                             <div class="post-block mt-4 pt-2 post-author">
                                 <h4 class="mb-3">{{ _('Yazar') }}</h4>
                                 <div class="img-thumbnail img-thumbnail-no-borders d-block pb-3">
-                                    <img class="rounded-circle" src="{{ $blog->user->image }}" alt="yazar-resmi">
+                                    <img class="rounded-circle" src="{{ asset($blog->user->image) }}" alt="yazar-resmi">
                                     {{-- <a href="blog-post.html">
                                     <img src="{{$blog->user->image}}" alt="user-image">
                                 </a> --}}

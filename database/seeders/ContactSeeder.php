@@ -19,6 +19,7 @@ class ContactSeeder extends Seeder
             'phone' => '+90 (555)-555-5555',
             'title' => 'Blog Sitesi',
             'content' => 'Bir blog sitesi yaptırmak istiyorum.',
+            'status' => 'Pasif'
         ]);
     }
 }

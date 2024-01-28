@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://www.muhammetalifidan.com.tr'),
+    'url' => env('APP_URL', 'http://www.myblog.test'),
 
     'asset_url' => env('ASSET_URL'),
 
@@ -122,7 +122,7 @@ return [
     |
     */
 
-    'key' => 'base64:XYfaQsYe26ie/PagyIyQGcjaUziPu3QKl6pU5nXLLk0=',
+    'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
 

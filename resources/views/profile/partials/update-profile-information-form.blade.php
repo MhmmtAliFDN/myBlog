@@ -52,6 +52,12 @@
             <x-text-input id="image" name="image" type="file" accept="image/*" class="mt-1 block w-full"/>
         </div>
 
+        <div>
+            <x-input-label for="bio" :value="__('Bio')" />
+            <x-text-input id="bio" name="bio" type="text" class="mt-1 block w-full" :value="old('bio', $user->bio)" required autofocus autocomplete="bio" />
+            <x-input-error class="mt-2" :messages="$errors->get('bio')" />
+        </div>
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Kaydet') }}</x-primary-button>
 

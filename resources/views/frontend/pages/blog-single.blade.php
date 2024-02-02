@@ -81,8 +81,12 @@
                                     <img src="{{$blog->user->image}}" alt="user-image">
                                 </a> --}}
                                 </div>
-                                <p><strong class="name"><span
-                                            class="text-4 pb-2 pt-2 d-block">{{ $blog->user->name }}</span></strong></p>
+                                <p>
+                                    <strong class="name">
+                                        <span class="text-4 pb-2 pt-2 d-block">{{ $blog->user->name }}
+                                        </span>
+                                    </strong>
+                                </p>
                                 <p>{{ $blog->user->bio }}</p>
                             </div>
 

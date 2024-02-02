@@ -86,7 +86,7 @@
 
             <li class="nav-item nav-item-dropdown-xl dropdown">
                 <a href="#" class="navbar-nav-link align-items-center rounded-pill p-1" data-bs-toggle="dropdown">
-                    <img src="@php echo Auth::user()->image; @endphp" class="w-32px h-32px rounded-pill" alt="Profil Resmi">
+                    <img src="{{asset(Auth::user()->image)}}" class="w-32px h-32px rounded-pill" alt="Profil Resmi">
                     <span class="d-none d-md-inline-block mx-md-2">@php echo Auth::user()->name @endphp</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">

@@ -1,7 +1,9 @@
 @extends('frontend.layouts.app')
 
-@push('title')
-    <title>{{ __('Bloglar | Muhammet Ali Fidan') }}</title>
+@push('metaData')
+    <meta name="keywords" content="teknoloji, muhammet ali fidan, coderlog" />
+    <meta name="description" content="Teknolojideki gelişmeleri takip ediyorum ve bloglarımda yeni çıkan ürünler ve uygulamalar hakkında bilgiler veriyorum.">
+    <title>Bloglar</title>
 @endpush
 
 @push('customCss')

@@ -5,11 +5,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, shrink-to-fit=no">
-    <meta name="keywords" content="WebSite Template" />
-    <meta name="description" content="Muhammet Ali Fidan - Blog Sitesi">
-    <meta name="author" content="www.muhammetalifidan.com.tr">
+    <meta name="author" content="muhammetalifidan.com.tr">
+    <link rel="canonical" href="{{URL::current()}}">
 
-    @stack('title')
+    @stack('metaData')
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/frontend/icon/coderlog2.ico') }}" type="image/x-icon" />
